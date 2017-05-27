@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YWDataAnalyseViewController">
+            <connections>
+                <outlet property="segmentControl" destination="8eQ-7T-4Tg" id="Cdt-OH-dNC"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8eQ-7T-4Tg">
+                    <rect key="frame" x="15" y="74" width="345" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="dE9-6q-ouS"/>
+                    </constraints>
+                    <segments>
+                        <segment title="近7天"/>
+                        <segment title="近4周"/>
+                        <segment title="近6月"/>
+                    </segments>
+                    <color key="tintColor" red="0.14509803921568626" green="0.75294117647058822" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="segmentControlaction:" destination="-1" eventType="valueChanged" id="YZk-8e-5Kl"/>
+                    </connections>
+                </segmentedControl>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="8eQ-7T-4Tg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="cQs-Qx-QWv"/>
+                <constraint firstItem="8eQ-7T-4Tg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="xvH-JA-m4k"/>
+                <constraint firstAttribute="trailing" secondItem="8eQ-7T-4Tg" secondAttribute="trailing" constant="15" id="ytm-tr-S6b"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

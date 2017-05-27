@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YWPNPopularityView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="285"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="门店人气" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfk-P2-95Z">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="74" id="Tz4-o8-xTh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺浏览量相比昨天" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95v-Ea-e7P">
+                    <rect key="frame" x="24" y="244" width="327" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="f1P-yE-ljL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="圆标" translatesAutoresizingMaskIntoConstraints="NO" id="MFI-nd-e8l">
+                    <rect key="frame" x="119" y="74" width="136" height="136"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="136" id="R34-wG-vDl"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="136" id="Rxx-JV-UQJ"/>
+                        <constraint firstAttribute="height" constant="136" id="pJl-hQ-Io2"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="136" id="tE3-PJ-3Ym"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="门店浏览人数 6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI3-HE-qNW">
+                    <rect key="frame" x="24" y="220" width="327" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="Zap-NC-g2d"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⬇︎50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGn-bw-HKZ">
+                    <rect key="frame" x="119" y="127" width="136" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="OZA-j0-4HT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <color key="textColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dfk-P2-95Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3Zw-HG-H0A"/>
+                <constraint firstItem="95v-Ea-e7P" firstAttribute="top" secondItem="wI3-HE-qNW" secondAttribute="bottom" id="5DP-vo-Kms"/>
+                <constraint firstAttribute="trailing" secondItem="wI3-HE-qNW" secondAttribute="trailing" constant="24" id="AWS-Db-zL7"/>
+                <constraint firstItem="MFI-nd-e8l" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="HIb-9x-dC2"/>
+                <constraint firstItem="DGn-bw-HKZ" firstAttribute="bottom" secondItem="MFI-nd-e8l" secondAttribute="bottom" constant="-23" id="JqM-gn-Ejk"/>
+                <constraint firstAttribute="trailing" secondItem="dfk-P2-95Z" secondAttribute="trailing" id="XpW-Uk-G29"/>
+                <constraint firstItem="95v-Ea-e7P" firstAttribute="leading" secondItem="wI3-HE-qNW" secondAttribute="leading" id="ZmG-2L-Pf0"/>
+                <constraint firstItem="95v-Ea-e7P" firstAttribute="trailing" secondItem="wI3-HE-qNW" secondAttribute="trailing" id="aCO-rU-GNw"/>
+                <constraint firstItem="wI3-HE-qNW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="gIp-A7-B0L"/>
+                <constraint firstItem="DGn-bw-HKZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oyb-fE-lGz"/>
+                <constraint firstItem="wI3-HE-qNW" firstAttribute="top" secondItem="DGn-bw-HKZ" secondAttribute="bottom" constant="33" id="pfL-N6-Ije"/>
+                <constraint firstItem="DGn-bw-HKZ" firstAttribute="width" secondItem="MFI-nd-e8l" secondAttribute="width" id="rgm-Ge-NIY"/>
+                <constraint firstItem="dfk-P2-95Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zLV-L4-WDC"/>
+                <constraint firstItem="MFI-nd-e8l" firstAttribute="top" secondItem="dfk-P2-95Z" secondAttribute="bottom" id="znt-Rr-LKi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="compareLabel" destination="DGn-bw-HKZ" id="olS-6x-CnA"/>
+                <outlet property="pageViewCompareLabel" destination="95v-Ea-e7P" id="M6x-1Q-FX9"/>
+                <outlet property="pageViewCountLabel" destination="wI3-HE-qNW" id="VWr-3t-Vri"/>
+                <outlet property="showImageView" destination="MFI-nd-e8l" id="aCs-Vf-Kum"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="圆标" width="676" height="676"/>
+    </resources>
+</document>

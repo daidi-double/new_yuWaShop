@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YWCategoryViewController">
+            <connections>
+                <outlet property="categoryTableView" destination="taS-jc-5lp" id="gmq-qn-yT1"/>
+                <outlet property="subCommitBtn" destination="OR9-W2-6L4" id="Ec8-M0-MyE"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="taS-jc-5lp">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="3xA-H6-I8r"/>
+                        <outlet property="delegate" destination="-1" id="dHi-RM-wEF"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OR9-W2-6L4">
+                    <rect key="frame" x="16" y="616" width="343" height="40"/>
+                    <color key="backgroundColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="msd-rc-pDZ"/>
+                    </constraints>
+                    <state key="normal" title="添加分类">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="subCommitAction:" destination="-1" eventType="touchUpInside" id="Zn5-yU-TgX"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="OR9-W2-6L4" firstAttribute="top" secondItem="taS-jc-5lp" secondAttribute="bottom" constant="20" id="2d1-oW-wUB"/>
+                <constraint firstItem="OR9-W2-6L4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="8pv-9C-8R7"/>
+                <constraint firstAttribute="trailing" secondItem="OR9-W2-6L4" secondAttribute="trailing" constant="16" id="FAf-kd-nDc"/>
+                <constraint firstItem="taS-jc-5lp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FPA-o8-Bnr"/>
+                <constraint firstAttribute="trailing" secondItem="taS-jc-5lp" secondAttribute="trailing" id="IAD-Ry-10e"/>
+                <constraint firstItem="taS-jc-5lp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NzB-aU-3YV"/>
+                <constraint firstAttribute="bottom" secondItem="OR9-W2-6L4" secondAttribute="bottom" constant="11" id="P7O-TE-XGh"/>
+            </constraints>
+            <point key="canvasLocation" x="34.5" y="65.5"/>
+        </view>
+    </objects>
+</document>

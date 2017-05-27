@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChildAccountViewController">
+            <connections>
+                <outlet property="accountTableView" destination="VDM-ex-V6M" id="WhC-St-yYR"/>
+                <outlet property="addBtn" destination="ztv-Qt-TaY" id="Fmj-7M-uEa"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="VDM-ex-V6M">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="vTX-Fz-xVj"/>
+                        <outlet property="delegate" destination="-1" id="0Md-uS-a0W"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztv-Qt-TaY">
+                    <rect key="frame" x="16" y="592" width="343" height="45"/>
+                    <color key="backgroundColor" red="0.2784313725" green="0.52549019610000003" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="woV-NU-Qy4"/>
+                    </constraints>
+                    <state key="normal" title="新增账号">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="addAccountAction:" destination="-1" eventType="touchUpInside" id="fcb-03-v15"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ztv-Qt-TaY" secondAttribute="trailing" constant="16" id="0xO-a2-ZQ0"/>
+                <constraint firstAttribute="bottom" secondItem="VDM-ex-V6M" secondAttribute="bottom" constant="100" id="3Uk-kh-T3q"/>
+                <constraint firstItem="ztv-Qt-TaY" firstAttribute="top" secondItem="VDM-ex-V6M" secondAttribute="bottom" constant="25" id="6yq-fb-sJt"/>
+                <constraint firstAttribute="trailing" secondItem="VDM-ex-V6M" secondAttribute="trailing" id="JWL-vS-ZTd"/>
+                <constraint firstItem="VDM-ex-V6M" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Qlk-c9-zNH"/>
+                <constraint firstItem="ztv-Qt-TaY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="aWJ-iH-NFO"/>
+                <constraint firstItem="VDM-ex-V6M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fJw-mh-UrT"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="107.5"/>
+        </view>
+    </objects>
+</document>

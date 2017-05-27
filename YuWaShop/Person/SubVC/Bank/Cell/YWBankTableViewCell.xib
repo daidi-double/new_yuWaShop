@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="YWBankTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0oO-Iq-cyl">
+                        <rect key="frame" x="67" y="8" width="245" height="33.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k13-1e-IJa">
+                        <rect key="frame" x="85" y="62" width="227" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xwt-ci-O4b">
+                        <rect key="frame" x="8" y="8" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="IKq-tG-Nsh"/>
+                            <constraint firstAttribute="width" constant="44" id="J34-dp-Muw"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuB-in-9w3">
+                        <rect key="frame" x="67" y="42.5" width="245" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0oO-Iq-cyl" firstAttribute="leading" secondItem="Xwt-ci-O4b" secondAttribute="trailing" constant="15" id="3FR-CR-AN2"/>
+                    <constraint firstItem="k13-1e-IJa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="77" id="3m5-Sh-u3B"/>
+                    <constraint firstItem="0oO-Iq-cyl" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Ghu-Ve-Pif"/>
+                    <constraint firstItem="Xwt-ci-O4b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="IbF-CX-FXj"/>
+                    <constraint firstItem="RuB-in-9w3" firstAttribute="leading" secondItem="Xwt-ci-O4b" secondAttribute="trailing" constant="15" id="LWz-Vz-pE4"/>
+                    <constraint firstItem="k13-1e-IJa" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="UYG-rL-wgY"/>
+                    <constraint firstItem="k13-1e-IJa" firstAttribute="top" secondItem="RuB-in-9w3" secondAttribute="bottom" constant="5" id="UxI-ee-9rX"/>
+                    <constraint firstItem="Xwt-ci-O4b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="haB-1v-Nyf"/>
+                    <constraint firstItem="0oO-Iq-cyl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="kBf-Fq-uNZ"/>
+                    <constraint firstItem="RuB-in-9w3" firstAttribute="top" secondItem="0oO-Iq-cyl" secondAttribute="bottom" constant="1" id="rz5-ot-gvq"/>
+                    <constraint firstItem="RuB-in-9w3" firstAttribute="leading" secondItem="Xwt-ci-O4b" secondAttribute="trailing" constant="15" id="wdf-vs-IrC"/>
+                    <constraint firstItem="RuB-in-9w3" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="wiR-Ue-fam"/>
+                    <constraint firstItem="k13-1e-IJa" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="y6h-ah-eJg"/>
+                </constraints>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+</document>

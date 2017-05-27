@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YWMessageViewController">
+            <connections>
+                <outlet property="noLoginBGBtnView" destination="HNC-jo-nPZ" id="KBg-uL-B3o"/>
+                <outlet property="tableView" destination="T07-aF-Hsb" id="RwS-tz-NqO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T07-aF-Hsb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="tTA-a6-Se0"/>
+                        <outlet property="delegate" destination="-1" id="YVl-6v-pfn"/>
+                    </connections>
+                </tableView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNC-jo-nPZ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="尚未登录?前往登录" image="YW_Message_shop_fan">
+                        <color key="titleColor" red="0.69411764705882351" green="0.70588235294117641" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="noLoginBGBtnAvtion:" destination="-1" eventType="touchUpInside" id="vWd-Ix-EWZ"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mesg1" translatesAutoresizingMaskIntoConstraints="NO" id="7MN-mF-uhJ">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HNC-jo-nPZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1V5-Zh-xSw"/>
+                <constraint firstAttribute="bottom" secondItem="HNC-jo-nPZ" secondAttribute="bottom" constant="50" id="39Z-Eg-mIa"/>
+                <constraint firstAttribute="trailing" secondItem="T07-aF-Hsb" secondAttribute="trailing" id="CEd-ix-5fZ"/>
+                <constraint firstAttribute="trailing" secondItem="7MN-mF-uhJ" secondAttribute="trailing" id="Csi-SN-RUo"/>
+                <constraint firstItem="T07-aF-Hsb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FK8-19-CYC"/>
+                <constraint firstItem="HNC-jo-nPZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Hjr-nC-F06"/>
+                <constraint firstAttribute="bottom" secondItem="7MN-mF-uhJ" secondAttribute="bottom" id="S0k-Po-zcs"/>
+                <constraint firstItem="T07-aF-Hsb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Vvl-yc-JGY"/>
+                <constraint firstItem="7MN-mF-uhJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="adW-3A-p93"/>
+                <constraint firstAttribute="trailing" secondItem="HNC-jo-nPZ" secondAttribute="trailing" id="cEv-dl-Pp4"/>
+                <constraint firstAttribute="bottom" secondItem="T07-aF-Hsb" secondAttribute="bottom" constant="49" id="e8H-rC-0Ug"/>
+                <constraint firstItem="7MN-mF-uhJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="p4M-ua-57H"/>
+            </constraints>
+            <point key="canvasLocation" x="133.5" y="154.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="YW_Message_shop_fan" width="50" height="50"/>
+        <image name="mesg1" width="750" height="1334"/>
+    </resources>
+</document>

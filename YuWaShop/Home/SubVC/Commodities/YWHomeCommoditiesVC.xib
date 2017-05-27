@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YWHomeCommoditiesVC">
+            <connections>
+                <outlet property="addCommoditiesBtn" destination="4tB-Yn-dH2" id="uA2-AQ-yjh"/>
+                <outlet property="tableView" destination="2wz-go-yuj" id="SSp-6m-20F"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2wz-go-yuj">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="8Xy-j2-7MY"/>
+                        <outlet property="delegate" destination="-1" id="S6n-nn-xf9"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tB-Yn-dH2">
+                    <rect key="frame" x="15" y="617" width="345" height="40"/>
+                    <color key="backgroundColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Nqa-wH-x4R"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <state key="normal" title="添加商品">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="addCommoditiesBtnAction:" destination="-1" eventType="touchUpInside" id="o5J-16-lHW"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="4tB-Yn-dH2" firstAttribute="top" secondItem="2wz-go-yuj" secondAttribute="bottom" id="09J-Dn-opZ"/>
+                <constraint firstAttribute="trailing" secondItem="2wz-go-yuj" secondAttribute="trailing" id="T5s-38-c8D"/>
+                <constraint firstItem="2wz-go-yuj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TGn-aS-4gN"/>
+                <constraint firstItem="2wz-go-yuj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UTb-1U-JF4"/>
+                <constraint firstItem="4tB-Yn-dH2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="gEl-xa-o9K"/>
+                <constraint firstAttribute="bottom" secondItem="4tB-Yn-dH2" secondAttribute="bottom" constant="10" id="pyD-2F-ib5"/>
+                <constraint firstAttribute="trailing" secondItem="4tB-Yn-dH2" secondAttribute="trailing" constant="15" id="smr-Sx-uR3"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

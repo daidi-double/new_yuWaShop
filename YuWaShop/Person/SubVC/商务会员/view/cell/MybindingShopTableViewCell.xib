@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="145" id="KGk-i7-Jjw" customClass="MybindingShopTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="白掌柜的饮食店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKk-mA-Nfa">
+                        <rect key="frame" x="20" y="15" width="100" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="签约时间：2016.11.28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVT-ss-QQ3">
+                        <rect key="frame" x="20" y="37" width="150" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="amA-td-x3b"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨天成交量：1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvS-KT-cQu">
+                        <rect key="frame" x="185" y="37" width="170" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haz-bd-oW8">
+                        <rect key="frame" x="169" y="82.5" width="0.0" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得总积分：100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyr-uo-lB4">
+                        <rect key="frame" x="197.5" y="74" width="157.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得绑定会员：100人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rO1-Zc-EMR">
+                        <rect key="frame" x="20" y="74" width="157.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得介绍分红：1000元" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRY-Dc-bq7">
+                        <rect key="frame" x="20" y="106" width="157.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得商务分红：1000元" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JE-0Z-bwe">
+                        <rect key="frame" x="197.5" y="106" width="157.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="centerY" secondItem="zRY-Dc-bq7" secondAttribute="centerY" id="7a4-wv-4UP"/>
+                    <constraint firstAttribute="trailing" secondItem="lvS-KT-cQu" secondAttribute="trailing" constant="20" id="BvZ-bM-s3T"/>
+                    <constraint firstItem="lvS-KT-cQu" firstAttribute="centerY" secondItem="CVT-ss-QQ3" secondAttribute="centerY" id="CKh-Lx-ckN"/>
+                    <constraint firstItem="CKk-mA-Nfa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="CgB-2g-TUv"/>
+                    <constraint firstAttribute="trailing" secondItem="2JE-0Z-bwe" secondAttribute="trailing" constant="20" id="D3U-cW-LkT"/>
+                    <constraint firstItem="CKk-mA-Nfa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="IJn-iA-8OZ"/>
+                    <constraint firstItem="rO1-Zc-EMR" firstAttribute="top" secondItem="CVT-ss-QQ3" secondAttribute="bottom" constant="20" id="MWc-xm-H8b"/>
+                    <constraint firstItem="dyr-uo-lB4" firstAttribute="leading" secondItem="rO1-Zc-EMR" secondAttribute="trailing" constant="20" id="Miq-wb-Xl7"/>
+                    <constraint firstItem="lvS-KT-cQu" firstAttribute="leading" secondItem="CVT-ss-QQ3" secondAttribute="trailing" constant="15" id="PlL-xF-2AN"/>
+                    <constraint firstItem="CVT-ss-QQ3" firstAttribute="leading" secondItem="CKk-mA-Nfa" secondAttribute="leading" id="X6l-is-718"/>
+                    <constraint firstItem="dyr-uo-lB4" firstAttribute="width" secondItem="rO1-Zc-EMR" secondAttribute="width" id="b1m-v7-8cc"/>
+                    <constraint firstAttribute="trailing" secondItem="dyr-uo-lB4" secondAttribute="trailing" constant="20" id="cuQ-YL-M5Z"/>
+                    <constraint firstItem="dyr-uo-lB4" firstAttribute="centerY" secondItem="rO1-Zc-EMR" secondAttribute="centerY" id="dAU-xz-QB3"/>
+                    <constraint firstItem="CVT-ss-QQ3" firstAttribute="top" secondItem="CKk-mA-Nfa" secondAttribute="bottom" constant="5" id="fgw-IU-wWw"/>
+                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="leading" secondItem="zRY-Dc-bq7" secondAttribute="trailing" constant="20" id="g2j-gl-Pse"/>
+                    <constraint firstItem="rO1-Zc-EMR" firstAttribute="leading" secondItem="CVT-ss-QQ3" secondAttribute="leading" id="gE1-qz-jwZ"/>
+                    <constraint firstItem="zRY-Dc-bq7" firstAttribute="top" secondItem="rO1-Zc-EMR" secondAttribute="bottom" constant="15" id="pFJ-fS-SYe"/>
+                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="top" secondItem="dyr-uo-lB4" secondAttribute="bottom" constant="15" id="poK-OP-zoM"/>
+                    <constraint firstItem="zRY-Dc-bq7" firstAttribute="leading" secondItem="rO1-Zc-EMR" secondAttribute="leading" id="rzr-XA-Zrw"/>
+                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="width" secondItem="zRY-Dc-bq7" secondAttribute="width" id="xQj-9g-bpy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-148.5" y="108"/>
+        </tableViewCell>
+    </objects>
+</document>

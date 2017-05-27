@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="WillAccountIncomeTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4co-eI-K7C">
+                        <rect key="frame" x="148" y="12.5" width="24.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待结算:6天24小时60分" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bE-PE-fKy">
+                        <rect key="frame" x="180.5" y="14.5" width="131.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="直接介绍分红" translatesAutoresizingMaskIntoConstraints="NO" id="cNa-B7-Rju">
+                        <rect key="frame" x="24" y="12" width="15" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="1tg-X3-fGt"/>
+                            <constraint firstAttribute="height" constant="20" id="Z0U-zA-0qI"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="直接介绍分红" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myJ-vD-gf6">
+                        <rect key="frame" x="44" y="8.5" width="92" height="26.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9bE-PE-fKy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0fl-2V-tpL"/>
+                    <constraint firstItem="cNa-B7-Rju" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="5tO-Xq-FEf"/>
+                    <constraint firstItem="4co-eI-K7C" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Ewx-xE-apS"/>
+                    <constraint firstItem="cNa-B7-Rju" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KD8-kq-9ne"/>
+                    <constraint firstItem="myJ-vD-gf6" firstAttribute="leading" secondItem="cNa-B7-Rju" secondAttribute="trailing" constant="5" id="LRi-hs-tx7"/>
+                    <constraint firstItem="myJ-vD-gf6" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="NnY-h9-Bt6"/>
+                    <constraint firstItem="4co-eI-K7C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="U9U-2E-wBy"/>
+                    <constraint firstItem="myJ-vD-gf6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UDZ-yz-77f"/>
+                    <constraint firstItem="9bE-PE-fKy" firstAttribute="leading" secondItem="4co-eI-K7C" secondAttribute="trailing" constant="8" id="jw7-MC-Lfz"/>
+                    <constraint firstItem="9bE-PE-fKy" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="sxD-O3-ehu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="acountTimeLabel" destination="9bE-PE-fKy" id="fsZ-Tk-fby"/>
+                <outlet property="fenhongImageView" destination="cNa-B7-Rju" id="7uD-vu-RqG"/>
+                <outlet property="fenhongNameLabel" destination="myJ-vD-gf6" id="X3V-Sr-5J9"/>
+                <outlet property="getMoneyLabel" destination="4co-eI-K7C" id="KNY-4r-iMV"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="直接介绍分红" width="15" height="20"/>
+    </resources>
+</document>

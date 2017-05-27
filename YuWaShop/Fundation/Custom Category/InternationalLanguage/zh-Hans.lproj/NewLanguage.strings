@@ -1,0 +1,20 @@
+/* 
+  NewLanguage.strings
+  NewVipxox
+
+  Created by 黄佳峰 on 16/8/31.
+  Copyright © 2016年 黄蜂大魔王. All rights reserved.
+*/
+
+//字体名字
+"kFontName"="PingFang SC";
+
+//tabBar
+"首页"="首页";
+"百货"="百货";
+"逛街"="逛街";
+"购物车"="购物车";
+"个人中心"="个人中心";
+"聊天"="聊天";
+"美食"="美食";
+

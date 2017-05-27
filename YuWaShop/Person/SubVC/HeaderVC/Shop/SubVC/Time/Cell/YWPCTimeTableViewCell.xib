@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="YWPCTimeTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09:00 - 21:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gg-L1-1Pc">
+                        <rect key="frame" x="15" y="8" width="290" height="31"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="周一,周二,周五" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXD-A5-z2W">
+                        <rect key="frame" x="15" y="39" width="290" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="nwM-zX-out"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HS-n7-LSJ">
+                        <rect key="frame" x="15" y="68" width="290" height="1"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="LlH-bb-Xta"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="2HS-n7-LSJ" secondAttribute="bottom" constant="-8" id="2PI-fh-Hi0"/>
+                    <constraint firstItem="dXD-A5-z2W" firstAttribute="top" secondItem="9Gg-L1-1Pc" secondAttribute="bottom" id="9D8-RK-0XZ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="dXD-A5-z2W" secondAttribute="bottom" id="BF5-Ik-WEH"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dXD-A5-z2W" secondAttribute="trailing" constant="7" id="BQ0-2d-7DT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="2HS-n7-LSJ" secondAttribute="trailing" constant="7" id="DuJ-e3-P29"/>
+                    <constraint firstItem="9Gg-L1-1Pc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="Lt1-pR-Uzc"/>
+                    <constraint firstItem="dXD-A5-z2W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="YRO-Rk-MD7"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="9Gg-L1-1Pc" secondAttribute="trailing" constant="7" id="aDE-wb-tV5"/>
+                    <constraint firstItem="2HS-n7-LSJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="fh6-xl-p07"/>
+                    <constraint firstItem="9Gg-L1-1Pc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="pFm-dd-6WR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="subTimeLabel" destination="dXD-A5-z2W" id="2fa-Ew-Wu2"/>
+                <outlet property="timeLabel" destination="9Gg-L1-1Pc" id="QB9-xC-EIt"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

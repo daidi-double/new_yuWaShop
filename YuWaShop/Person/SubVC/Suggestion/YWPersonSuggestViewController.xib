@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YWPersonSuggestViewController">
+            <connections>
+                <outlet property="submitBtn" destination="IrD-eQ-aSs" id="KUa-bA-DHb"/>
+                <outlet property="textView" destination="4gU-hR-NjI" id="YO4-A0-OHN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gU-hR-NjI" customClass="JWTextView">
+                    <rect key="frame" x="20" y="84" width="335" height="175"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="175" id="1e3-N9-4wd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="JFy-jU-Cyv"/>
+                    </connections>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrD-eQ-aSs">
+                    <rect key="frame" x="15" y="274" width="345" height="40"/>
+                    <color key="backgroundColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="wZn-0n-MGL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <state key="normal" title="提交">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="submitBtnAction:" destination="-1" eventType="touchUpInside" id="93r-DI-n6z"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="IrD-eQ-aSs" firstAttribute="top" secondItem="4gU-hR-NjI" secondAttribute="bottom" constant="15" id="Ks7-As-9Nj"/>
+                <constraint firstAttribute="bottom" secondItem="IrD-eQ-aSs" secondAttribute="bottom" constant="28" id="Q5K-Xi-UKs"/>
+                <constraint firstItem="IrD-eQ-aSs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="S6R-gw-JPd"/>
+                <constraint firstAttribute="trailing" secondItem="IrD-eQ-aSs" secondAttribute="trailing" constant="15" id="dRR-Gr-Ot5"/>
+                <constraint firstItem="IrD-eQ-aSs" firstAttribute="top" secondItem="4gU-hR-NjI" secondAttribute="bottom" constant="15" id="esU-bF-WPI"/>
+                <constraint firstItem="4gU-hR-NjI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="iFc-bS-9ju"/>
+                <constraint firstAttribute="trailing" secondItem="4gU-hR-NjI" secondAttribute="trailing" constant="20" id="sSJ-KH-pJg"/>
+                <constraint firstItem="4gU-hR-NjI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="wW1-fJ-5Nc"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Q5K-Xi-UKs"/>
+                    <exclude reference="esU-bF-WPI"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

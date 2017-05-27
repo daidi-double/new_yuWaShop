@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="RBNodeDetailHeader" id="iN0-l3-epB" customClass="RBNodeDetailHeader">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Head-portrait" translatesAutoresizingMaskIntoConstraints="NO" id="qvR-AF-swL">
+                    <rect key="frame" x="15" y="9" width="26" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="26" id="Lxv-jF-UhV"/>
+                        <constraint firstAttribute="height" constant="26" id="fNh-Cj-Pbf"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNT-6y-V62">
+                    <rect key="frame" x="51" y="9" width="100" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="GTP-Lx-KOD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nu7-FQ-NoY">
+                    <rect key="frame" x="290" y="9" width="70" height="26"/>
+                    <color key="backgroundColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="SwY-s8-sOQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="+ 关注">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="attentiionBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="CF6-1x-wsG"/>
+                    </connections>
+                </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="level11" translatesAutoresizingMaskIntoConstraints="NO" id="604-1a-if3">
+                    <rect key="frame" x="156" y="12" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="Add-8b-59N"/>
+                        <constraint firstAttribute="height" constant="20" id="Kmj-nC-AdX"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Htd-Zp-0s4">
+                    <rect key="frame" x="339" y="9" width="20" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="2oY-9H-nph"/>
+                        <constraint firstAttribute="width" constant="20" id="o4b-Pm-bMI"/>
+                    </constraints>
+                    <state key="normal" image="垃圾桶"/>
+                    <connections>
+                        <action selector="delAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="E88-lD-Aem"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="nu7-FQ-NoY" firstAttribute="leading" secondItem="cNT-6y-V62" secondAttribute="trailing" constant="10" id="3ho-nu-a9a"/>
+                <constraint firstItem="cNT-6y-V62" firstAttribute="bottom" secondItem="qvR-AF-swL" secondAttribute="bottom" id="6En-UG-TCj"/>
+                <constraint firstAttribute="trailing" secondItem="nu7-FQ-NoY" secondAttribute="trailing" constant="15" id="AFu-fv-v8v"/>
+                <constraint firstItem="qvR-AF-swL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="D4H-dc-rMW"/>
+                <constraint firstAttribute="trailing" secondItem="Htd-Zp-0s4" secondAttribute="trailing" constant="16" id="LEt-x9-8AU"/>
+                <constraint firstItem="Htd-Zp-0s4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PU6-rZ-EOb"/>
+                <constraint firstItem="cNT-6y-V62" firstAttribute="top" secondItem="qvR-AF-swL" secondAttribute="top" id="Pvr-AZ-H1V"/>
+                <constraint firstItem="nu7-FQ-NoY" firstAttribute="top" secondItem="qvR-AF-swL" secondAttribute="top" id="VWC-Pv-TPh"/>
+                <constraint firstItem="604-1a-if3" firstAttribute="leading" secondItem="cNT-6y-V62" secondAttribute="trailing" constant="5" id="X4v-ZF-UpL"/>
+                <constraint firstItem="nu7-FQ-NoY" firstAttribute="bottom" secondItem="qvR-AF-swL" secondAttribute="bottom" id="XDT-KN-p3S"/>
+                <constraint firstItem="qvR-AF-swL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="f6w-5J-0sT"/>
+                <constraint firstItem="604-1a-if3" firstAttribute="centerY" secondItem="cNT-6y-V62" secondAttribute="centerY" id="r0b-Bw-Jth"/>
+                <constraint firstItem="cNT-6y-V62" firstAttribute="leading" secondItem="qvR-AF-swL" secondAttribute="trailing" constant="10" id="rKs-D4-yzj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="3ho-nu-a9a"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="attentiionBtn" destination="nu7-FQ-NoY" id="7jx-G5-Ozs"/>
+                <outlet property="delBtn" destination="Htd-Zp-0s4" id="job-Gz-rvv"/>
+                <outlet property="iconImageView" destination="qvR-AF-swL" id="a3h-W0-GJm"/>
+                <outlet property="levelImageView" destination="604-1a-if3" id="f2Q-4u-016"/>
+                <outlet property="nameLabel" destination="cNT-6y-V62" id="9Gu-3f-soW"/>
+                <outlet property="nameLabelWidth" destination="GTP-Lx-KOD" id="8Af-QZ-qfR"/>
+            </connections>
+            <point key="canvasLocation" x="138.5" y="213"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Head-portrait" width="80" height="80"/>
+        <image name="level11" width="85" height="85"/>
+        <image name="垃圾桶" width="32" height="32"/>
+    </resources>
+</document>

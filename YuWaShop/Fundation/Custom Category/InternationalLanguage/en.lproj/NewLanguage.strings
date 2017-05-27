@@ -1,0 +1,21 @@
+/* 
+  NewLanguage.strings
+  NewVipxox
+
+  Created by 黄佳峰 on 16/8/31.
+  Copyright © 2016年 黄蜂大魔王. All rights reserved.
+*/
+
+
+//字体名字
+"kFontName"="San Francisco Text";
+
+//tabBar
+"首页"="Home";
+"百货"="Department store";
+"一元购"="happy shop";
+"逛街"="Go shopping";
+"购物车"="Shopping Cart";
+"个人中心"="Me";
+"聊天"="Chat";
+"美食"="Fine Food";

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="poS-tt-6cj" customClass="MDHotelRightBtn">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="综合排序" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prl-BI-zra">
+                    <rect key="frame" x="0.0" y="0.0" width="70" height="24"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="act-go-GGG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-Downward-expansion" translatesAutoresizingMaskIntoConstraints="NO" id="Pyc-7q-gmY">
+                    <rect key="frame" x="67" y="1" width="22" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="VYi-2s-4p6"/>
+                        <constraint firstAttribute="height" constant="22" id="agz-Pp-9h1"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="prl-BI-zra" firstAttribute="leading" secondItem="poS-tt-6cj" secondAttribute="leading" id="GDN-uX-UDF"/>
+                <constraint firstItem="prl-BI-zra" firstAttribute="top" secondItem="poS-tt-6cj" secondAttribute="top" id="MbX-lX-ZSK"/>
+                <constraint firstItem="Pyc-7q-gmY" firstAttribute="leading" secondItem="prl-BI-zra" secondAttribute="trailing" constant="-3" id="VbQ-hN-fOn"/>
+                <constraint firstItem="Pyc-7q-gmY" firstAttribute="centerY" secondItem="poS-tt-6cj" secondAttribute="centerY" id="che-bQ-6mu"/>
+                <constraint firstAttribute="bottom" secondItem="prl-BI-zra" secondAttribute="bottom" id="hE3-w6-F1T"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imgView" destination="Pyc-7q-gmY" id="IAu-YL-xYq"/>
+                <outlet property="tittleLabel" destination="prl-BI-zra" id="ELv-Cq-qPk"/>
+            </connections>
+            <point key="canvasLocation" x="221" y="140"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon-Downward-expansion" width="11" height="11"/>
+    </resources>
+</document>

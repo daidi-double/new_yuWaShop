@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="RBCommentToolsView" id="iN0-l3-epB" customClass="RBCommentToolsView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="添加一条评论" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3nK-Jp-1HP">
+                    <rect key="frame" x="13" y="0.0" width="291" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FfN-pT-R2X">
+                    <rect key="frame" x="304" y="15" width="1" height="15"/>
+                    <color key="backgroundColor" red="0.94117647058823528" green="0.95686274509803926" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="L1C-bS-kNY"/>
+                        <constraint firstAttribute="width" constant="1" id="dLh-lG-EaN"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvl-kL-ZMK">
+                    <rect key="frame" x="305" y="0.0" width="35" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="dSI-Eu-6Fx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="27"/>
+                    <state key="normal" title="@">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="connectionAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="IFp-JL-uHs"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vT9-oz-fFV">
+                    <rect key="frame" x="340" y="0.0" width="35" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="vb3-nS-lxZ"/>
+                    </constraints>
+                    <state key="normal" image="RBChatBar_face"/>
+                    <connections>
+                        <action selector="emojisBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="c1P-Hc-Te4"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="cvl-kL-ZMK" secondAttribute="trailing" constant="45" id="9sM-rQ-fAy"/>
+                <constraint firstItem="3nK-Jp-1HP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LL9-ky-tno"/>
+                <constraint firstAttribute="trailing" secondItem="vT9-oz-fFV" secondAttribute="trailing" id="NKf-Yv-Eel"/>
+                <constraint firstItem="vT9-oz-fFV" firstAttribute="top" secondItem="cvl-kL-ZMK" secondAttribute="top" id="NtB-ZY-UMt"/>
+                <constraint firstItem="vT9-oz-fFV" firstAttribute="bottom" secondItem="cvl-kL-ZMK" secondAttribute="bottom" id="TM0-7j-LKJ"/>
+                <constraint firstAttribute="bottom" secondItem="cvl-kL-ZMK" secondAttribute="bottom" id="UH8-SE-7ch"/>
+                <constraint firstItem="vT9-oz-fFV" firstAttribute="leading" secondItem="cvl-kL-ZMK" secondAttribute="trailing" id="WA4-hl-vx7"/>
+                <constraint firstItem="FfN-pT-R2X" firstAttribute="leading" secondItem="3nK-Jp-1HP" secondAttribute="trailing" id="b57-Vc-4oL"/>
+                <constraint firstItem="FfN-pT-R2X" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dvF-cu-qiz"/>
+                <constraint firstAttribute="trailing" secondItem="3nK-Jp-1HP" secondAttribute="trailing" constant="13" id="ggd-6R-IOv"/>
+                <constraint firstItem="FfN-pT-R2X" firstAttribute="leading" secondItem="3nK-Jp-1HP" secondAttribute="trailing" id="htF-gJ-Yk6"/>
+                <constraint firstItem="cvl-kL-ZMK" firstAttribute="leading" secondItem="FfN-pT-R2X" secondAttribute="trailing" id="muQ-3Z-ALT"/>
+                <constraint firstItem="3nK-Jp-1HP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="13" id="sAT-r1-U96"/>
+                <constraint firstAttribute="bottom" secondItem="3nK-Jp-1HP" secondAttribute="bottom" id="u2D-R0-isw"/>
+                <constraint firstItem="cvl-kL-ZMK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uGK-ao-rVv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ggd-6R-IOv"/>
+                    <exclude reference="htF-gJ-Yk6"/>
+                    <exclude reference="9sM-rQ-fAy"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="emojisBtn" destination="vT9-oz-fFV" id="xAG-s0-x5f"/>
+                <outlet property="lineView" destination="FfN-pT-R2X" id="Rz9-7m-fHY"/>
+                <outlet property="sendTextField" destination="3nK-Jp-1HP" id="0Vr-yb-cUq"/>
+            </connections>
+            <point key="canvasLocation" x="265.5" y="143"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="RBChatBar_face" width="22" height="22"/>
+    </resources>
+</document>

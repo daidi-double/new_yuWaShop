@@ -1,0 +1,20 @@
+/* 
+  InfoPlist.strings
+  NewVipxox
+
+  Created by 黄佳峰 on 16/8/31.
+  Copyright © 2016年 黄蜂大魔王. All rights reserved.
+*/
+
+
+//
+/**
+ 命名为“InfoPlist”（一定是这个文件名）
+ 
+ *  编辑Info.plist，添加一个新的属性Application has localized display name, 设置其类型为boolean，并将其value设置为YES即可
+ */
+
+
+
+
+CFBundleDisplayName ="yvwaBao";

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="YWMessageNotificationCell" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="YWMessageNotificationCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你有新消息了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1d-GB-P55">
+                        <rect key="frame" x="77" y="40" width="78" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Ohq-xs-9q7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9z-EJ-QID">
+                        <rect key="frame" x="21" y="12" width="286" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="mQf-R0-y8N"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBy-s9-bld">
+                        <rect key="frame" x="10" y="73" width="300" height="1"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.97254901959999995" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="gO7-FQ-eFA"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="悠悠" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iz1-2L-VRf">
+                        <rect key="frame" x="77" y="12" width="78" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="DQz-qm-S1M"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message_Notification_Pay" translatesAutoresizingMaskIntoConstraints="NO" id="MkN-kh-G8C">
+                        <rect key="frame" x="14" y="12" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="iXr-Xi-6G9"/>
+                            <constraint firstAttribute="width" constant="50" id="mC6-CF-Gx3"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Iz1-2L-VRf" firstAttribute="leading" secondItem="MkN-kh-G8C" secondAttribute="trailing" constant="13" id="0hp-hZ-DMA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="n9z-EJ-QID" secondAttribute="trailing" constant="5" id="7lv-KC-JZc"/>
+                    <constraint firstItem="n9z-EJ-QID" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="13" id="AiN-Yi-guZ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="oBy-s9-bld" secondAttribute="bottom" constant="-8" id="EfS-XB-Xo5"/>
+                    <constraint firstItem="S1d-GB-P55" firstAttribute="top" secondItem="Iz1-2L-VRf" secondAttribute="bottom" id="RgC-TB-LZW"/>
+                    <constraint firstItem="MkN-kh-G8C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="6" id="RqI-oL-qvU"/>
+                    <constraint firstItem="S1d-GB-P55" firstAttribute="leading" secondItem="Iz1-2L-VRf" secondAttribute="leading" id="S2u-z3-hnw"/>
+                    <constraint firstItem="MkN-kh-G8C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WXx-XY-Q4S"/>
+                    <constraint firstItem="Iz1-2L-VRf" firstAttribute="top" secondItem="MkN-kh-G8C" secondAttribute="top" id="bxQ-rH-5LF"/>
+                    <constraint firstItem="oBy-s9-bld" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="hE8-KY-SBR"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="oBy-s9-bld" secondAttribute="trailing" constant="2" id="iRC-s3-zX0"/>
+                    <constraint firstItem="n9z-EJ-QID" firstAttribute="top" secondItem="MkN-kh-G8C" secondAttribute="top" id="nBb-9Z-Zh6"/>
+                    <constraint firstItem="S1d-GB-P55" firstAttribute="trailing" secondItem="Iz1-2L-VRf" secondAttribute="trailing" id="nJI-e0-lTh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="conLabel" destination="S1d-GB-P55" id="CXo-jf-Nlm"/>
+                <outlet property="iconImageView" destination="MkN-kh-G8C" id="SNg-lo-XnN"/>
+                <outlet property="nameLabel" destination="Iz1-2L-VRf" id="BPH-u7-sE9"/>
+                <outlet property="timeLbael" destination="n9z-EJ-QID" id="qV1-fF-2m9"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="message_Notification_Pay" width="50" height="49"/>
+    </resources>
+</document>

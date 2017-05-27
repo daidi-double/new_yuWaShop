@@ -1,0 +1,177 @@
+//
+//  VipxoxPrefixHeader.pch
+//  NewVipxox
+//
+//  Created by 黄佳峰 on 16/8/29.
+//  Copyright © 2016年 黄蜂大魔王. All rights reserved.
+//
+
+#ifndef VipxoxPrefixHeader_pch
+#define VipxoxPrefixHeader_pch
+
+#ifdef __OBJC__
+
+#import "InternationalLanguage.h"    //国际化语言
+#import "GlobalInfo.h"         //保存地址
+#import "YWHttpBase.h"
+#import "UserSession.h"         //登录信息
+#import "YWLocation.h"          //Location
+
+//库
+#import "JRToast.h"
+#import "UIView+Frame.h"
+#import "UIColor+HexString.h"
+#import "YYModel.h"
+#import "MJRefresh.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
+#import "Masonry.h"
+#import "HttpManager.h"
+#import "SDWebImageManager.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+#import "AppDelegate+JWLocalNotifiction.h"
+//分类
+#import "UIImage+imageColor.h"
+#import "UIScrollView+JWGifRefresh.h"
+#import "JWTools.h"
+
+//自定义的视图
+#import "HUDFailureShowView.h"     //加载失败 重试
+#import "HUDLoadingShowView.h"   //加载中。。
+
+//EaseUI
+#define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"EaseUIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
+#import "EMSDKFull.h"
+
+#endif
+
+#pragma mark  --- 全局宏
+//判断设备是什么
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)      //375x667
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)    //414x736    1080x1920    1242x2208
+
+//自定义NSLog
+#ifdef DEBUG // 调试状态, 打开LOG功能
+#define MyLog(...) NSLog(__VA_ARGS__)
+#define MyFunc MyLog(@"%s", __func__);
+#else // 发布状态, 关闭LOG功能
+#define MyLog(...)
+#define MyFunc
+#endif
+
+
+//  设置颜色
+#define RGBCOLOR(a,b,c,d)    [UIColor colorWithRed:a/255.0 green:b/255.0 blue:c/255.0 alpha:d]
+//weakSelf
+#define WEAKSELF __weak typeof(self)weakSelf = self
+//保存进userdefault  里面的参数
+#define kUserDefaults [NSUserDefaults standardUserDefaults]
+//比例
+#define ACTUAL_WIDTH(width)   kScreen_Width/375*width
+#define ACTUAL_HEIGHT(height)   kScreen_Height/667*height
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+//获取导航栏高度
+#define NavigationBarHeight self.navigationController.navigationBar.frame.size.height
+//获取状态栏高度
+#define StatusBarHeight  [[UIApplication sharedApplication] statusBarFrame].size.height
+//获取导航栏全部高度
+#define NavigationHeight NavigationBarHeight+StatusBarHeight
+//获取tabBar的高度
+#define TabbarDeHeight 49.f
+//刷新时间
+#define RefreshTime 1.f
+
+
+
+
+
+
+
+
+
+#pragma mark  --- 项目宏
+
+#define AUTOLOGIN    @"autoLogin"            //自动登录账号
+#define AUTOLOGINCODE   @"autoLoginCode"     //自动登录密码
+#define ISTHIRDLOGIN    @"isthirdLogin"           //是不是第三方登录
+#define ISTHIRDPARAMS   @"isthirdPARAMS"       //第三方登录的 参数
+#define USER_TOKEN   @"UserToken"       //请求token
+
+#define LOCATION_LON    @"location_lon"            //lon
+#define LOCATION_LAT    @"location_lat"            //lat
+
+#define IS_NEW_NOTICAFICATION   @"isNewNoticafication"       //是否有新通知
+
+#define FRIENDSREQUEST    @"friends_request"            //friends request
+#define KEY_USERNAME_PASSWORD @"YWUUDID"   //UUDID
+
+#define JPush_Notification_DicArr @"JpushNotification_Arr" //JPush push info
+
+
+//4种颜色默认颜色 男生
+#define CNaviColor [UIColor colorWithRed:60/255.0 green:140/255.0 blue:217/255.0 alpha:1.0]   //主的naviBar 的颜色     天蓝色
+#define CpriceColor [UIColor colorWithRed:250/255.0 green:179/255.0 blue:67/255.0 alpha:1.0]   //价格的颜色            闪电黄
+
+#define CtitleColor [UIColor blackColor]   //大的标题 的颜色
+#define CsubtitleColor [UIColor colorWithRed:158/255.0 green:158/255.0 blue:158/255.0 alpha:1.0]   //子标题颜色  灰色
+
+
+
+//#define CselectedColor [UIColor colorWithRed:252/255.0 green:76/255.0 blue:30/255.0 alpha:1.0]   //滚动栏 选中的颜色     闪电黄
+//#define CunselectedColor [UIColor colorWithRed:158/255.0 green:158/255.0 blue:158/255.0 alpha:1.0]   //滚动栏 没选中的颜色  黑色
+
+
+
+//字体  分中文状态字体，和英文状态字体
+#define KInternationalFont [InternationalLanguage bundle]
+#define KFontFamily [KInternationalFont localizedStringForKey:@"kFontName" value:nil table:@"NewLanguage"]
+
+//FONT_CN       PingFangSC-Ultralight
+#define FONT_CN_48 [UIFont fontWithName:@"PingFang SC" size:24]
+#define FONT_CN_36 [UIFont fontWithName:@"PingFang SC" size:18]
+#define FONT_CN_30 [UIFont fontWithName:@"PingFang SC" size:15]
+#define FONT_CN_24 [UIFont fontWithName:@"PingFang SC" size:12]
+
+
+//FONT_EN
+//#define FONT_EN_48 [UIFont fontWithName:@"San Francisco Text" size:24]
+//#define FONT_EN_36 [UIFont fontWithName:@"San Francisco Text" size:18]
+//#define FONT_EN_30 [UIFont fontWithName:@"San Francisco Text" size:15]
+//#define FONT_EN_24 [UIFont fontWithName:@"San Francisco Text" size:12]
+
+//这个 涉及到apple 系统的字体放大的问题
+//UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]
+
+//  设置项目中需要的 字体 字号  颜色。
+#define kBaseNaviColor @"#ee6265"
+#define kBaseColor @"#f4921d"
+#define CHFONT @"PingFang SC"
+#define ENFONT @"San Francisco Text"
+
+
+//COLOR
+#define COLOR_A(alpha) [UIColor colorWithHex:0x333333 andAlpha:alpha]
+#define COLOR_B(alpha) [UIColor colorWithHex:0xFFFFFF andAlpha:alpha]
+
+
+//保存进userdefault  里面的参数
+#define KUSERDEFAULT [NSUserDefaults standardUserDefaults]
+
+
+#define SHARE_HTTP @"http://114.215.252.104/index.php/Home/share?shareid="
+
+#endif /* VipxoxPrefixHeader_pch */
+
