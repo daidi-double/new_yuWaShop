@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.shopNameLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+    self.accountLabel.textColor = [UIColor colorWithHexString:@"#999999"];
 }
 - (void)setModel:(ChildModel *)model{
     _model = model;

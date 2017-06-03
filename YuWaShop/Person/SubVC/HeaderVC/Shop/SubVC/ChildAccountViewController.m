@@ -12,9 +12,10 @@
 #import "MyChildAccountViewController.h"
 
 #define CHILDCELL @"ChildAccountTableViewCell"
-@interface ChildAccountViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ChildAccountViewController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *accountTableView;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (nonatomic,strong)NSString * name;
 
 @end
 
@@ -24,6 +25,7 @@
     [super viewDidLoad];
     self.title = @"管理门店账号";
     [self makeUI];
+
 }
 
 - (void)makeUI{
@@ -31,10 +33,11 @@
     self.accountTableView.separatorStyle = NO;
     self.addBtn.layer.cornerRadius = 5;
     self.addBtn.layer.masksToBounds = YES;
+    self.name = @"所有门店";
 }
 - (IBAction)addAccountAction:(UIButton *)sender {
     AddChildAccounViewController * vc = [[AddChildAccounViewController alloc]init];
-    
+    vc.status = 0;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -55,8 +58,15 @@
         UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(25, 0, kScreen_Width*0.8f, 35)];
         titleLabel.textColor = RGBCOLOR(89, 90, 91, 1);
         titleLabel.font = [UIFont systemFontOfSize:15];
-        titleLabel.text = @"所有门店";
+        
+        titleLabel.text = self.name;
+
         [bgView addSubview:titleLabel];
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(myAllAccount)];
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        tap.delegate = self;
+        [bgView addGestureRecognizer:tap];
         
         UIImageView * rightImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kScreen_Width - 23, 0, 8, 15)];
         rightImageView.centerY = bgView.centerY;
@@ -81,10 +91,25 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MyChildAccountViewController * vc = [[MyChildAccountViewController alloc]init];
-    
+    AddChildAccounViewController * vc = [[AddChildAccounViewController alloc]init];
+    vc.status = 1;
     [self.navigationController pushViewController:vc animated:YES];
+
+    
 }
+
+//我的所有门店
+- (void)myAllAccount{
+    MyChildAccountViewController * vc = [[MyChildAccountViewController alloc]init];
+    WEAKSELF;
+    vc.nameBlock= ^(NSString * name){
+        weakSelf.name = name;
+        [weakSelf.accountTableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

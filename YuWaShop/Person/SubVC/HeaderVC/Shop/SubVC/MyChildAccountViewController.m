@@ -10,11 +10,11 @@
 #import "ChildAccountTableViewCell.h"
 #import "JWSearchView.h"
 #import "UIBarButtonItem+SettingCustom.h"
-
+#import "ChildAccountViewController.h"
 
 
 #define CHILDCELL @"ChildAccountTableViewCell"
-@interface MyChildAccountViewController ()
+@interface MyChildAccountViewController ()<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *accountTableView;
 @property (nonatomic,strong)JWSearchView * searchView;
 
@@ -66,6 +66,12 @@
         titleLabel.text = @"所有门店";
         [bgView addSubview:titleLabel];
         
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(myAllAccount)];
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        tap.delegate = self;
+        [bgView addGestureRecognizer:tap];
+        
         UIImageView * rightImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kScreen_Width - 23, 0, 8, 15)];
         rightImageView.centerY = bgView.centerY;
         rightImageView.image = [UIImage imageNamed:@"右箭头"];
@@ -88,6 +94,13 @@
     return 0.01f;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.nameBlock(@"我的门店");//修改
+    [self.navigationController popViewControllerAnimated:YES];
+}
+//返回上一级界面，刷新数据
+- (void)myAllAccount{
+    self.nameBlock(@"所有门店");
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 - (void)didReceiveMemoryWarning {

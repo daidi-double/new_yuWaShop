@@ -12,6 +12,14 @@
 		AA0361421EB0CA6B00684ED7 /* AddShopCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0361401EB0CA6B00684ED7 /* AddShopCategoryViewController.xib */; };
 		AA0361461EB0DF5400684ED7 /* YWCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0361441EB0DF5400684ED7 /* YWCategoryViewController.m */; };
 		AA0361471EB0DF5400684ED7 /* YWCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0361451EB0DF5400684ED7 /* YWCategoryViewController.xib */; };
+		AA22AE661EE27FF600528A62 /* AddRelationshipAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA22AE641EE27FF600528A62 /* AddRelationshipAccountViewController.m */; };
+		AA22AE671EE27FF600528A62 /* AddRelationshipAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA22AE651EE27FF600528A62 /* AddRelationshipAccountViewController.xib */; };
+		AA22AE6B1EE285B200528A62 /* AmendCurrentAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA22AE691EE285B200528A62 /* AmendCurrentAccountViewController.m */; };
+		AA22AE6C1EE285B200528A62 /* AmendCurrentAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA22AE6A1EE285B200528A62 /* AmendCurrentAccountViewController.xib */; };
+		AA22AE701EE2878F00528A62 /* AmendAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA22AE6E1EE2878F00528A62 /* AmendAccountTableViewCell.m */; };
+		AA22AE711EE2878F00528A62 /* AmendAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA22AE6F1EE2878F00528A62 /* AmendAccountTableViewCell.xib */; };
+		AA22AE761EE295A500528A62 /* AmendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA22AE741EE295A500528A62 /* AmendInfoViewController.m */; };
+		AA22AE771EE295A500528A62 /* AmendInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA22AE751EE295A500528A62 /* AmendInfoViewController.xib */; };
 		AA2B2BEE1E8CA6FC008CB3C6 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2B2BEC1E8CA6FC008CB3C6 /* SuccessViewController.m */; };
 		AA2B2BEF1E8CA6FC008CB3C6 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2B2BED1E8CA6FC008CB3C6 /* SuccessViewController.xib */; };
 		AA2BB25C1E7F71F40030BDEB /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2BB25B1E7F71F40030BDEB /* MyLabel.m */; };
@@ -121,6 +129,11 @@
 		AACC80B61E8FE11A0023CA6D /* YWOderDetaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AACC80B41E8FE11A0023CA6D /* YWOderDetaleViewController.m */; };
 		AACC80B71E8FE11A0023CA6D /* YWOderDetaleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACC80B51E8FE11A0023CA6D /* YWOderDetaleViewController.xib */; };
 		AACC80BB1E8FE40F0023CA6D /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AACC80BA1E8FE40F0023CA6D /* OrderDetailModel.m */; };
+		AADE20C21EE25194001AA1C4 /* ChildAccountShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AADE20C01EE25194001AA1C4 /* ChildAccountShopViewController.m */; };
+		AADE20C31EE25194001AA1C4 /* ChildAccountShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADE20C11EE25194001AA1C4 /* ChildAccountShopViewController.xib */; };
+		AADE20C81EE2580B001AA1C4 /* ChildAccountShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AADE20C61EE2580B001AA1C4 /* ChildAccountShopTableViewCell.m */; };
+		AADE20C91EE2580B001AA1C4 /* ChildAccountShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADE20C71EE2580B001AA1C4 /* ChildAccountShopTableViewCell.xib */; };
+		AADE20CD1EE25D41001AA1C4 /* MyAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AADE20CC1EE25D41001AA1C4 /* MyAccountModel.m */; };
 		AAEA62CB1E98EFAF0022F4DE /* FinancialHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEA62CA1E98EFAF0022F4DE /* FinancialHeaderView.xib */; };
 		AAEA62D41E98F8440022F4DE /* OrderInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEA62D21E98F8440022F4DE /* OrderInfoTableViewCell.m */; };
 		AAEA62D51E98F8440022F4DE /* OrderInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEA62D31E98F8440022F4DE /* OrderInfoTableViewCell.xib */; };
@@ -898,6 +911,18 @@
 		AA0361441EB0DF5400684ED7 /* YWCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWCategoryViewController.m; sourceTree = "<group>"; };
 		AA0361451EB0DF5400684ED7 /* YWCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YWCategoryViewController.xib; sourceTree = "<group>"; };
 		AA0361481EB0E40300684ED7 /* AddShopCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopCategoryViewController.h; sourceTree = "<group>"; };
+		AA22AE631EE27FF600528A62 /* AddRelationshipAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRelationshipAccountViewController.h; sourceTree = "<group>"; };
+		AA22AE641EE27FF600528A62 /* AddRelationshipAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRelationshipAccountViewController.m; sourceTree = "<group>"; };
+		AA22AE651EE27FF600528A62 /* AddRelationshipAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRelationshipAccountViewController.xib; sourceTree = "<group>"; };
+		AA22AE681EE285B200528A62 /* AmendCurrentAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendCurrentAccountViewController.h; sourceTree = "<group>"; };
+		AA22AE691EE285B200528A62 /* AmendCurrentAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendCurrentAccountViewController.m; sourceTree = "<group>"; };
+		AA22AE6A1EE285B200528A62 /* AmendCurrentAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmendCurrentAccountViewController.xib; sourceTree = "<group>"; };
+		AA22AE6D1EE2878F00528A62 /* AmendAccountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendAccountTableViewCell.h; sourceTree = "<group>"; };
+		AA22AE6E1EE2878F00528A62 /* AmendAccountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendAccountTableViewCell.m; sourceTree = "<group>"; };
+		AA22AE6F1EE2878F00528A62 /* AmendAccountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmendAccountTableViewCell.xib; sourceTree = "<group>"; };
+		AA22AE731EE295A500528A62 /* AmendInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendInfoViewController.h; sourceTree = "<group>"; };
+		AA22AE741EE295A500528A62 /* AmendInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendInfoViewController.m; sourceTree = "<group>"; };
+		AA22AE751EE295A500528A62 /* AmendInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmendInfoViewController.xib; sourceTree = "<group>"; };
 		AA2B2BEB1E8CA6FC008CB3C6 /* SuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuccessViewController.h; sourceTree = "<group>"; };
 		AA2B2BEC1E8CA6FC008CB3C6 /* SuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
 		AA2B2BED1E8CA6FC008CB3C6 /* SuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
@@ -1052,6 +1077,14 @@
 		AACC80B51E8FE11A0023CA6D /* YWOderDetaleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YWOderDetaleViewController.xib; sourceTree = "<group>"; };
 		AACC80B91E8FE40F0023CA6D /* OrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
 		AACC80BA1E8FE40F0023CA6D /* OrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
+		AADE20BF1EE25194001AA1C4 /* ChildAccountShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildAccountShopViewController.h; sourceTree = "<group>"; };
+		AADE20C01EE25194001AA1C4 /* ChildAccountShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildAccountShopViewController.m; sourceTree = "<group>"; };
+		AADE20C11EE25194001AA1C4 /* ChildAccountShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildAccountShopViewController.xib; sourceTree = "<group>"; };
+		AADE20C51EE2580B001AA1C4 /* ChildAccountShopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildAccountShopTableViewCell.h; sourceTree = "<group>"; };
+		AADE20C61EE2580B001AA1C4 /* ChildAccountShopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildAccountShopTableViewCell.m; sourceTree = "<group>"; };
+		AADE20C71EE2580B001AA1C4 /* ChildAccountShopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildAccountShopTableViewCell.xib; sourceTree = "<group>"; };
+		AADE20CB1EE25D41001AA1C4 /* MyAccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountModel.h; sourceTree = "<group>"; };
+		AADE20CC1EE25D41001AA1C4 /* MyAccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountModel.m; sourceTree = "<group>"; };
 		AAEA62CA1E98EFAF0022F4DE /* FinancialHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinancialHeaderView.xib; sourceTree = "<group>"; };
 		AAEA62D11E98F8440022F4DE /* OrderInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfoTableViewCell.h; sourceTree = "<group>"; };
 		AAEA62D21E98F8440022F4DE /* OrderInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfoTableViewCell.m; sourceTree = "<group>"; };
@@ -2414,6 +2447,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA22AE721EE2957700528A62 /* 修改账号信息 */ = {
+			isa = PBXGroup;
+			children = (
+				AA22AE731EE295A500528A62 /* AmendInfoViewController.h */,
+				AA22AE741EE295A500528A62 /* AmendInfoViewController.m */,
+				AA22AE751EE295A500528A62 /* AmendInfoViewController.xib */,
+			);
+			name = "修改账号信息";
+			sourceTree = "<group>";
+		};
 		AA3788601E8ABA4700B7F9CC /* Bank */ = {
 			isa = PBXGroup;
 			children = (
@@ -2635,6 +2678,7 @@
 				AA73F2BD1ED03B8A0002B548 /* MyChildAccountViewController.xib */,
 			);
 			name = ChildAccount;
+			path = HeaderVC/Shop/SubVC;
 			sourceTree = "<group>";
 		};
 		AA73F2A61ED018F50002B548 /* cell */ = {
@@ -2736,6 +2780,48 @@
 			children = (
 				AACC80B91E8FE40F0023CA6D /* OrderDetailModel.h */,
 				AACC80BA1E8FE40F0023CA6D /* OrderDetailModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		AADE20BE1EE2512B001AA1C4 /* 子账号 */ = {
+			isa = PBXGroup;
+			children = (
+				AA22AE721EE2957700528A62 /* 修改账号信息 */,
+				AADE20CA1EE25D0E001AA1C4 /* model */,
+				AADE20C41EE257E5001AA1C4 /* cell */,
+				AA73F2A51ECFEC710002B548 /* ChildAccount */,
+				AADE20BF1EE25194001AA1C4 /* ChildAccountShopViewController.h */,
+				AADE20C01EE25194001AA1C4 /* ChildAccountShopViewController.m */,
+				AADE20C11EE25194001AA1C4 /* ChildAccountShopViewController.xib */,
+				AA22AE631EE27FF600528A62 /* AddRelationshipAccountViewController.h */,
+				AA22AE641EE27FF600528A62 /* AddRelationshipAccountViewController.m */,
+				AA22AE651EE27FF600528A62 /* AddRelationshipAccountViewController.xib */,
+				AA22AE681EE285B200528A62 /* AmendCurrentAccountViewController.h */,
+				AA22AE691EE285B200528A62 /* AmendCurrentAccountViewController.m */,
+				AA22AE6A1EE285B200528A62 /* AmendCurrentAccountViewController.xib */,
+			);
+			name = "子账号";
+			sourceTree = "<group>";
+		};
+		AADE20C41EE257E5001AA1C4 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				AADE20C51EE2580B001AA1C4 /* ChildAccountShopTableViewCell.h */,
+				AADE20C61EE2580B001AA1C4 /* ChildAccountShopTableViewCell.m */,
+				AADE20C71EE2580B001AA1C4 /* ChildAccountShopTableViewCell.xib */,
+				AA22AE6D1EE2878F00528A62 /* AmendAccountTableViewCell.h */,
+				AA22AE6E1EE2878F00528A62 /* AmendAccountTableViewCell.m */,
+				AA22AE6F1EE2878F00528A62 /* AmendAccountTableViewCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		AADE20CA1EE25D0E001AA1C4 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				AADE20CB1EE25D41001AA1C4 /* MyAccountModel.h */,
+				AADE20CC1EE25D41001AA1C4 /* MyAccountModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -3673,6 +3759,7 @@
 		B317AF151DE5B3CD0093C511 /* SubVC */ = {
 			isa = PBXGroup;
 			children = (
+				AADE20BE1EE2512B001AA1C4 /* 子账号 */,
 				AA3788601E8ABA4700B7F9CC /* Bank */,
 				C1B4271F1DFA5E4A00A3132E /* 我的笔记 */,
 				C14BA3551DF93A9F001BDFBD /* 商务会员 */,
@@ -5943,7 +6030,6 @@
 		B3F07EFE1DE72CD9005116EA /* SubVC */ = {
 			isa = PBXGroup;
 			children = (
-				AA73F2A51ECFEC710002B548 /* ChildAccount */,
 				B32347041DEBD392002C72E1 /* Environment */,
 				B3F07F1D1DE72F6F005116EA /* Time */,
 				B3F07F031DE72D56005116EA /* Counselor */,
@@ -6520,6 +6606,7 @@
 				B3F07EF51DE70BE7005116EA /* YWPersonShopTableViewCell.xib in Resources */,
 				AA2B2BEF1E8CA6FC008CB3C6 /* SuccessViewController.xib in Resources */,
 				B317AF271DE5B5110093C511 /* YWPersonCooperaViewController.xib in Resources */,
+				AADE20C91EE2580B001AA1C4 /* ChildAccountShopTableViewCell.xib in Resources */,
 				B30E4DE01DEEBD9D008684BA /* YWHomeCompareMyTableViewCell.xib in Resources */,
 				AA73F30D1ED047280002B548 /* 37.png in Resources */,
 				AA73F3001ED047280002B548 /* 25.png in Resources */,
@@ -6532,6 +6619,7 @@
 				B35C9E911DEC3FE80051E352 /* YWMessageViewController.xib in Resources */,
 				AA3C41711E8DD9510052C732 /* FinancialTableViewCell.xib in Resources */,
 				B317AF611DE5CA120093C511 /* YWHomeCollectionViewCell.xib in Resources */,
+				AA22AE671EE27FF600528A62 /* AddRelationshipAccountViewController.xib in Resources */,
 				B317AFC51DE5D3C90093C511 /* PersonHeaderBG39@2x.png in Resources */,
 				B35C9F341DEC3FE80051E352 /* JWImagePickerCell.xib in Resources */,
 				B3F07F171DE72E04005116EA /* YWPCBasicSetViewController.xib in Resources */,
@@ -6570,6 +6658,7 @@
 				B35C9F071DEC3FE80051E352 /* RBNodeDetailBottomView.xib in Resources */,
 				B35C9F3D1DEC3FE80051E352 /* TZImagePickerController.bundle in Resources */,
 				B317AFA71DE5D3C90093C511 /* PersonHeaderBG11@2x.png in Resources */,
+				AADE20C31EE25194001AA1C4 /* ChildAccountShopViewController.xib in Resources */,
 				B30E4DCD1DEEBB02008684BA /* YWHomeCompareViewController.xib in Resources */,
 				B35C9EA31DEC3FE80051E352 /* YWMessageNotificationCell.xib in Resources */,
 				AA73F2B41ED0216B0002B548 /* AddChildAccounViewController.xib in Resources */,
@@ -6637,6 +6726,7 @@
 				B3F07F221DE72F9C005116EA /* YWPCTimeViewController.xib in Resources */,
 				B302EAE31DEDAB450000B0A0 /* YWHomeAddFastivalViewController.xib in Resources */,
 				B35C9EA51DEC3FE80051E352 /* YWMessageSearchFriendAddCell.xib in Resources */,
+				AA22AE771EE295A500528A62 /* AmendInfoViewController.xib in Resources */,
 				B35557DA1DF03C74002E15A4 /* JWChatTableViewCell.xib in Resources */,
 				C14BA3B31DF93A9F001BDFBD /* MoneyDetailTableViewCell.xib in Resources */,
 				AA73F2F01ED047280002B548 /* 10.png in Resources */,
@@ -6659,6 +6749,7 @@
 				AA73F3131ED047280002B548 /* 6.png in Resources */,
 				B35C9B7C1DEC036C0051E352 /* YWPCTTimeNameTableViewCell.xib in Resources */,
 				B35C9EA71DEC3FE80051E352 /* YWMessageTableViewCell.xib in Resources */,
+				AA22AE711EE2878F00528A62 /* AmendAccountTableViewCell.xib in Resources */,
 				B317AFC01DE5D3C90093C511 /* PersonHeaderBG34@2x.png in Resources */,
 				B31097131DE44EA00033A984 /* LaunchScreen.storyboard in Resources */,
 				B317AFB61DE5D3C90093C511 /* PersonHeaderBG25@2x.png in Resources */,
@@ -6681,6 +6772,7 @@
 				AA3C41801E8DD9510052C732 /* WillAccountIncomeTableViewCell.xib in Resources */,
 				B32347031DEBD1FE002C72E1 /* YWPersonSuggRePlayViewController.xib in Resources */,
 				B3F07E611DE68C51005116EA /* YWBasicTableViewCell.xib in Resources */,
+				AA22AE6C1EE285B200528A62 /* AmendCurrentAccountViewController.xib in Resources */,
 				AA73F2F21ED047280002B548 /* 12.png in Resources */,
 				B31097101DE44EA00033A984 /* Assets.xcassets in Resources */,
 				B31098691DE4543E0033A984 /* YWDataAnalyseViewController.xib in Resources */,
@@ -6942,6 +7034,7 @@
 				B35C9D001DEC3ECD0051E352 /* EaseCustomMessageCell.m in Sources */,
 				AA3C141D1EA73D7900530095 /* AbountAndFansModel.m in Sources */,
 				B35C9EDB1DEC3FE80051E352 /* RBHomeListImagesModel.m in Sources */,
+				AA22AE761EE295A500528A62 /* AmendInfoViewController.m in Sources */,
 				B35C9CEE1DEC3ECD0051E352 /* UIViewController+DismissKeyboard.m in Sources */,
 				AA3C41731E8DD9510052C732 /* AccountIncomeModel.m in Sources */,
 				B35C9CE41DEC3ECD0051E352 /* PSTGridLayoutRow.m in Sources */,
@@ -7002,6 +7095,7 @@
 				B35C9CD31DEC3ECD0051E352 /* UIImage+EMGIF.m in Sources */,
 				B32347081DEBD400002C72E1 /* YWPCEnvironmentViewController.m in Sources */,
 				B310986B1DE4543E0033A984 /* UIColor+HexString.m in Sources */,
+				AADE20C21EE25194001AA1C4 /* ChildAccountShopViewController.m in Sources */,
 				C14BA3BF1DF93A9F001BDFBD /* pointMoneyHeaderView.m in Sources */,
 				B35C9E951DEC3FE80051E352 /* YWMessageChatViewController.m in Sources */,
 				AAF1281D1E8BB44800121621 /* AgainSetPayPasswordViewController.m in Sources */,
@@ -7031,6 +7125,7 @@
 				B30E4DBB1DEE7084008684BA /* YWFastivalDayPicker.m in Sources */,
 				B31098931DE4543E0033A984 /* AFNetworkReachabilityManager.m in Sources */,
 				AA73F2B91ED031A40002B548 /* YWViewController.m in Sources */,
+				AA22AE6B1EE285B200528A62 /* AmendCurrentAccountViewController.m in Sources */,
 				B3F07E601DE68C51005116EA /* YWBasicTableViewCell.m in Sources */,
 				B35C9F121DEC3FE80051E352 /* RBHomeSearchToolsView.m in Sources */,
 				B35C9CC01DEC3ECD0051E352 /* MWCaptionView.m in Sources */,
@@ -7077,6 +7172,7 @@
 				B35C9CBA1DEC3ECD0051E352 /* amrFileCodec.mm in Sources */,
 				AA3C41851E8DD9510052C732 /* PCMoneyDetailTableViewCell.m in Sources */,
 				C14BA3BD1DF93A9F001BDFBD /* PayDetailView.m in Sources */,
+				AA22AE661EE27FF600528A62 /* AddRelationshipAccountViewController.m in Sources */,
 				B35C9B921DEC1F830051E352 /* YWPCCHooseTimePickerView.m in Sources */,
 				B31098B01DE4543E0033A984 /* MJRefreshHeader.m in Sources */,
 				B31098D41DE4543E0033A984 /* UIImageView+WebCache.m in Sources */,
@@ -7097,12 +7193,14 @@
 				B3BE98201DF9588200B82FB3 /* JWHttpManger.m in Sources */,
 				B39456431DFF97E900A1A67F /* YWHomeNoPayListTableViewCell.m in Sources */,
 				B310989E1DE4543E0033A984 /* MASCompositeConstraint.m in Sources */,
+				AADE20C81EE2580B001AA1C4 /* ChildAccountShopTableViewCell.m in Sources */,
 				B3F07EFB1DE70C5D005116EA /* YWPersonShopHeaderModel.m in Sources */,
 				B35C9F3F1DEC3FE80051E352 /* TZPhotoPickerController.m in Sources */,
 				B35C9E921DEC3FE80051E352 /* YWMessageAddressBookModel.m in Sources */,
 				C14BA3B21DF93A9F001BDFBD /* MoneyDetailTableViewCell.m in Sources */,
 				B35C9CD41DEC3ECD0051E352 /* UIImage+EMMultiFormat.m in Sources */,
 				B31098C21DE4543E0033A984 /* NSBundle+MJRefresh.m in Sources */,
+				AA22AE701EE2878F00528A62 /* AmendAccountTableViewCell.m in Sources */,
 				B35C9CB51DEC3ECD0051E352 /* EMCDDeviceManager+Media.m in Sources */,
 				C14BA39B1DF93A9F001BDFBD /* BusinessMoneyViewController.m in Sources */,
 				B302EAD21DEDA8ED0000B0A0 /* YWHomeFestivalViewController.m in Sources */,
@@ -7329,6 +7427,7 @@
 				B35C9CDC1DEC3ECD0051E352 /* PSTCollectionViewController.m in Sources */,
 				C14BA34A1DF841FE001BDFBD /* SDTransparentPieProgressView.m in Sources */,
 				AA3C41831E8DD9510052C732 /* PCDetailMoneyViewController.m in Sources */,
+				AADE20CD1EE25D41001AA1C4 /* MyAccountModel.m in Sources */,
 				B31098D31DE4543E0033A984 /* UIImageView+HighlightedWebCache.m in Sources */,
 				C14BA3AA1DF93A9F001BDFBD /* ShowDetailModel.m in Sources */,
 				B35C9CE81DEC3ECD0051E352 /* EaseConversationModel.m in Sources */,

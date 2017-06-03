@@ -11,5 +11,7 @@
 @interface ChildAccountTableViewCell : UITableViewCell
 
 @property (nonatomic,strong)ChildModel * model;
+@property (weak, nonatomic) IBOutlet UILabel *shopNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 
 @end

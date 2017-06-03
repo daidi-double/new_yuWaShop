@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MyChildAccountViewController : UIViewController
-
+@property (nonatomic,copy)void (^nameBlock)(NSString * name);
 @end

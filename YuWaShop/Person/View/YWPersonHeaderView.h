@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol YWPersonHeaderViewDelegate <NSObject>
 
+- (void)toChildAccountPage;
+
+@end
 @interface YWPersonHeaderView : UIView
 
 @property (nonatomic,copy)void (^chooseBtnBlock)(NSInteger choosedBtn);//1门店2会员3分红
@@ -18,8 +22,9 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *signatureLabel;
+@property (weak, nonatomic) IBOutlet UIButton *myAccountBtn;
 
+@property (nonatomic,assign)id<YWPersonHeaderViewDelegate>delegate;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *BGImageHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconImageTop;
@@ -27,3 +32,6 @@
 
 
 @end
+
+
+

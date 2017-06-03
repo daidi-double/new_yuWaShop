@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AddChildAccounViewController : UIViewController
-
+@property (nonatomic,assign)NSInteger status;//0新增，1修改
 @end

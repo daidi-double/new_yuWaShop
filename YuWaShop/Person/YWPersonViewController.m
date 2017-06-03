@@ -12,10 +12,12 @@
 #import "YWPersonVC.h"
 #import "YWBusinessMemberViewController.h"   //商务会员
 #import "YWMyContactViewController.h"      //我的笔记
+#import "ChildAccountShopViewController.h"
+
 
 #define PERSONCCELL @"YWPersonTableViewCell"
 
-@interface YWPersonViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface YWPersonViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,YWPersonHeaderViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)YWPersonHeaderView * headerView;
@@ -61,6 +63,7 @@
 - (void)makeUI{
     WEAKSELF;
     self.headerView = [[[NSBundle mainBundle]loadNibNamed:@"YWPersonHeaderView" owner:nil options:nil]firstObject];
+    self.headerView.delegate = self;
     self.headerView.chooseBtnBlock = ^(NSInteger choosedBtn){//1门店2会员3分红
         UIViewController * vc;
         switch (choosedBtn) {
@@ -112,7 +115,7 @@
 - (void)refreshUI{
     self.headerView.nameLabel.text = [UserSession instance].nickName;
     [self.headerView.iconImageView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"btn-Upload-Avatar"] completed:nil];
-    self.headerView.signatureLabel.text = [UserSession instance].personality;
+//    self.headerView.signatureLabel.text = [UserSession instance].personality;
 }
 
 - (void)makeLocalImagePicker{
@@ -141,6 +144,11 @@
     } else {
         MyLog(@"照片源不可用");
     }
+}
+#pragma mark - HeaderDelegate子账号
+-(void)toChildAccountPage{
+    ChildAccountShopViewController * vc = [[ChildAccountShopViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - ImagePickerDelegate
