@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSl-oU-Lgk">
@@ -38,7 +38,7 @@
                             <constraint firstAttribute="width" constant="49" id="Vxq-Qo-1cG"/>
                             <constraint firstAttribute="height" constant="31" id="usI-9N-r6b"/>
                         </constraints>
-                        <color key="onTintColor" red="0.1450980392" green="0.75294117650000003" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="onTintColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <action selector="chooseSwichAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="F5X-5n-vcn"/>
                         </connections>

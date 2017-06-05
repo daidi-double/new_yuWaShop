@@ -171,9 +171,9 @@
 #define HTTP_Shoper_ShopAdmin_RankLists   @"/api.php/ShopAdmin/rankLists/"   //同业排行
 
 
-
-
-
+#define HTTP_PRESON_MYCHILDACCOUNT @"/api.php/ShopAdmin/childAccount/"//子账号列表
+#define HTTP_PRESON_DELCHILDACCTOUNT @"/api.php/ShopAdmin/deleteAccount/"//删除子账号
+#define HTTP_PRESON_CHOOSECHILDACCOUNTLIMIT @"/api.php/index/routeMenu/"//选择子账号权限
 
 
 

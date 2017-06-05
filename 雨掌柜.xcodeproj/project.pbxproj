@@ -23,6 +23,8 @@
 		AA2B2BEE1E8CA6FC008CB3C6 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2B2BEC1E8CA6FC008CB3C6 /* SuccessViewController.m */; };
 		AA2B2BEF1E8CA6FC008CB3C6 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2B2BED1E8CA6FC008CB3C6 /* SuccessViewController.xib */; };
 		AA2BB25C1E7F71F40030BDEB /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2BB25B1E7F71F40030BDEB /* MyLabel.m */; };
+		AA2CEA271EE51E1400F11EE2 /* LimitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CEA261EE51E1400F11EE2 /* LimitModel.m */; };
+		AA2CEA2A1EE51E7800F11EE2 /* LimitChildModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CEA291EE51E7800F11EE2 /* LimitChildModel.m */; };
 		AA37887E1E8ABA4700B7F9CC /* AddBankCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3788621E8ABA4700B7F9CC /* AddBankCategoryViewController.m */; };
 		AA37887F1E8ABA4700B7F9CC /* AddBankCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3788631E8ABA4700B7F9CC /* AddBankCategoryViewController.xib */; };
 		AA3788801E8ABA4700B7F9CC /* AddBankInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3788651E8ABA4700B7F9CC /* AddBankInfomationViewController.m */; };
@@ -928,6 +930,10 @@
 		AA2B2BED1E8CA6FC008CB3C6 /* SuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
 		AA2BB25A1E7F71F40030BDEB /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
 		AA2BB25B1E7F71F40030BDEB /* MyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLabel.m; sourceTree = "<group>"; };
+		AA2CEA251EE51E1400F11EE2 /* LimitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LimitModel.h; sourceTree = "<group>"; };
+		AA2CEA261EE51E1400F11EE2 /* LimitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LimitModel.m; sourceTree = "<group>"; };
+		AA2CEA281EE51E7800F11EE2 /* LimitChildModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LimitChildModel.h; sourceTree = "<group>"; };
+		AA2CEA291EE51E7800F11EE2 /* LimitChildModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LimitChildModel.m; sourceTree = "<group>"; };
 		AA3788611E8ABA4700B7F9CC /* AddBankCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBankCategoryViewController.h; sourceTree = "<group>"; };
 		AA3788621E8ABA4700B7F9CC /* AddBankCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBankCategoryViewController.m; sourceTree = "<group>"; };
 		AA3788631E8ABA4700B7F9CC /* AddBankCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBankCategoryViewController.xib; sourceTree = "<group>"; };
@@ -2457,6 +2463,17 @@
 			name = "修改账号信息";
 			sourceTree = "<group>";
 		};
+		AA2CEA241EE51DE800F11EE2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				AA2CEA251EE51E1400F11EE2 /* LimitModel.h */,
+				AA2CEA261EE51E1400F11EE2 /* LimitModel.m */,
+				AA2CEA281EE51E7800F11EE2 /* LimitChildModel.h */,
+				AA2CEA291EE51E7800F11EE2 /* LimitChildModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		AA3788601E8ABA4700B7F9CC /* Bank */ = {
 			isa = PBXGroup;
 			children = (
@@ -2703,6 +2720,7 @@
 		AA73F2B51ED031960002B548 /* 权限 */ = {
 			isa = PBXGroup;
 			children = (
+				AA2CEA241EE51DE800F11EE2 /* model */,
 				AA73F2B61ED031A40002B548 /* YWViewController.h */,
 				AA73F2B71ED031A40002B548 /* YWViewController.m */,
 				AA73F2B81ED031A40002B548 /* YWViewController.xib */,
@@ -7093,6 +7111,7 @@
 				B31098BF1DE4543E0033A984 /* MJDIYHeader.m in Sources */,
 				B3F07F161DE72E04005116EA /* YWPCBasicSetViewController.m in Sources */,
 				B35C9CD31DEC3ECD0051E352 /* UIImage+EMGIF.m in Sources */,
+				AA2CEA271EE51E1400F11EE2 /* LimitModel.m in Sources */,
 				B32347081DEBD400002C72E1 /* YWPCEnvironmentViewController.m in Sources */,
 				B310986B1DE4543E0033A984 /* UIColor+HexString.m in Sources */,
 				AADE20C21EE25194001AA1C4 /* ChildAccountShopViewController.m in Sources */,
@@ -7371,6 +7390,7 @@
 				B32737721DE81E12001C57DF /* YWPersonNewsModel.m in Sources */,
 				C14BA39E1DF93A9F001BDFBD /* PointMoneyViewController.m in Sources */,
 				B31098B51DE4543E0033A984 /* MJRefreshBackNormalFooter.m in Sources */,
+				AA2CEA2A1EE51E7800F11EE2 /* LimitChildModel.m in Sources */,
 				B35C9CB41DEC3ECD0051E352 /* EMAudioRecorderUtil.m in Sources */,
 				B35C9ED91DEC3FE80051E352 /* RBHomeListCommentsModel.m in Sources */,
 				B35C9F3A1DEC3FE80051E352 /* TZAssetCell.m in Sources */,

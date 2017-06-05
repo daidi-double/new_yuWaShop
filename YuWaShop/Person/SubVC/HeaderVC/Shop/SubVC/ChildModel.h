@@ -12,5 +12,5 @@
 
 @property (nonatomic,copy)NSString * shopName;//店铺名称
 @property (nonatomic,copy)NSString * account;//账号
-
+@property (nonatomic,copy)NSString * id;
 @end
