@@ -39,15 +39,16 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row ==1) {
             
-            cell.contenLabel.text = [UserSession instance].account;
+            cell.contenLabel.text = self.model.username;
         }else if (indexPath.row==2){
             cell.contenLabel.text = @"******";
         }else if (indexPath.row==3){
-            cell.contenLabel.text = [NSString stringWithFormat:@"(+86)%@",[UserSession instance].account];//修改
+            cell.contenLabel.text = [NSString stringWithFormat:@"(+86)%@",self.model.phone];//修改
         }
         return cell;
     }else{
-        cell.textLabel.text = @"美味蛋糕店";
+        cell.selectionStyle = NO;
+        cell.textLabel.text = self.model.company_name;
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         
     }
@@ -64,12 +65,19 @@
     AmendInfoViewController * vc = [[AmendInfoViewController alloc]init];
     if (indexPath.row == 1) {
         vc.status = 0;
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row == 2){
         vc.status= 1;
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row == 3){
-        vc.status = 2;
+        if ([self.model.phone isEqualToString:@""]) {
+            vc.status = 3;
+        }else{
+            vc.status = 2;
+            vc.iphone = self.model.phone;
+        }
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -77,13 +85,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -44,7 +44,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="czn-JI-2fJ">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的账号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="czn-JI-2fJ">
                             <rect key="frame" x="55" y="5" width="304" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="5V0-TK-WDs"/>
@@ -57,14 +57,14 @@
                                 <outlet property="delegate" destination="-1" id="rta-36-1L5"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NgZ-IH-DEP">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NgZ-IH-DEP">
                             <rect key="frame" x="55" y="50.5" width="304" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="84w-xP-uXf"/>
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             <connections>
                                 <action selector="passwordAction:" destination="-1" eventType="touchUpInside" id="6nQ-Pt-DDy"/>
                                 <outlet property="delegate" destination="-1" id="ESe-3x-0yd"/>

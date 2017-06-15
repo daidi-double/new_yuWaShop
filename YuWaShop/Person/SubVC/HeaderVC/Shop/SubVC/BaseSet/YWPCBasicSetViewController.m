@@ -111,10 +111,12 @@
     }else if ([self.firstPhoneTextField.text isEqualToString:@""]) {
         [self showHUDWithStr:@"首选电话不能为空哟" withSuccess:NO];
         return;
-    }else if (![JWTools isPhoneIDWithStr:self.firstPhoneTextField.text]) {
-        [self showHUDWithStr:@"请输入正确手机号码哟" withSuccess:NO];
-        return;
-    }else if (![self.subPhoneTextField.text isEqualToString:@""]){
+    }
+//    else if (![JWTools isPhoneIDWithStr:self.firstPhoneTextField.text]) {
+//        [self showHUDWithStr:@"请输入正确手机号码哟" withSuccess:NO];
+//        return;
+//    }
+    else if ([self.subPhoneTextField.text isEqualToString:@""]){
         [self showHUDWithStr:@"请输入次要正确电话哟" withSuccess:NO];
         return;
     }

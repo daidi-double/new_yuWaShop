@@ -142,7 +142,7 @@
 #define HTTP_Shoper_ShopAdmin_DelGoods   @"/api.php/ShopAdmin/delGoods/"   //商品管理之删除商品
 #define HTTP_Shoper_ShopAdmin_DelCategory   @"/api.php/ShopAdmin/delGoodsCat/"   //商品管理之删除分类
 #define HTTP_Shopr_ShopAdmin_AddCategory @"/api.php/ShopAdmin/addgoodsClassify"//添加商品分类
-#define HTTP_Shopr_ShopAdmin_RecomposeCategory @"//api.php/ShopAdmin/editgoodsClassify"//修改商品分类
+#define HTTP_Shopr_ShopAdmin_RecomposeCategory @"/api.php/ShopAdmin/editgoodsClassify"//修改商品分类
 #define HTTP_SHOP_SHOPADMIN_CATEGORY   @"/api.php/ShopAdmin/goodsClassify/"//获取店铺分类列表
 
 #define HTTP_Shoper_ShopAdmin_AddCoupon   @"/api.php/ShopAdmin/addCoupon/"   //优惠券之生成优惠券
@@ -175,9 +175,19 @@
 #define HTTP_PRESON_DELCHILDACCTOUNT @"/api.php/ShopAdmin/deleteAccount/"//删除子账号
 #define HTTP_PRESON_CHOOSECHILDACCOUNTLIMIT @"/api.php/index/routeMenu/"//选择子账号权限
 
+#define HTTP_PRESON_MAINACCOUNTLIST  @"/api.php/ShopAdmin/userlist/"//主账号列表
+#define HTTP_PRESON_CHANGEACCOUNT @"/api.php/ShopAdmin/relaLogin/"//切换账号
+#define HTTP_PRESON_ADDRELATIONACCOUNT @"/api.php/ShopAdmin/relationUser/"//添加关联账号
+#define HTTP_PRESON_CHANGECHILDACCOUNTNAME @"/api.php/ShopAdmin/editUserName/"//修改子账号信息（用户名）
+#define HTTP_PRESON_CHANGECHILDACCOUNTPASSWORD @"/api.php/ShopAdmin/editPassword/"//修改子账号信息（密码）
+#define HTTP_PRESON_CHANGECHILDACCOUNTIPHONE @"/api.php/ShopAdmin/editPhone/"//修改子账号信息（手机号）
+#define HTTP_PRESON_ADDIPHONEACCOUNT @"/api.php/ShopAdmin/addPhone/"//添加手机号
+#define HTTP_PRESON_GETPHONECODE @"/api.php/ShopAdmin/editPhone/"//获取验证码
 
 
 
+
+#define HTTP_PRESON_ADDCHILDACCOUNT @"/api.php/ShopAdmin/regAccount/"//添加子账号
 
 
 

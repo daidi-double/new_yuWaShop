@@ -127,6 +127,7 @@
         [self.secuirtyCodeBtn setUserInteractionEnabled:YES];
         return;
     }
+    
     [self.secuirtyCodeBtn setTitle:[NSString stringWithFormat:@"获取中(%zi)s",self.time] forState:UIControlStateNormal];
     self.time--;
 }

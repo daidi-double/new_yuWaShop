@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ChildModel.h"
 @interface AddChildAccounViewController : UIViewController
 @property (nonatomic,assign)NSInteger status;//0新增，1修改
+@property (nonatomic,strong)ChildModel * model;
+
 @end

@@ -28,12 +28,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"数据分析";
-    [self makeUI];
+    if ([UserSession judgeIsLimit:@"16"]) {
+
+        [self makeUI];
+        
+    }else{
+        [JRToast showWithText:@"没有权限" duration:1.5];
+    }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if ([UserSession userToComfired]&&!self.isRequest) {
-        [self requestData];
+    
+    if ([UserSession judgeIsLimit:@"16"]) {
+        if ([UserSession userToComfired]&&!self.isRequest) {
+            [self requestData];
+        }
+        
+    }else{
+        [JRToast showWithText:@"没有权限" duration:1.5];
     }
 }
 

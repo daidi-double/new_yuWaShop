@@ -68,6 +68,8 @@
 @property (nonatomic,copy)NSString * shopTypeID;//店铺所属大类
 @property (nonatomic,strong)NSArray * shopSubTypeIDArr;//店铺所选小类
 
+@property (nonatomic,strong)NSArray * routes;//权限数组
+
 @property (nonatomic,assign)CGFloat star;
 @property (nonatomic,copy)NSString * infrastructure;
 
@@ -84,5 +86,5 @@
 + (BOOL)userToComfired;
 + (void)userCompareType;
 + (void)refreshNoticaficationWithIsNewNoticafication:(BOOL)isNewNoticafication;
-
++ (BOOL)judgeIsLimit:(NSString*)name;//判断是否开通了权限
 @end

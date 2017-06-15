@@ -139,11 +139,11 @@
         MyLog(@"Regieter Code is %@",responsObj);
         [UserSession instance].cut = self.cutInter;
 
-        NSMutableArray * shopArr = [NSMutableArray arrayWithArray:self.model.dataArr[2]];
+        NSMutableArray * shopArr = [NSMutableArray arrayWithArray:self.model.dataArr[3]];
         NSString * showName = [NSString stringWithFormat:@"%.1f折",self.cutInter ];
         
         [shopArr replaceObjectAtIndex:1 withObject:showName];
-        [self.model.dataArr replaceObjectAtIndex:2 withObject:shopArr];
+        [self.model.dataArr replaceObjectAtIndex:3 withObject:shopArr];//查看问题
         self.currentCutLabel.text = [NSString stringWithFormat:@"当前折扣%@",showName];
         [self showHUDWithStr:@"折扣设置成功" withSuccess:YES];
         [self.navigationController popViewControllerAnimated:YES];
@@ -154,7 +154,7 @@
             if (cutInterNS == 0) {
                 [JRToast showWithText:@"当前折扣相同或为0，请重新选择折扣" duration:2];
             }
-            [self showHUDWithStr:@"折扣设置失败,每天只能设置一次折扣哦" withSuccess:YES];
+            [self showHUDWithStr:@"每天只能设置一次折扣哦" withSuccess:YES];
         }
     }];
 }

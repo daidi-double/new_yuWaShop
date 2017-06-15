@@ -10,7 +10,9 @@
 
 @interface ChildModel : NSObject
 
-@property (nonatomic,copy)NSString * shopName;//店铺名称
-@property (nonatomic,copy)NSString * account;//账号
+@property (nonatomic,copy)NSString * company_name;//店铺名称
+@property (nonatomic,copy)NSString * username;//账号
 @property (nonatomic,copy)NSString * id;
+@property (nonatomic,copy)NSString * phone;
+@property (nonatomic,strong)NSArray * route;//权限
 @end

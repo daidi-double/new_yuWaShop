@@ -21,7 +21,8 @@
 }
 
 -(void)setData{
-    
+    self.shopNameLabel.text = self.model.company_name;
+    self.accountLabel.text = self.model.username;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

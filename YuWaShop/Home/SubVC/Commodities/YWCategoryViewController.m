@@ -22,25 +22,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   self.title = @"分类管理";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.categoryTableView.backgroundColor = [UIColor whiteColor];
-    self.pagens = @"10";
-    self.dataArr = [NSMutableArray arrayWithCapacity:0];
-    [self makeUI];
-    [self setupRefresh];
+    self.title = @"分类管理";
+
+        self.view.backgroundColor = [UIColor whiteColor];
+        self.categoryTableView.backgroundColor = [UIColor whiteColor];
+        self.pagens = @"10";
+        self.dataArr = [NSMutableArray arrayWithCapacity:0];
+        [self makeUI];
+        [self setupRefresh];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestDataWithPages:0];
-    [self.categoryTableView.mj_header beginRefreshing];
-    
+
+        [self requestDataWithPages:0];
+        [self.categoryTableView.mj_header beginRefreshing];
 }
 - (IBAction)subCommitAction:(UIButton *)sender {
     AddShopCategoryViewController * vc = [[AddShopCategoryViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
- 
+    
 }
 
 - (void)makeUI{
@@ -49,7 +51,7 @@
     UIBarButtonItem * editBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(touchAction:)];
     
     self.navigationItem.rightBarButtonItem = editBtn;
-
+    
 }
 
 - (void)touchAction:(UIBarButtonItem*)sender{
@@ -95,7 +97,7 @@
     cell.textLabel.textColor = RGBCOLOR(80, 88, 88, 1);
     YWCategoryModel * model = self.dataArr[indexPath.row];
     cell.textLabel.text = model.cat_name;
-
+    
     return cell;
 }
 
@@ -141,43 +143,49 @@
 
 //删除分类
 - (void)requestDelWithID:(NSString *)commoditiesID withIndexPath:(NSIndexPath *)indexPath{
-//        YWCategoryModel * model = self.dataArr[indexPath.row];
+    //        YWCategoryModel * model = self.dataArr[indexPath.row];
     
-        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"cat_id":@([commoditiesID integerValue])};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"cat_id":@([commoditiesID integerValue])};
     
-        [[HttpObject manager]postDataWithType:YuWaType_Shoper_ShopAdmin_DelCategory withPragram:pragram success:^(id responsObj) {
-            MyLog(@"Regieter Code pragram is %@",pragram);
-            MyLog(@"Regieter Code is %@",responsObj);
-            [JRToast showWithText:responsObj[@"data"] duration:1];
-            [self.dataArr removeObjectAtIndex:indexPath.row];
-            [self.categoryTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-//            [self.tableView reloadData];
-        } failur:^(id responsObj, NSError *error) {
-            [JRToast showWithText:responsObj[@"errorMessage"] duration:1];
-            MyLog(@"Regieter Code pragram is %@",pragram);
-            MyLog(@"Regieter Code error is %@",responsObj);
-            
-        }];
+    [[HttpObject manager]postDataWithType:YuWaType_Shoper_ShopAdmin_DelCategory withPragram:pragram success:^(id responsObj) {
+        MyLog(@"Regieter Code pragram is %@",pragram);
+        MyLog(@"Regieter Code is %@",responsObj);
+        [JRToast showWithText:responsObj[@"data"] duration:1];
+        [self.dataArr removeObjectAtIndex:indexPath.row];
+        [self.categoryTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        //            [self.tableView reloadData];
+    } failur:^(id responsObj, NSError *error) {
+        [JRToast showWithText:responsObj[@"errorMessage"] duration:1];
+        MyLog(@"Regieter Code pragram is %@",pragram);
+        MyLog(@"Regieter Code error is %@",responsObj);
+        
+    }];
 }
 #pragma mark - Http
 - (void)requestDataWithPages:(NSInteger)page{
-
+    
     NSString * urlStr = [NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_SHOP_SHOPADMIN_CATEGORY];
     NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"pagen":@([self.pagens integerValue]),@"pages":@(page)};
     
     HttpManager * manager = [[HttpManager alloc]init];
     [manager postDatasNoHudWithUrl:urlStr withParams:pragram compliation:^(id data, NSError *error) {
-        MyLog(@"Regieter Code pragram is %@",pragram);
-        MyLog(@"Regieter Code is %@",data);
-        if (page == 0)[self.dataArr removeAllObjects];
-        NSArray * dataArr = data[@"data"];
-        for (int i = 0; i<dataArr.count; i++) {
-            YWCategoryModel * model = [YWCategoryModel yy_modelWithDictionary:dataArr[i]];
-            [self.dataArr addObject:model];
+        if ([data[@"errorrCode"] integerValue] == 0) {
+            
+            MyLog(@"Regieter Code pragram is %@",pragram);
+            MyLog(@"Regieter Code is %@",data);
+            if (page == 0)[self.dataArr removeAllObjects];
+            NSArray * dataArr = data[@"data"];
+            for (int i = 0; i<dataArr.count; i++) {
+                YWCategoryModel * model = [YWCategoryModel yy_modelWithDictionary:dataArr[i]];
+                [self.dataArr addObject:model];
+            }
+            [self.categoryTableView reloadData];
+        }else{
+            [JRToast showWithText:data[@"errorMessage"] duration:1.5];
         }
-        [self.categoryTableView reloadData];
         [self.categoryTableView.mj_header endRefreshing];
         [self.categoryTableView.mj_footer endRefreshing];
+        
     }];
     
 }
@@ -194,13 +202,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

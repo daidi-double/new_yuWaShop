@@ -9,7 +9,7 @@
 #import "YWViewController.h"
 #import "YWPCEOnTableViewCell.h"
 #import "LimitModel.h"
-#import "LimitChildModel.h"
+
 
 
 #define PCEONCELL @"YWPCEOnTableViewCell"
@@ -18,6 +18,7 @@
 @property (nonatomic,strong)NSMutableArray * dataAry;
 @property (nonatomic,strong)NSMutableArray * bigAry;
 @property (nonatomic,strong)NSMutableArray * titleAry;
+@property (nonatomic,strong)NSMutableArray * backAry;//返回数据
 @end
 
 @implementation YWViewController
@@ -26,9 +27,14 @@
     [super viewDidLoad];
     self.title = @"请选择权限";
     [self makeUI];
+    
     [self requestChildAccountLimitData];
-}
 
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.backAry removeAllObjects];
+}
 -(void)makeUI{
     
     UIBarButtonItem * rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(subcommitActions:)];
@@ -41,6 +47,11 @@
 }
 
 - (void)subcommitActions:(UIBarButtonItem*)sender{
+
+        if (self.limitBlock) {
+            self.limitBlock(self.backAry);
+        }
+   
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -49,14 +60,83 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    LimitModel * model = self.bigAry[section];
+
     return [self.bigAry[section] count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YWPCEOnTableViewCell * onCell = [tableView dequeueReusableCellWithIdentifier:PCEONCELL];
-    LimitChildModel * limitModel = self.bigAry[indexPath.section][indexPath.row];
+    if (self.status == 1) {
+        LimitChildModel * limitModel = self.bigAry[indexPath.section][indexPath.row];
+        
+        onCell.nameLabel.text = limitModel.name;
+        WEAKSELF;
+        //遍历查询是否有开启的权限，开的权限给予开启
+        for (NSDictionary * dict in self.childModel.route) {
+            LimitChildModel * limitModels = [LimitChildModel yy_modelWithDictionary:dict];
+            if ([limitModels.enable integerValue] == 1) {
+               
+                if ([limitModels.name isEqualToString:limitModel.name]) {
+                    onCell.isChoosed = 1;
+                    [self.backAry addObject:limitModels];//把已开启的权限放返回数组中，待修改替换即将要开启的权限
+                }
+            }
+        }
+        
+        onCell.chooseBlock = ^(BOOL isChoosed){
+            LimitChildModel * nameModel = weakSelf.bigAry[indexPath.section][indexPath.row];
+            if (isChoosed == 1) {
+                //开启新权限时，判断已有的数组中是否存在该权限，没有的话就加入到返回数组中，有的情况下不加入
+                NSMutableArray * newLimitAry = [NSMutableArray array];
+                __block typeof(newLimitAry)weaknewLimitAry = newLimitAry;
+                [weakSelf.backAry enumerateObjectsUsingBlock:^(LimitChildModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (![obj.name isEqualToString:nameModel.name]) {
 
-    onCell.nameLabel.text = limitModel.name;
+                        [weaknewLimitAry addObject:nameModel];
+                        *stop = YES;
+                    }
+                }];
+                [self.backAry addObjectsFromArray:newLimitAry];
+            }else{
+                //移除所选的权限，权限关闭时需要移除
+                [weakSelf.backAry enumerateObjectsUsingBlock:^(LimitChildModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.name isEqualToString:nameModel.name]) {
+
+                        *stop = YES;
+                        [weakSelf.backAry removeObjectAtIndex:idx];
+                    }
+                }];
+            }
+        };
+   
+        
+    }else{
+        
+        LimitChildModel * limitModel = self.bigAry[indexPath.section][indexPath.row];
+        
+        onCell.nameLabel.text = limitModel.name;
+        WEAKSELF;
+        onCell.chooseBlock = ^(BOOL isChoosed){
+            LimitChildModel * nameModel = weakSelf.bigAry[indexPath.section][indexPath.row];
+            if (isChoosed == 1) {
+                //开启的情况加入到返回数组中
+                for (LimitChildModel * model in weakSelf.backAry) {
+                    if (![model.name isEqualToString:nameModel.name]) {
+                         MyLog(@"名称3  %@",model.name);
+                        [weakSelf.backAry addObject:nameModel];
+                    }
+                }
+            }else{
+                //移除所选的权限 ,关闭的时候移除
+                [weakSelf.backAry enumerateObjectsUsingBlock:^(LimitChildModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.name isEqualToString:nameModel.name]) {
+                        *stop = YES;
+                        [weakSelf.backAry removeObjectAtIndex:idx];
+                    }
+                }];
+            }
+        };
+  
+    }
     return onCell;
 }
 
@@ -75,8 +155,7 @@
     titleLabel.font = [UIFont systemFontOfSize:14];
     [bgView addSubview:titleLabel];
     LimitModel * model = self.titleAry[section];
-
-        
+    
     titleLabel.text = model.cat;
 
     return bgView;
@@ -125,7 +204,12 @@
     }
     return _bigAry;
 }
-
+- (NSMutableArray*)backAry{
+    if (!_backAry) {
+        _backAry = [NSMutableArray array];
+    }
+    return _backAry;
+}
 - (NSMutableArray*)titleAry{
     if (!_titleAry) {
         _titleAry = [NSMutableArray array];

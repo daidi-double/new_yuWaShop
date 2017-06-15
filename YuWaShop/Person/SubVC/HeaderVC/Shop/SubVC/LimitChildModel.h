@@ -11,4 +11,7 @@
 @interface LimitChildModel : NSObject
 @property (nonatomic,copy)NSString * name;
 @property (nonatomic,copy)NSString * id;
+
+/* user */
+@property (nonatomic,copy)NSString * enable;
 @end

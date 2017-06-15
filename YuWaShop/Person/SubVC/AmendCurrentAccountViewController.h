@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MainAccountListModel.h"
 @interface AmendCurrentAccountViewController : UIViewController
-
+@property (nonatomic,strong)MainAccountListModel * model;
 @end

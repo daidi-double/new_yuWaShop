@@ -72,7 +72,7 @@
                                 <constraint firstAttribute="height" constant="1" id="ipK-ot-hsT"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="纯数字不小于9位,含字母不小于6位" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="QaZ-yb-VOl">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="纯数字不小于9位,含字母不小于6位" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QaZ-yb-VOl">
                             <rect key="frame" x="54" y="10" width="306" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="0hT-bI-IJv"/>
@@ -84,7 +84,7 @@
                                 <outlet property="delegate" destination="-1" id="tNC-zh-p0U"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(选填)用于发送通知短信" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ase-BC-zbb">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(选填)用于发送通知短信" textAlignment="natural" minimumFontSize="13" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ase-BC-zbb">
                             <rect key="frame" x="99" y="106" width="261" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="ejL-Cx-4xN"/>
@@ -96,7 +96,7 @@
                                 <outlet property="delegate" destination="-1" id="3NR-5G-22x"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="xmc-Dg-kZc">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xmc-Dg-kZc">
                             <rect key="frame" x="54" y="55" width="306" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="zWJ-4g-mGP"/>
@@ -196,7 +196,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9k-1j-er2">
-                            <rect key="frame" x="69" y="69" width="0.0" height="0.0"/>
+                            <rect key="frame" x="69" y="68" width="0.0" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -204,13 +204,13 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ac-2Z-Z1J">
                             <rect key="frame" x="44" y="0.0" width="331" height="45"/>
                             <connections>
-                                <action selector="chooseShopAction:" destination="-1" eventType="touchUpInside" id="VUT-gU-k0d"/>
+                                <action selector="chooseShopAction:" destination="-1" eventType="touchUpInside" id="ZSU-8m-wre"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMj-dn-FMC">
                             <rect key="frame" x="44" y="46" width="331" height="44"/>
                             <connections>
-                                <action selector="chooseJurisdictionAction:" destination="-1" eventType="touchUpInside" id="ETa-SG-5wQ"/>
+                                <action selector="chooseJurisdictionAction:" destination="-1" eventType="touchUpInside" id="uB1-Jv-HPh"/>
                             </connections>
                         </button>
                     </subviews>

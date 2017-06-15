@@ -115,7 +115,7 @@
 - (void)refreshUI{
     self.headerView.nameLabel.text = [UserSession instance].nickName;
     [self.headerView.iconImageView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"btn-Upload-Avatar"] completed:nil];
-//    self.headerView.signatureLabel.text = [UserSession instance].personality;
+    [self.headerView.myAccountBtn setTitle:[NSString stringWithFormat:@"管理员账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
 }
 
 - (void)makeLocalImagePicker{

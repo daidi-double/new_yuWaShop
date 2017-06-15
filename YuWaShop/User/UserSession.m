@@ -16,6 +16,7 @@
 #import "YWComfiredViewController.h"
 #import "YWComfiringViewController.h"
 #import "YWLoginViewController.h"
+//#import "LimitChildModel.h"
 
 @implementation UserSession
 static UserSession * user=nil;
@@ -166,7 +167,7 @@ static UserSession * user=nil;
     user.album_nums=dataDic[@"album_nums"];
     user.comment_nums=dataDic[@"comment_nums"];
     user.today_money=dataDic[@"today_money"];
-    
+    user.routes = dataDic[@"routes"];
     
     NSString * isNewNoticafication = [KUSERDEFAULT valueForKey:IS_NEW_NOTICAFICATION];
     if (isNewNoticafication&&[isNewNoticafication isEqualToString:@"1"]) {
@@ -266,7 +267,24 @@ static UserSession * user=nil;
         return NO;
     }
 }
++ (BOOL)judgeIsLimit:(NSString *)ids{
+    if (user.routes.count<=0) {
+        return NO;
+    }
 
+    for (NSDictionary * dict in user.routes) {
+        MyLog(@"权限%@,%ld,%@",dict,user.routes.count,dict[@"name"]);
+        if ([ids isEqualToString:dict[@"id"]]) {
+            if ([dict[@"enable"] integerValue] == 1) {
+                return YES;
+            }else{
+                return NO;
+                
+            }
+        }
+    }
+    return NO;
+}
 + (void)isLogion{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (!user.isLogin) {

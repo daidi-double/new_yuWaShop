@@ -30,6 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic,strong)NSArray * nameArr;
+@property (nonatomic,strong)NSArray * IDSArr;
 @property (nonatomic,strong)NSArray * imgNameArr;
 @property (nonatomic,strong)NSArray * subVCArr;
 
@@ -76,6 +77,7 @@
 }
 //Home_IMG1"
 - (void)dataSet{
+    self.IDSArr = @[@"1",@"3",@"4",@"5",@"未定",@"6",@"7",@"8",@"未定"];
     self.nameArr = @[@"财务管理",@"提现管理",@"商品管理",@"口碑品牌",@"退款管理",@"预定管理",@"优惠券",@"相册管理",@"同业排行"];
     self.imgNameArr = @[@"Home_IMG0",@"Home_IMG9",@"Home_IMG1",@"Home_IMG3",@"Home_IMG4",@"Home_IMG5",@"Home_IMG2",@"Home_IMG7",@"Home_IMG8"];
     self.subVCArr = @[[YWFinancialViewController class],[YWHomeFestivalViewController class],[YWCategoryViewController class],[ShowMoreCommitViewController class],[YWHomeRefundVC class],[YWHomeAdvanceOrderViewController class],[YWHomeCouponViewController class],[StorePhotoViewController class],[YWHomeCompareViewController class]];
@@ -119,14 +121,25 @@
     WEAKSELF;
     header.payBlock = ^(){
         if ([UserSession userToComfired]){
-            YWHomePayBillViewController * vc = [[YWHomePayBillViewController alloc]init];
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+
+            if ([UserSession judgeIsLimit:@"2"]) {
+
+                YWHomePayBillViewController * vc = [[YWHomePayBillViewController alloc]init];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }else{
+                [JRToast showWithText:@"没有权限" duration:1.5];
+            }
         }
     };
     header.recordBlock = ^(){
         if ([UserSession userToComfired]){
-            YWHomeQuickPayListVC * vc = [[YWHomeQuickPayListVC alloc]init];
-            [weakSelf.navigationController pushViewController:vc animated:YES];
+            if ([UserSession judgeIsLimit:@"15"]) {
+
+                YWHomeQuickPayListVC * vc = [[YWHomeQuickPayListVC alloc]init];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }else{
+                [JRToast showWithText:@"没有权限" duration:1.5];
+            }
         }
     };
     return header;
@@ -145,9 +158,14 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (![UserSession userToComfired])return;
-    Class viewClass = (Class)self.subVCArr[indexPath.row];
-    UIViewController * vc = [[viewClass alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    if ([UserSession judgeIsLimit:self.IDSArr[indexPath.row]]) {
+        
+        Class viewClass = (Class)self.subVCArr[indexPath.row];
+        UIViewController * vc = [[viewClass alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        [JRToast showWithText:@"没有权限" duration:1.5];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{

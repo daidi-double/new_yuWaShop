@@ -27,7 +27,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="eoy-9F-zPm">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eoy-9F-zPm">
                         <rect key="frame" x="42" y="26" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="S9P-Wo-eGu"/>
@@ -51,7 +51,4 @@
             <point key="canvasLocation" x="194.5" y="178"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="placeholder" width="250" height="250"/>
-    </resources>
 </document>

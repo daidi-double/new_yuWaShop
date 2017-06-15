@@ -205,7 +205,7 @@
             [UserSession instance].infrastructure = @"暂无设置";
         }
         
-        NSMutableArray * shopArr = [NSMutableArray arrayWithArray:self.model.dataArr[2]];
+        NSMutableArray * shopArr = [NSMutableArray arrayWithArray:self.model.dataArr[3]];
         [shopArr replaceObjectAtIndex:2 withObject:[UserSession instance].infrastructure];
         [self.model.dataArr replaceObjectAtIndex:2 withObject:shopArr];
         [self showHUDWithStr:@"环境配套设置成功" withSuccess:YES];

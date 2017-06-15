@@ -19,14 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="327" height="52"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(当前账号)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl0-Ko-4qr">
-                        <rect key="frame" x="83.5" y="8" width="58" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="门店账号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fa-9X-hXY">
-                        <rect key="frame" x="12" y="32.5" width="51.5" height="12"/>
+                        <rect key="frame" x="12" y="38" width="51.5" height="6.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -39,28 +33,40 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="美味蛋糕店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJ3-rW-PUN">
-                        <rect key="frame" x="12" y="8" width="61.5" height="14.5"/>
+                        <rect key="frame" x="12" y="8" width="61.5" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Ptk-V4-N2X"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加关联账号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzE-QV-368">
-                        <rect key="frame" x="50" y="16" width="104" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="50" y="18" width="92" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pS0-pW-sBG">
+                        <rect key="frame" x="12" y="52" width="303" height="1"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.94901960780000005" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="sDb-yx-YBl"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="LJ3-rW-PUN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="4rZ-Fg-Lmb"/>
-                    <constraint firstItem="Nl0-Ko-4qr" firstAttribute="leading" secondItem="LJ3-rW-PUN" secondAttribute="trailing" constant="10" id="EFf-wW-mIE"/>
+                    <constraint firstItem="pS0-pW-sBG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="AaK-wC-4tl"/>
                     <constraint firstItem="LJ3-rW-PUN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="F6e-6v-8kk"/>
                     <constraint firstItem="0fa-9X-hXY" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="OK6-Pu-NFd"/>
                     <constraint firstItem="rAw-9q-1j3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uze-0N-CYp"/>
+                    <constraint firstAttribute="bottom" secondItem="pS0-pW-sBG" secondAttribute="bottom" id="ZT0-y4-ODu"/>
+                    <constraint firstItem="0fa-9X-hXY" firstAttribute="top" secondItem="LJ3-rW-PUN" secondAttribute="bottom" constant="10" id="b3b-oA-acm"/>
                     <constraint firstItem="fzE-QV-368" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eIg-hi-OPh"/>
-                    <constraint firstItem="Nl0-Ko-4qr" firstAttribute="centerY" secondItem="LJ3-rW-PUN" secondAttribute="centerY" id="eRJ-4g-8ib"/>
                     <constraint firstItem="rAw-9q-1j3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="fsy-tI-fFW"/>
                     <constraint firstItem="0fa-9X-hXY" firstAttribute="leading" secondItem="LJ3-rW-PUN" secondAttribute="leading" id="mFK-oa-sIn"/>
+                    <constraint firstAttribute="trailing" secondItem="pS0-pW-sBG" secondAttribute="trailing" constant="12" id="qsk-A2-9PI"/>
                     <constraint firstItem="fzE-QV-368" firstAttribute="leading" secondItem="rAw-9q-1j3" secondAttribute="trailing" constant="5" id="vnc-cj-jIJ"/>
                 </constraints>
             </tableViewCellContentView>
@@ -68,7 +74,6 @@
                 <outlet property="accountNameLabel" destination="LJ3-rW-PUN" id="IWx-cv-Apc"/>
                 <outlet property="addImageView" destination="rAw-9q-1j3" id="6Dh-7w-Ww4"/>
                 <outlet property="addLabel" destination="fzE-QV-368" id="grI-fG-sw0"/>
-                <outlet property="isCurrentAccountLabel" destination="Nl0-Ko-4qr" id="sTu-z2-WdP"/>
                 <outlet property="managerLabel" destination="0fa-9X-hXY" id="F3J-8z-7eI"/>
             </connections>
             <point key="canvasLocation" x="30.5" y="58.5"/>

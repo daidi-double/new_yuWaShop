@@ -11,7 +11,7 @@
 #import "AddChildAccounViewController.h"
 #import "MyChildAccountViewController.h"
 #import "ChildModel.h"
-
+#import "YWLoginViewController.h"
 
 #define CHILDCELL @"ChildAccountTableViewCell"
 @interface ChildAccountViewController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
@@ -28,9 +28,12 @@
     [super viewDidLoad];
     self.title = @"管理门店账号";
     [self makeUI];
+ 
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self requestChildAccountData];
 }
-
 - (void)makeUI{
     [self.accountTableView registerNib:[UINib nibWithNibName:CHILDCELL bundle:nil] forCellReuseIdentifier:CHILDCELL];
     self.accountTableView.separatorStyle = NO;
@@ -60,14 +63,15 @@
     
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return self.dataAry.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ChildAccountTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CHILDCELL];
-    
+    ChildModel * model = self.dataAry[indexPath.section];
+    cell.model = model;
     return cell;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -111,6 +115,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AddChildAccounViewController * vc = [[AddChildAccounViewController alloc]init];
     vc.status = 1;
+    ChildModel *model = self.dataAry[indexPath.section];
+    vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
 
     
@@ -156,9 +162,26 @@
     NSDictionary * pragarms = @{@"user_id":@([UserSession instance].uid),@"token":[UserSession instance].token,@"device_id":[JWTools getUUID]};
     HttpManager * manager = [[HttpManager alloc]init];
     [manager postDatasWithUrl:urlStr withParams:pragarms compliation:^(id data, NSError *error) {
-        MyLog(@"参数%@",pragarms);
+        MyLog(@"参数%@ ~~~~ %@",pragarms,urlStr);
         MyLog(@"子账号列表%@",data);
-        
+        if ([data[@"errorCode"] integerValue] == 0) {
+            [self.dataAry removeAllObjects];
+            for (NSDictionary * dict in data[@"data"]) {
+                
+                ChildModel * model = [ChildModel yy_modelWithDictionary:dict];
+                [self.dataAry addObject:model];
+            }
+        }else if ([data[@"errorCode"] integerValue] == 9){
+            [JRToast showWithText:@"您的身份已过期,请重新登入" duration:1.5];
+            YWLoginViewController * vc = [[YWLoginViewController alloc]init];
+            WEAKSELF;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            });
+        }else{
+            [JRToast showWithText:data[@"errorMessage"] duration:2];
+        }
+        [self.accountTableView reloadData];
     }];
     
 }
@@ -169,7 +192,21 @@
     [manager postDatasWithUrl:urlStr withParams:pragarms compliation:^(id data, NSError *error) {
         MyLog(@"参数%@",pragarms);
         MyLog(@"删除子账号%@",data);
+        if ([data[@"errorCode"] integerValue] == 0) {
+         
+            
+        }else if ([data[@"errorCode"] integerValue] == 9){
+            [JRToast showWithText:@"您的身份已过期,请重新登入" duration:1.5];
+            YWLoginViewController * vc = [[YWLoginViewController alloc]init];
+            WEAKSELF;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            });
+        }else{
+            [JRToast showWithText:data[@"errorMessage"] duration:2];
+        }
         
+
     }];
     
 }
