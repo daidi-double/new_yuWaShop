@@ -79,6 +79,9 @@
         imageView.image=[UIImage imageNamed:@"介绍分红"];
         titleLabel.text=@"介绍分红";
         topLabel.text=[NSString stringWithFormat:@"%@",self.model.rose_introduce];
+        if (self.model.rose_introduce==nil) {
+            topLabel.text=@"0.00";
+        }
         subLabel.text=@"近一周涨幅";
         timeLabel.text=[JWTools currentTime];
         

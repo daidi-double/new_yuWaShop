@@ -71,7 +71,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ChildAccountTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CHILDCELL];
     ChildModel * model = self.dataAry[indexPath.section];
-    cell.model = model;
+   
+    cell.childModel = model;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -84,16 +86,16 @@
         titleLabel.text = self.name;
 
         [bgView addSubview:titleLabel];
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(myAllAccount)];
-        tap.numberOfTapsRequired = 1;
-        tap.numberOfTouchesRequired = 1;
-        tap.delegate = self;
-        [bgView addGestureRecognizer:tap];
-        
-        UIImageView * rightImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kScreen_Width - 23, 0, 8, 15)];
-        rightImageView.centerY = bgView.centerY;
-        rightImageView.image = [UIImage imageNamed:@"右箭头"];
-        [bgView addSubview:rightImageView];
+//        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(myAllAccount)];
+//        tap.numberOfTapsRequired = 1;
+//        tap.numberOfTouchesRequired = 1;
+//        tap.delegate = self;
+//        [bgView addGestureRecognizer:tap];
+////        
+//        UIImageView * rightImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kScreen_Width - 23, 0, 8, 15)];
+//        rightImageView.centerY = bgView.centerY;
+//        rightImageView.image = [UIImage imageNamed:@"右箭头"];
+//        [bgView addSubview:rightImageView];
         
         return bgView;
     }
@@ -133,8 +135,8 @@
     if (editingStyle ==UITableViewCellEditingStyleDelete){
 
         UIAlertAction * OKAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ChildModel * model = self.dataAry[indexPath.row];
-            [self requestDelChildAccountData:model];//修改
+            ChildModel * model = self.dataAry[indexPath.section];
+            [self requestDelChildAccountData:model andIndexpath:indexPath];
         }];
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
         UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认删除该子账号?" preferredStyle:UIAlertControllerStyleAlert];
@@ -144,17 +146,17 @@
     }
 }
 
-//我的所有门店
-- (void)myAllAccount{
-    MyChildAccountViewController * vc = [[MyChildAccountViewController alloc]init];
-    WEAKSELF;
-    vc.nameBlock= ^(NSString * name){
-        weakSelf.name = name;
-        [weakSelf.accountTableView reloadData];
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-
-}
+////我的所有门店
+//- (void)myAllAccount{
+//    MyChildAccountViewController * vc = [[MyChildAccountViewController alloc]init];
+//    WEAKSELF;
+//    vc.nameBlock= ^(NSString * name){
+//        weakSelf.name = name;
+//        [weakSelf.accountTableView reloadData];
+//    };
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//}
 
 //请求数据
 - (void)requestChildAccountData{
@@ -185,7 +187,7 @@
     }];
     
 }
-- (void)requestDelChildAccountData:(ChildModel*)model{
+- (void)requestDelChildAccountData:(ChildModel*)model andIndexpath:(NSIndexPath*)indexpath{
     NSString * urlStr = [NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_PRESON_DELCHILDACCTOUNT];
     NSDictionary * pragarms = @{@"user_id":@([UserSession instance].uid),@"token":[UserSession instance].token,@"device_id":[JWTools getUUID],@"account_id":model.id};
     HttpManager * manager = [[HttpManager alloc]init];
@@ -193,7 +195,8 @@
         MyLog(@"参数%@",pragarms);
         MyLog(@"删除子账号%@",data);
         if ([data[@"errorCode"] integerValue] == 0) {
-         
+            [self.dataAry removeObjectAtIndex:indexpath.section];
+          [JRToast showWithText:data[@"data"] duration:2];
             
         }else if ([data[@"errorCode"] integerValue] == 9){
             [JRToast showWithText:@"您的身份已过期,请重新登入" duration:1.5];
@@ -205,7 +208,7 @@
         }else{
             [JRToast showWithText:data[@"errorMessage"] duration:2];
         }
-        
+        [self.accountTableView reloadData];
 
     }];
     

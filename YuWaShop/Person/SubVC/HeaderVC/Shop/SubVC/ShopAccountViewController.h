@@ -10,4 +10,5 @@
 
 @interface ShopAccountViewController : UIViewController
 @property(nonatomic,copy)void(^shopBlock)(NSString *,NSString*);
+@property (nonatomic,assign)NSInteger status;//0新增，1修改
 @end

@@ -183,9 +183,9 @@
 #define HTTP_PRESON_CHANGECHILDACCOUNTIPHONE @"/api.php/ShopAdmin/editPhone/"//修改子账号信息（手机号）
 #define HTTP_PRESON_ADDIPHONEACCOUNT @"/api.php/ShopAdmin/addPhone/"//添加手机号
 #define HTTP_PRESON_GETPHONECODE @"/api.php/ShopAdmin/editPhone/"//获取验证码
+#define HTTP_PRESON_EDITCHILDACCOUNT  @"/api.php/ShopAdmin/editAccount/"//编辑子账号信息（账号、密码、手机号、权限、门店）
 
-
-
+#define HTTP_PRESON_DELMAINACCOUNT  @"/api.php/ShopAdmin/relieveUser/"//解除关联账号
 
 #define HTTP_PRESON_ADDCHILDACCOUNT @"/api.php/ShopAdmin/regAccount/"//添加子账号
 

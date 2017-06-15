@@ -63,7 +63,7 @@
     }
     if (self.dataArr.count<=0){
         [self showHUDWithStr:@"经营时间一周后才有日报哟" withSuccess:NO];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
         });
     }

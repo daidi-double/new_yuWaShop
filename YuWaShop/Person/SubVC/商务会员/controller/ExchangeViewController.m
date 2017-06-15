@@ -23,6 +23,9 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)setUI{
+    if (self.pay_scale==nil) {
+        self.pay_scale = @"1:20";
+    }
     UIButton * sureExchangeBtn = [self.view viewWithTag:8];
     sureExchangeBtn.layer.masksToBounds = YES;
     sureExchangeBtn.layer.cornerRadius = 5;
@@ -30,6 +33,9 @@
     
     self.scoreLabel = [self.view viewWithTag:3];
     self.scoreLabel.text = [NSString stringWithFormat:@"当前兑换比例为%@,可兑换为人民币金额为:0元",self.pay_scale];
+    if (self.pay_scale==nil) {
+        self.scoreLabel.text = @"当前兑换比例为1:20,可兑换为人民币金额为:0元";
+    }
     self.exchangeGradeTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     
     

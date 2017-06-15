@@ -39,16 +39,16 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-   
+    
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [UserSession userToComfired];
-            [self dataSet];
-     [self refreshUI];
+    [self dataSet];
+    [self refreshUI];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear: animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.f];
+    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.f];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -69,26 +69,34 @@
         switch (choosedBtn) {
             case 1:{
                 vc = [[YWPersonShopViewController alloc]init];
-                 [weakSelf.navigationController pushViewController:vc animated:YES];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
                 break;
             }
             case 2:{
-                 //2笔记
+                //2笔记
                 vc =[[YWMyContactViewController  alloc]init];
-                 [weakSelf.navigationController pushViewController:vc animated:YES];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
                 break;
             }
             case 3:{
                 //3分红
                 vc = [[YWBusinessMemberViewController alloc]init];
-                 [weakSelf.navigationController pushViewController:vc animated:YES];
+                if ([UserSession instance].routes.count>0) {
+                    if ([UserSession judgeIsLimit:@"17"]) {
+                        [weakSelf.navigationController pushViewController:vc animated:YES];
+                    }else{
+                        [JRToast showWithText:@"未获取权限" duration:2];
+                    }
+                }else{
+                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                }
                 break;
             }
                 
             default:
                 break;
         }
-       
+        
     };
     self.headerView.iconBtnBlock = ^(){
         [weakSelf makeLocalImagePicker];
@@ -115,7 +123,11 @@
 - (void)refreshUI{
     self.headerView.nameLabel.text = [UserSession instance].nickName;
     [self.headerView.iconImageView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"btn-Upload-Avatar"] completed:nil];
-    [self.headerView.myAccountBtn setTitle:[NSString stringWithFormat:@"管理员账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
+    if ([UserSession instance].routes.count<=0) {
+        [self.headerView.myAccountBtn setTitle:[NSString stringWithFormat:@"管理员账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
+    }else{
+        [self.headerView.myAccountBtn setTitle:[NSString stringWithFormat:@"门店账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
+    }
 }
 
 - (void)makeLocalImagePicker{
@@ -166,16 +178,16 @@
 }
 
 - (void)callService{
-
+    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-
-     [alertController addAction:[UIAlertAction actionWithTitle:@"4001505599" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-         UIWebView* callWebview =[[UIWebView alloc] init];
-         //        NSURL * telURL =[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[UserSession instance].phone]];
-         NSURL * telURL =[NSURL URLWithString:[NSString stringWithFormat:@"tel:4001505599"]];
-         [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
-         [self.view addSubview:callWebview];
-     }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"4001505599" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIWebView* callWebview =[[UIWebView alloc] init];
+        //        NSURL * telURL =[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[UserSession instance].phone]];
+        NSURL * telURL =[NSURL URLWithString:[NSString stringWithFormat:@"tel:4001505599"]];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+        [self.view addSubview:callWebview];
+    }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -189,7 +201,21 @@
     }else{
         Class viewClass = (Class)self.subViewArr[indexPath.section - 1][indexPath.row];
         UIViewController * vc = [[viewClass alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        if (indexPath.section - 1 == 0 && indexPath.row == 1) {
+            if ([UserSession instance].routes.count>0) {
+                
+                if ([UserSession judgeIsLimit:@"14"]) {
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [JRToast showWithText:@"未取得权限" duration:2];
+                }
+                
+            }else{
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }else{
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

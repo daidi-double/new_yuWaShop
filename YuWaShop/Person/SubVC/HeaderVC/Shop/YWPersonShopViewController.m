@@ -108,7 +108,51 @@
     if (indexPath.section > 0) {
         Class vcClass = self.subViewClassArr[indexPath.section][indexPath.row];
         UIViewController * vc = [[vcClass alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([UserSession instance].routes.count>0) {
+            
+        if ((indexPath.section == 1&&indexPath.row == 2)||indexPath.section == 2 ||indexPath.section == 3) {
+            if (indexPath.section == 1) {
+                if ([UserSession judgeIsLimit:@"11"]) {
+                     [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [JRToast showWithText:@"未取得权限" duration:2];
+                }
+            }else if (indexPath.section == 2){
+                if ([UserSession judgeIsLimit:@""]) {
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [JRToast showWithText:@"未取得权限" duration:2];
+                }
+            }else if (indexPath.section == 3){
+                if (indexPath.row == 0) {
+                    if ([UserSession judgeIsLimit:@"10"]) {
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else{
+                        [JRToast showWithText:@"未取得权限" duration:2];
+                    }
+                }else if (indexPath.row ==1){
+                    if ([UserSession judgeIsLimit:@"9"]) {
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else{
+                        [JRToast showWithText:@"未取得权限" duration:2];
+                    }
+                }else if (indexPath.row == 2){
+                    if ([UserSession judgeIsLimit:@"12"]) {
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else{
+                        [JRToast showWithText:@"未取得权限" duration:2];
+                    }
+                }
+            }else{
+                 [self.navigationController pushViewController:vc animated:YES];
+            }
+        }else{
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        }else{
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

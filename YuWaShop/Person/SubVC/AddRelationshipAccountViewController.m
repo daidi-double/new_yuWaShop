@@ -56,6 +56,8 @@
                 
                 [self.navigationController popViewControllerAnimated:YES];
             });
+        }else{
+            [JRToast showWithText:data[@"errorMessage"] duration:2];
         }
     }];
  

@@ -33,7 +33,11 @@
     self.iconImageView.layer.masksToBounds = YES;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)];
     [self.iconImageView addGestureRecognizer:tap];
-    [self.myAccountBtn setTitle:[NSString stringWithFormat:@"管理员账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
+    if ([UserSession instance].routes.count<=0) {
+        [self.myAccountBtn setTitle:[NSString stringWithFormat:@"管理员账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
+    }else{
+        [self.myAccountBtn setTitle:[NSString stringWithFormat:@"门店账号:%@ >",[UserSession instance].account] forState:UIControlStateNormal];
+    }
     [self setNeedsDisplay];
 }
 - (IBAction)childAccountAction:(UIButton *)sender {

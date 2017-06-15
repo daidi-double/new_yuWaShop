@@ -15,18 +15,21 @@
     self.shopNameLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     self.accountLabel.textColor = [UIColor colorWithHexString:@"#999999"];
 }
-- (void)setModel:(ChildModel *)model{
-    _model = model;
+- (void)setChildModel:(ChildModel *)childModel{
+    _childModel = childModel;
     [self setData];
 }
 
 -(void)setData{
-    self.shopNameLabel.text = self.model.company_name;
-    self.accountLabel.text = self.model.username;
+    
+    self.shopNameLabel.text = self.childModel.company_name;
+    self.accountLabel.text = self.childModel.username;
+    
+    
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

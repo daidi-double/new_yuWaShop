@@ -29,7 +29,7 @@
     [self makeUI];
     
     [self requestChildAccountLimitData];
-
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -40,18 +40,18 @@
     UIBarButtonItem * rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(subcommitActions:)];
     self.navigationItem.rightBarButtonItem = rightBtn;
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-     [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+                                [UIColor whiteColor], NSForegroundColorAttributeName, nil];
     
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self.chooseTabelView registerNib:[UINib nibWithNibName:PCEONCELL bundle:nil] forCellReuseIdentifier:PCEONCELL];
 }
 
 - (void)subcommitActions:(UIBarButtonItem*)sender{
-
-        if (self.limitBlock) {
-            self.limitBlock(self.backAry);
-        }
-   
+    
+    if (self.limitBlock) {
+        self.limitBlock(self.backAry);
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -60,7 +60,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
+    
     return [self.bigAry[section] count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -74,7 +74,7 @@
         for (NSDictionary * dict in self.childModel.route) {
             LimitChildModel * limitModels = [LimitChildModel yy_modelWithDictionary:dict];
             if ([limitModels.enable integerValue] == 1) {
-               
+                
                 if ([limitModels.name isEqualToString:limitModel.name]) {
                     onCell.isChoosed = 1;
                     [self.backAry addObject:limitModels];//把已开启的权限放返回数组中，待修改替换即将要开启的权限
@@ -90,7 +90,7 @@
                 __block typeof(newLimitAry)weaknewLimitAry = newLimitAry;
                 [weakSelf.backAry enumerateObjectsUsingBlock:^(LimitChildModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (![obj.name isEqualToString:nameModel.name]) {
-
+                        
                         [weaknewLimitAry addObject:nameModel];
                         *stop = YES;
                     }
@@ -100,14 +100,14 @@
                 //移除所选的权限，权限关闭时需要移除
                 [weakSelf.backAry enumerateObjectsUsingBlock:^(LimitChildModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj.name isEqualToString:nameModel.name]) {
-
+                        
                         *stop = YES;
                         [weakSelf.backAry removeObjectAtIndex:idx];
                     }
                 }];
             }
         };
-   
+        
         
     }else{
         
@@ -119,10 +119,14 @@
             LimitChildModel * nameModel = weakSelf.bigAry[indexPath.section][indexPath.row];
             if (isChoosed == 1) {
                 //开启的情况加入到返回数组中
-                for (LimitChildModel * model in weakSelf.backAry) {
-                    if (![model.name isEqualToString:nameModel.name]) {
-                         MyLog(@"名称3  %@",model.name);
-                        [weakSelf.backAry addObject:nameModel];
+                if (weakSelf.backAry.count<=0) {
+                    [weakSelf.backAry addObject:nameModel];
+                }else{
+                    for (LimitChildModel * model in weakSelf.backAry) {
+                        if (![model.name isEqualToString:nameModel.name]) {
+                            MyLog(@"名称3  %@",model.name);
+                            [weakSelf.backAry addObject:nameModel];
+                        }
                     }
                 }
             }else{
@@ -135,7 +139,7 @@
                 }];
             }
         };
-  
+        
     }
     return onCell;
 }
@@ -157,7 +161,7 @@
     LimitModel * model = self.titleAry[section];
     
     titleLabel.text = model.cat;
-
+    
     return bgView;
     
 }
@@ -172,20 +176,20 @@
             [self.bigAry removeAllObjects];
             [self.titleAry removeAllObjects];
             NSArray * diAry = data[@"data"];
-             for (int a = 0; a < diAry.count; a++) {
-                 [self.dataAry removeAllObjects];
-                 NSDictionary * dict = diAry[a];
-                 
-                     LimitModel * limitModel = [LimitModel yy_modelWithDictionary:dict];
-                 [self.titleAry addObject:limitModel];
-                 for (int i = 0; i < limitModel.name.count; i++) {
-                     NSDictionary * dataDic = limitModel.name[i];
-                     LimitChildModel * childModel = [LimitChildModel yy_modelWithDictionary:dataDic];
-                     [self.dataAry addObject:childModel];
-                 }
-                 NSMutableArray * ary = [NSMutableArray array];
-                 [ary addObjectsFromArray:self.dataAry];
-                 [self.bigAry addObject:ary];
+            for (int a = 0; a < diAry.count; a++) {
+                [self.dataAry removeAllObjects];
+                NSDictionary * dict = diAry[a];
+                
+                LimitModel * limitModel = [LimitModel yy_modelWithDictionary:dict];
+                [self.titleAry addObject:limitModel];
+                for (int i = 0; i < limitModel.name.count; i++) {
+                    NSDictionary * dataDic = limitModel.name[i];
+                    LimitChildModel * childModel = [LimitChildModel yy_modelWithDictionary:dataDic];
+                    [self.dataAry addObject:childModel];
+                }
+                NSMutableArray * ary = [NSMutableArray array];
+                [ary addObjectsFromArray:self.dataAry];
+                [self.bigAry addObject:ary];
             }
         }
         [self.chooseTabelView reloadData];
@@ -222,13 +226,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

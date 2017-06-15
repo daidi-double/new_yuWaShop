@@ -47,7 +47,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
- 
+    
     [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.f];
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [self isNewNotification:[UserSession instance].isNewNoticafication];
@@ -121,24 +121,35 @@
     WEAKSELF;
     header.payBlock = ^(){
         if ([UserSession userToComfired]){
-
-            if ([UserSession judgeIsLimit:@"2"]) {
-
+            if ([UserSession instance].routes.count>0) {
+                
+                if ([UserSession judgeIsLimit:@"2"]) {
+                    
+                    YWHomePayBillViewController * vc = [[YWHomePayBillViewController alloc]init];
+                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [JRToast showWithText:@"没有权限" duration:1.5];
+                }
+            }else{
                 YWHomePayBillViewController * vc = [[YWHomePayBillViewController alloc]init];
                 [weakSelf.navigationController pushViewController:vc animated:YES];
-            }else{
-                [JRToast showWithText:@"没有权限" duration:1.5];
             }
         }
     };
     header.recordBlock = ^(){
         if ([UserSession userToComfired]){
-            if ([UserSession judgeIsLimit:@"15"]) {
-
+            if ([UserSession instance].routes.count>0) {
+                
+                if ([UserSession judgeIsLimit:@"15"]) {
+                    
+                    YWHomeQuickPayListVC * vc = [[YWHomeQuickPayListVC alloc]init];
+                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [JRToast showWithText:@"没有权限" duration:1.5];
+                }
+            }else{
                 YWHomeQuickPayListVC * vc = [[YWHomeQuickPayListVC alloc]init];
                 [weakSelf.navigationController pushViewController:vc animated:YES];
-            }else{
-                [JRToast showWithText:@"没有权限" duration:1.5];
             }
         }
     };
@@ -158,13 +169,20 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (![UserSession userToComfired])return;
-    if ([UserSession judgeIsLimit:self.IDSArr[indexPath.row]]) {
+    if ([UserSession instance].routes.count>0) {
         
+        if ([UserSession judgeIsLimit:self.IDSArr[indexPath.row]]) {
+            
+            Class viewClass = (Class)self.subVCArr[indexPath.row];
+            UIViewController * vc = [[viewClass alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            [JRToast showWithText:@"没有权限" duration:1.5];
+        }
+    }else{
         Class viewClass = (Class)self.subVCArr[indexPath.row];
         UIViewController * vc = [[viewClass alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-    }else{
-        [JRToast showWithText:@"没有权限" duration:1.5];
     }
 }
 

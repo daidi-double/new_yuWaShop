@@ -11,13 +11,13 @@
 #import "JWSearchView.h"
 #import "UIBarButtonItem+SettingCustom.h"
 #import "ChildAccountViewController.h"
-
+#import "MainAccountListModel.h"
 
 #define CHILDCELL @"ChildAccountTableViewCell"
 @interface MyChildAccountViewController ()<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *accountTableView;
 @property (nonatomic,strong)JWSearchView * searchView;
-
+@property (nonatomic,strong)NSMutableArray * accountAry;
 @end
 
 @implementation MyChildAccountViewController
@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self makeUI];
+    [self requesstAccountList];
 }
 
 - (void)makeUI{
@@ -47,14 +48,16 @@
 
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.accountAry.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ChildAccountTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CHILDCELL];
-    
+//    MainAccountListModel * model= self.accountAry[indexPath.section];
+//    cell.model = model;
+//    cell.status = 0;
     return cell;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -94,7 +97,8 @@
     return 0.01f;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.nameBlock(@"我的门店");//修改
+    MainAccountListModel * model = self.accountAry[indexPath.section];
+    self.nameBlock(model.company_name);//修改
     [self.navigationController popViewControllerAnimated:YES];
 }
 //返回上一级界面，刷新数据
@@ -102,6 +106,33 @@
     self.nameBlock(@"所有门店");
     [self.navigationController popViewControllerAnimated:YES];
     
+}
+- (void)requesstAccountList{
+    NSString * urlStr = [NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_PRESON_MAINACCOUNTLIST];
+    NSDictionary * pragrams = @{@"user_id":@([UserSession instance].uid),@"token":[UserSession instance].token,@"device_id":[JWTools getUUID]};
+    HttpManager * manager = [[HttpManager alloc]init];
+    [manager postDatasWithUrl:urlStr withParams:pragrams compliation:^(id data, NSError *error) {
+        MyLog(@"参数%@ ~~~~ %@",pragrams,urlStr);
+        MyLog(@"主账号列表%@",data);
+        if ([data[@"errorCode"] integerValue] == 0) {
+            [self.accountAry removeAllObjects];
+            for (NSDictionary * dict in data[@"data"]) {
+                MainAccountListModel * model = [MainAccountListModel yy_modelWithDictionary:dict];
+                if ([model.isChild integerValue] != 1) {
+                    
+                    [self.accountAry addObject:model];
+                }
+            }
+            
+        }
+        [self.accountTableView reloadData];
+    }];
+}
+- (NSMutableArray*)accountAry{
+    if (!_accountAry) {
+        _accountAry = [NSMutableArray array];
+    }
+    return _accountAry;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

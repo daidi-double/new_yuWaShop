@@ -96,14 +96,14 @@
                                 <outlet property="delegate" destination="-1" id="3NR-5G-22x"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xmc-Dg-kZc">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xmc-Dg-kZc">
                             <rect key="frame" x="54" y="55" width="306" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="zWJ-4g-mGP"/>
                             </constraints>
                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="hds-mm-4ql"/>
                             </connections>
@@ -239,11 +239,13 @@
                         <constraint firstItem="DNM-vX-VJ8" firstAttribute="centerY" secondItem="T73-cd-XwT" secondAttribute="centerY" id="Vm0-YU-kfj"/>
                         <constraint firstAttribute="trailing" secondItem="572-iH-Fpq" secondAttribute="trailing" constant="15" id="WCN-X8-g5n"/>
                         <constraint firstAttribute="trailing" secondItem="0Ac-2Z-Z1J" secondAttribute="trailing" id="YK7-Mg-0su"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="c9k-1j-er2" secondAttribute="trailing" constant="15" id="cjU-QN-0QV"/>
                         <constraint firstItem="7tg-uI-aw6" firstAttribute="centerY" secondItem="T73-cd-XwT" secondAttribute="centerY" id="gXi-Gh-lxd"/>
                         <constraint firstItem="anz-BZ-4Bm" firstAttribute="centerY" secondItem="9Mm-HR-c82" secondAttribute="centerY" id="jxx-Ga-VZN"/>
                         <constraint firstItem="WTx-aV-3MS" firstAttribute="top" secondItem="T73-cd-XwT" secondAttribute="bottom" constant="6" id="mYG-am-Twf"/>
                         <constraint firstItem="9Mm-HR-c82" firstAttribute="leading" secondItem="T73-cd-XwT" secondAttribute="leading" id="o6E-WC-V8g"/>
                         <constraint firstAttribute="trailing" secondItem="DNM-vX-VJ8" secondAttribute="trailing" constant="15" id="qTr-C6-nzU"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7tg-uI-aw6" secondAttribute="trailing" constant="16" id="rzk-a3-7t1"/>
                         <constraint firstItem="0Ac-2Z-Z1J" firstAttribute="leading" secondItem="T73-cd-XwT" secondAttribute="trailing" id="tT1-hn-hCh"/>
                         <constraint firstItem="T73-cd-XwT" firstAttribute="leading" secondItem="2Hu-eT-Qzw" secondAttribute="leading" constant="15" id="ycQ-al-qB9"/>
                         <constraint firstItem="T73-cd-XwT" firstAttribute="top" secondItem="2Hu-eT-Qzw" secondAttribute="top" constant="6" id="ytg-SY-aT5"/>

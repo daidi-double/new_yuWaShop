@@ -42,7 +42,7 @@
 @property (nonatomic,copy)NSString *pay_money;            //实际付款的金额
 @property (nonatomic,copy)NSString *seller_money;          //商家可得到的金钱
 @property (nonatomic,copy)NSString *platform_money;      //平台得到的钱     这个不用展示
-
+@property (nonatomic,copy)NSString * goods_name;//单品商品名称
 
 
 

@@ -164,6 +164,31 @@
         
     }
 }
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"删除";
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0 && indexPath.row != self.accountAry.count) {
+
+    if (editingStyle ==UITableViewCellEditingStyleDelete){
+        
+        UIAlertAction * OKAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            MainAccountListModel * model = self.accountAry[indexPath.row];
+            [self requestDelChildAccountData:model andIndexpath:indexPath];
+        }];
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认解除账号关联?" preferredStyle:UIAlertControllerStyleAlert];
+        [alertVC addAction:cancelAction];
+        [alertVC addAction:OKAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
+        
+    }
+}
 
 - (void)requesstAccountList{
     NSString * urlStr = [NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_PRESON_MAINACCOUNTLIST];
@@ -183,6 +208,33 @@
         }
         [self.accountTableView reloadData];
     }];
+}
+//解除关联
+- (void)requestDelChildAccountData:(MainAccountListModel*)model andIndexpath:(NSIndexPath*)indexpath{
+    NSString * urlStr = [NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_PRESON_DELMAINACCOUNT];
+    NSDictionary * pragarms = @{@"user_id":@([UserSession instance].uid),@"token":[UserSession instance].token,@"device_id":[JWTools getUUID],@"relieve_id":model.id};
+    HttpManager * manager = [[HttpManager alloc]init];
+    [manager postDatasWithUrl:urlStr withParams:pragarms compliation:^(id data, NSError *error) {
+        MyLog(@"参数%@",pragarms);
+        MyLog(@"删除子账号%@",data);
+        if ([data[@"errorCode"] integerValue] == 0) {
+            [self.accountAry removeObjectAtIndex:indexpath.row];
+            [JRToast showWithText:data[@"errorMessage"] duration:2];
+            
+        }else if ([data[@"errorCode"] integerValue] == 9){
+            [JRToast showWithText:@"您的身份已过期,请重新登入" duration:1.5];
+            YWLoginViewController * vc = [[YWLoginViewController alloc]init];
+            WEAKSELF;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            });
+        }else{
+            [JRToast showWithText:data[@"errorMessage"] duration:2];
+        }
+        [self.accountTableView reloadData];
+        
+    }];
+    
 }
 //切换账号
 - (void)changeAccount:(NSString *)uid{

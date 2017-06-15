@@ -13,7 +13,7 @@
 @property (nonatomic,copy)NSString * phone;
 @property (nonatomic,copy)NSString * id;
 @property (nonatomic,copy)NSString * company_name;
-@property (nonatomic,copy)NSString * is_current;
-@property (nonatomic,copy)NSString * isChild;
+@property (nonatomic,copy)NSString * is_current;//当前账号，0不是，1是
+@property (nonatomic,copy)NSString * isChild;//是否为子账号 0 不是，1是
 
 @end

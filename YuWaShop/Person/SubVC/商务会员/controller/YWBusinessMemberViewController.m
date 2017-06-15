@@ -163,6 +163,9 @@
         imageView.image=[UIImage imageNamed:@"介绍分红"];
         titleLabel.text=@"介绍分红";
         topLabel.text=[NSString stringWithFormat:@"%@",self.introduceModel.rose_introduce];
+        if (self.introduceModel.rose_introduce==nil) {
+            topLabel.text=@"0.00";
+        }
         subLabel.text=@"近一周涨幅";
         timeLabel.text=[JWTools currentTime];
         
@@ -218,9 +221,14 @@
         
         UILabel*directBinding=[cell viewWithTag:1];   //直接锁定
         directBinding.text=[NSString stringWithFormat:@"%@人",self.BiningModel.my_direct_user_nums];
-       
+        if (self.BiningModel.my_direct_user_nums == nil) {
+            directBinding.text=@"0人";
+        }
         UILabel*indirectBinding=[cell viewWithTag:22];  //间接锁定
         indirectBinding.text=[NSString stringWithFormat:@"%@人",self.BiningModel.my_indirect_user_nums];
+        if (self.BiningModel.my_indirect_user_nums == nil) {
+            indirectBinding.text=@"0人";
+        }
         UIView * tapView = [cell viewWithTag:555];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(indirctActionTap)];
         tap.numberOfTapsRequired = 1;
@@ -364,7 +372,7 @@
     NSDictionary*params=@{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid)};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDatasNoHudWithUrl:urlStr withParams:params compliation:^(id data, NSError *error) {
-        MyLog(@"%@",data);
+        MyLog(@"分红首页%@",data);
         NSNumber*number=data[@"errorCode"];
         NSString*errorCode=[NSString stringWithFormat:@"%@",number];
         if ([errorCode isEqualToString:@"0"]) {

@@ -59,6 +59,9 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.01f;
+}
 - (void)requestShopData{
     NSString * urlStr = [NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_PRESON_MAINACCOUNTLIST];
     NSDictionary * pragarms = @{@"user_id":@([UserSession instance].uid),@"token":[UserSession instance].token,@"device_id":[JWTools getUUID]};
@@ -71,9 +74,18 @@
             [self.accountAry removeAllObjects];
             for (NSDictionary * dict in data[@"data"]) {
                 MainAccountListModel * model = [MainAccountListModel yy_modelWithDictionary:dict];
-                if ([model.isChild integerValue] == 0) {
+                if (self.status == 1) {
                     
-                    [self.accountAry addObject:model];
+                    if ([model.isChild integerValue] == 0 && [model.is_current integerValue]==1) {
+                        
+                        [self.accountAry addObject:model];
+                    }
+                }else{
+                    if ([model.isChild integerValue] == 0) {
+                        
+                        [self.accountAry addObject:model];
+                    }
+
                 }
             }
             

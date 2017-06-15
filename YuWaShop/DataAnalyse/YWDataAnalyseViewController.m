@@ -28,24 +28,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"数据分析";
-    if ([UserSession judgeIsLimit:@"16"]) {
-
-        [self makeUI];
+    if ([UserSession instance].routes.count>0) {
         
+        if ([UserSession judgeIsLimit:@"16"]) {
+            
+            [self makeUI];
+            
+        }else{
+            [JRToast showWithText:@"没有权限" duration:1.5];
+        }
     }else{
-        [JRToast showWithText:@"没有权限" duration:1.5];
+          [self makeUI];
     }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    if ([UserSession judgeIsLimit:@"16"]) {
-        if ([UserSession userToComfired]&&!self.isRequest) {
-            [self requestData];
-        }
+    if ([UserSession instance].routes.count>0) {
         
+        if ([UserSession judgeIsLimit:@"16"]) {
+            if ([UserSession userToComfired]&&!self.isRequest) {
+                [self requestData];
+            }
+            
+        }else{
+            [JRToast showWithText:@"没有权限" duration:1.5];
+        }
     }else{
-        [JRToast showWithText:@"没有权限" duration:1.5];
+          [self requestData];
     }
 }
 
