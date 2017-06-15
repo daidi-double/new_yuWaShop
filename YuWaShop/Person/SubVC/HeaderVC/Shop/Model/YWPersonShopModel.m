@@ -30,7 +30,7 @@ static YWPersonShopModel * shop =nil;
 //    }else{
 //        showCut = [NSString stringWithFormat:@"%.1f折",[UserSession instance].cut];
 //    }
-    shop.dataArr = [NSMutableArray arrayWithArray:@[@[],@[[UserSession instance].nickName,@"",@""],@[@"",showCut,@""],@[@""]]];
+    shop.dataArr = [NSMutableArray arrayWithArray:@[@[],@[[UserSession instance].nickName,@"",@""],@[@""],@[@"",showCut,@""],@[@""]]];
 }
 
 
