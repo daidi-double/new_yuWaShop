@@ -41,20 +41,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-//    [self makeNavi];
-//    [self makeUI];
-//    [self dataSet];
-//    [self setupRefresh];
+    [self makeNavi];
+    [self makeUI];
+    [self dataSet];
+    [self setupRefresh];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-//    self.noLoginBGBtnView.hidden = YES;
-//    self.noChatBGBtnView.hidden = YES;
-//    self.noChatlabel.hidden = self.noChatBGBtnView.hidden;
-//    if (self.status == 1&&![UserSession instance].isLogin){
-//        self.segmentedControl.selectedSegmentIndex = 0;
-//    }
+    self.noLoginBGBtnView.hidden = YES;
+    self.noChatBGBtnView.hidden = YES;
+    self.noChatlabel.hidden = self.noChatBGBtnView.hidden;
+    if (self.status == 1&&![UserSession instance].isLogin){
+        self.segmentedControl.selectedSegmentIndex = 0;
+        [self requestShopArrDataWithPages:0];
+    }
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -95,16 +96,7 @@
     self.segmentedControl = [self makeSegmentedControl];
     self.navigationItem.titleView = self.segmentedControl;
     
-////    self.rightBarBtn = [UIBarButtonItem barItemWithImageName:nil withSelectImage:nil withHorizontalAlignment:UIControlContentHorizontalAlignmentCenter withTittle:@"通知" withTittleColor:[UIColor whiteColor] withTarget:self action:@selector(pushMessagesViewAction) forControlEvents:UIControlEventTouchUpInside withWidth:30.f];
-//    CGFloat redWidth = 8.f;
-//    UILabel * redLabel = [[UILabel alloc]initWithFrame:CGRectMake(25.f, 5.f, redWidth, redWidth)];
-//    redLabel.backgroundColor = [UIColor redColor];
-//    redLabel.layer.cornerRadius = redWidth/2;
-//    redLabel.layer.masksToBounds = YES;
-//    redLabel.tag = 1001;
-//    redLabel.hidden = YES;
-//    [self.rightBarBtn.customView addSubview:redLabel];
-//    self.navigationItem.rightBarButtonItem = self.rightBarBtn;
+
 }
 
 - (UISegmentedControl *)makeSegmentedControl{
@@ -206,11 +198,9 @@
             EaseConversationModel *model = self.dataArr[indexPath.row];
             [self.dataArr removeObjectAtIndex:indexPath.row];//移除数据源的数据
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-//                if ([model.title length] > 0) {
+
                 [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
-//                }else{
-//                    [[EMClient sharedClient].chatManager deleteConversation:model.title isDeleteMessages:YES completion:nil];
-//                }
+
             });
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         }
@@ -218,9 +208,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YWMessageTableViewCell * messageCell = [tableView cellForRowAtIndexPath:indexPath];
-//    EaseConversationModel *model = self.dataArr[indexPath.row];
     [self chatWithUser:messageCell.model.jModel];
-//    [self chatWithUser:([model.title length] > 0?model.title:model.conversation.conversationId) withNikeName:messageCell.nameLabel.text];
+
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -290,7 +279,7 @@
         
         if (model&&([YWMessageTableViewCell latestMessageTitleForConversationModel:model].length>0)){
             [self.dataArr addObject:model];
-            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":([model.title length] > 0?model.title:model.conversation.conversationId)};
+            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":([model.title length] > 0?model.title:model.conversation.conversationId),@"user_type":@(2)};
             [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
                 MyLog(@"Regieter Code is %@",responsObj);

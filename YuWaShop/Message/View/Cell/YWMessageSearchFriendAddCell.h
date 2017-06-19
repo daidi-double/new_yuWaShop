@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "YWMessageSearchFriendAddModel.h"
+@protocol YWMessageSearchFriendAddCellDelegate <NSObject>
 
+- (void)addFriends;
+
+@end
 @interface YWMessageSearchFriendAddCell : UITableViewCell
 
 @property (nonatomic,strong)YWMessageSearchFriendAddModel * model;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
+@property (weak, nonatomic) IBOutlet UIButton *addFriendBtn;
+@property (nonatomic,assign) id<YWMessageSearchFriendAddCellDelegate>delegate;
 @end
+

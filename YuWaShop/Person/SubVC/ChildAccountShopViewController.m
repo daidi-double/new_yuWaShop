@@ -270,7 +270,7 @@
                     MyLog(@"环信注册成功");
                     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
                     if (!isAutoLogin) {
-                        EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"2%@",account]];
+                        EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"%@",account]];
                         if (errorLog==nil){
                             [[EMClient sharedClient].options setIsAutoLogin:YES];
                             MyLog(@"环信登录成功");

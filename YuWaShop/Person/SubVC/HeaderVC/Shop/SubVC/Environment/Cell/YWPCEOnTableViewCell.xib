@@ -27,8 +27,8 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费WIFI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOY-BW-67k">
-                        <rect key="frame" x="10" y="0.0" width="251" height="42"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="20" y="0.0" width="241" height="42"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -45,7 +45,7 @@
                     </switch>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="FOY-BW-67k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="2kD-5n-gWv"/>
+                    <constraint firstItem="FOY-BW-67k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="2kD-5n-gWv"/>
                     <constraint firstItem="FOY-BW-67k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="BaQ-f6-9N1"/>
                     <constraint firstItem="yao-V0-PSM" firstAttribute="centerY" secondItem="FOY-BW-67k" secondAttribute="centerY" id="HGx-St-988"/>
                     <constraint firstAttribute="trailingMargin" secondItem="gSl-oU-Lgk" secondAttribute="trailing" constant="2" id="Hdb-1v-WJg"/>

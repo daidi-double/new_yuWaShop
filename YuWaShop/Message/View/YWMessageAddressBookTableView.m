@@ -154,11 +154,15 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(RefreshTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
          [self.mj_header endRefreshing];
     });
-    
+//    从服务器获取所有的好友
     NSArray *userlist;
     EMError *error = nil;
     userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
-    if (error)userlist = [[EMClient sharedClient].contactManager getContacts];
+    
+    if (error){
+//        从数据库获取所有的好友
+       userlist = [[EMClient sharedClient].contactManager getContacts];
+    }
     if (!userlist||userlist.count<=0) {
         [self reloadData];
         return;
@@ -167,7 +171,7 @@
     NSMutableArray * sortArr = [NSMutableArray arrayWithCapacity:0];
                                   
     for (int i = 0; i < userlist.count; i++) {
-        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":userlist[i]};
+        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":userlist[i],@"user_type":@(2)};
         [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
             MyLog(@"Regieter Code pragram is %@",pragram);
             MyLog(@"Regieter Code is %@",responsObj);
@@ -184,8 +188,8 @@
                 }
             }
         } failur:^(id responsObj, NSError *error) {
-            MyLog(@"Regieter Code pragram is %@",pragram);
-            MyLog(@"Regieter Code error is %@",responsObj);
+            MyLog(@"参数Regieter Code pragram is %@",pragram);
+            MyLog(@"通讯录Regieter Code error is %@",responsObj);
             if (sortArr.count>0) {
                 if (sortArr.count == 1) {
                     YWMessageAddressBookModel * model = sortArr[0];

@@ -2459,6 +2459,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA1417991EF5176C004092D3 /* 通知 */ = {
+			isa = PBXGroup;
+			children = (
+				B35C9D351DEC3FE80051E352 /* YWMessageNotificationViewController.h */,
+				B35C9D361DEC3FE80051E352 /* YWMessageNotificationViewController.m */,
+				B35C9D371DEC3FE80051E352 /* YWMessageNotificationViewController.xib */,
+			);
+			name = "通知";
+			sourceTree = "<group>";
+		};
 		AA1E73BE1EEFC76B0079D716 /* 添加关联账号 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2911,7 +2921,7 @@
 			name = cell;
 			sourceTree = "<group>";
 		};
-		B302EAB81DED63E20000B0A0 /* Commodities */ = {
+		B302EAB81DED63E20000B0A0 /* 商品管理 */ = {
 			isa = PBXGroup;
 			children = (
 				AA3A305E1EB0BE1E00E2FCD7 /* 添加分类 */,
@@ -2919,6 +2929,7 @@
 				AA0361441EB0DF5400684ED7 /* YWCategoryViewController.m */,
 				AA0361451EB0DF5400684ED7 /* YWCategoryViewController.xib */,
 			);
+			name = "商品管理";
 			path = Commodities;
 			sourceTree = "<group>";
 		};
@@ -4881,12 +4892,10 @@
 		B35C9D241DEC3FE80051E352 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				AA1417991EF5176C004092D3 /* 通知 */,
 				B35C9D251DEC3FE80051E352 /* ChatVC */,
 				B35C9D291DEC3FE80051E352 /* FriendsAddVC */,
 				B35C9D321DEC3FE80051E352 /* PayNotificationTableView */,
-				B35C9D351DEC3FE80051E352 /* YWMessageNotificationViewController.h */,
-				B35C9D361DEC3FE80051E352 /* YWMessageNotificationViewController.m */,
-				B35C9D371DEC3FE80051E352 /* YWMessageNotificationViewController.xib */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -5914,11 +5923,11 @@
 				C174996B1DF6B59900F17B77 /* PhotoAlbumManager */,
 				C17499581DF68ED900F17B77 /* commentManager */,
 				B3F177F21DEFF270007DB9A3 /* Noticafication */,
-				B3F177E21DEFD60A007DB9A3 /* AdvanceOrder */,
+				B3F177E21DEFD60A007DB9A3 /* 预约管理 */,
 				B30E4DED1DEF0397008684BA /* 优惠券 */,
 				B30E4DC81DEEBAE6008684BA /* Compare */,
 				B302EACE1DEDA8CA0000B0A0 /* 提现 */,
-				B302EAB81DED63E20000B0A0 /* Commodities */,
+				B302EAB81DED63E20000B0A0 /* 商品管理 */,
 				B3C12A621DED3432000EF099 /* QuickPayList */,
 				B30E4DC21DEE8FEC008684BA /* PayBill */,
 			);
@@ -6160,7 +6169,7 @@
 			path = Time;
 			sourceTree = "<group>";
 		};
-		B3F177E21DEFD60A007DB9A3 /* AdvanceOrder */ = {
+		B3F177E21DEFD60A007DB9A3 /* 预约管理 */ = {
 			isa = PBXGroup;
 			children = (
 				B3F177E91DEFDE83007DB9A3 /* Cell */,
@@ -6169,6 +6178,7 @@
 				B3F177E41DEFD62F007DB9A3 /* YWHomeAdvanceOrderViewController.m */,
 				B3F177E51DEFD62F007DB9A3 /* YWHomeAdvanceOrderViewController.xib */,
 			);
+			name = "预约管理";
 			path = AdvanceOrder;
 			sourceTree = "<group>";
 		};
@@ -6571,7 +6581,7 @@
 					B31096FF1DE44EA00033A984 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = JQ283T24DV;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -7665,7 +7675,7 @@
 				CODE_SIGN_ENTITLEMENTS = YuWaShop/YuWaShop.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mingbang Network Technology Co., Ltd. (JQ283T24DV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = JQ283T24DV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/YuWaShop/VipxoxPrefixHeader.pch";
 				INFOPLIST_FILE = YuWaShop/Info.plist;
@@ -7681,8 +7691,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.duruikeji.YuWaShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83faae64-cd69-4f90-a74f-82fa43a592e7";
-				PROVISIONING_PROFILE_SPECIFIER = luoyun2;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -7695,7 +7705,7 @@
 				CODE_SIGN_ENTITLEMENTS = YuWaShop/YuWaShop.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mingbang Network Technology Co., Ltd. (JQ283T24DV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = JQ283T24DV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/YuWaShop/VipxoxPrefixHeader.pch";
 				INFOPLIST_FILE = YuWaShop/Info.plist;
@@ -7711,8 +7721,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.duruikeji.YuWaShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83faae64-cd69-4f90-a74f-82fa43a592e7";
-				PROVISIONING_PROFILE_SPECIFIER = luoyun2;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

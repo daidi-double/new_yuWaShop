@@ -212,12 +212,12 @@
     self.segmentLineView.centerX = sender.centerX;
     switch (sender.tag) {
         case 222:
-//            [self.accountTextField becomeFirstResponder];    
+  
             self.quickLoginView.hidden = YES;
             break;
             
         default:
-//            [self.mobileTextField becomeFirstResponder];
+
             self.quickLoginView.hidden = NO;
             break;
     }
@@ -235,6 +235,7 @@
             [UserSession saveUserInfoWithDic:responsObj[@"data"]];
             [self showHUDWithStr:@"登录成功" withSuccess:YES];
             EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[UserSession instance].hxPassword];
+            MyLog(@"环信密码%@",[UserSession instance].hxPassword);
             if (!errorLog){
                 [[EMClient sharedClient].options setIsAutoLogin:NO];
                 MyLog(@"环信登录成功");
@@ -244,7 +245,7 @@
                     MyLog(@"环信注册成功");
                     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
                     if (!isAutoLogin) {
-                        EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"2%@",account]];
+                        EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"%@",account]];
                         if (errorLog==nil){
                             [[EMClient sharedClient].options setIsAutoLogin:YES];
                             MyLog(@"环信登录成功");
@@ -306,7 +307,7 @@
                 MyLog(@"环信注册成功");
                 BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
                 if (!isAutoLogin) {
-                    EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"2%@",account]];
+                    EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"%@",account]];
                     if (errorLog==nil){
                         [[EMClient sharedClient].options setIsAutoLogin:YES];
                         MyLog(@"环信登录成功");

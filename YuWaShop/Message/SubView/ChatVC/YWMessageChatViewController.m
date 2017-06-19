@@ -71,7 +71,7 @@
                     if (emcell.delegate == nil) {
                         emcell.delegate = self;
                     }
-                    if ([model.nickname isEqualToString:[UserSession instance].account]) {
+                    if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]]) {
                         emcell.nameLabel.text = [UserSession instance].nickName;
                         [emcell.avatarView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
                         emcell.hasRead.hidden = YES;
@@ -108,7 +108,7 @@
                 }
                 sendCell.model = model;
                 sendCell.delegate = self;
-                if ([model.nickname isEqualToString:[UserSession instance].account]) {
+                if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]]) {
                     sendCell.nameLabel.text = [UserSession instance].nickName;
                     [sendCell.avatarView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
                     sendCell.hasRead.hidden = YES;
@@ -133,7 +133,7 @@
         }
         
         sendCell.model = model;
-        if ([model.nickname isEqualToString:[UserSession instance].account]) {
+        if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]]) {
             sendCell.nameLabel.text = [UserSession instance].nickName;
             [sendCell.avatarView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
             sendCell.hasRead.hidden = YES;
@@ -144,10 +144,11 @@
         }
         return sendCell;
     }
+
 }
 
 - (void)avatarViewSelcted:(id<IMessageModel>)model{
-    if ([model.nickname isEqualToString:[UserSession instance].account])return;
+    if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]])return;
     MyLog(@"用户点击头像");
 //    YWOtherSeePersonCenterViewController * vc = [[YWOtherSeePersonCenterViewController alloc]init];
 //    vc.uid = self.friendID;

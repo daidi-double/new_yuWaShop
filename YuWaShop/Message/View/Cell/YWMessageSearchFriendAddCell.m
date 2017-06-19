@@ -16,6 +16,12 @@
     
     self.iconImageView.layer.cornerRadius = 17.f;
     self.iconImageView.layer.masksToBounds = YES;
+    self.addFriendBtn.layer.cornerRadius = 5.f;
+    self.addFriendBtn.layer.masksToBounds = YES;
+}
+- (IBAction)addFriendsAction:(UIButton *)sender {
+    [self.delegate addFriends];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

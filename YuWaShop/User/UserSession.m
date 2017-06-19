@@ -131,7 +131,7 @@ static UserSession * user=nil;
     [KUSERDEFAULT setValue:user.password forKey:AUTOLOGINCODE];
     user.nickName = (dataDic[@"company_name"]&&![dataDic[@"company_name"] isKindOfClass:[NSNull class]])?dataDic[@"company_name"]:user.account;
     user.birthDay = dataDic[@"birthday"];
-    user.hxPassword = [NSString stringWithFormat:@"2%@",dataDic[@"mobile"]];
+    user.hxPassword = [NSString stringWithFormat:@"%@",dataDic[@"mobile"]];
     user.mobile = [NSString stringWithFormat:@"%@",dataDic[@"mobile"]];
     user.local = dataDic[@"address"];
     

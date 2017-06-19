@@ -14,7 +14,7 @@
 
 #define MESSAGEADDFRIENDSEARCHCELL @"YWMessageSearchFriendAddCell"
 #define MESSAGEADDFRIENDCELL @"YWMessageFriendAddCell"
-@interface YWMessageFriendsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface YWMessageFriendsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,YWMessageSearchFriendAddCellDelegate>
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,strong)NSMutableArray * searchDataArr;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -106,17 +106,17 @@
         [self.dataArr removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isSearch]) {
-//        YWOtherSeePersonCenterViewController * vc = [[YWOtherSeePersonCenterViewController alloc]init];
-//        YWMessageSearchFriendAddModel * model = self.searchDataArr[indexPath.row];
-//        vc.uid = model.user_id;
-//        vc.nickName = model.nickName;
-//        vc.otherIcon = model.header_img;
-//        [self.navigationController pushViewController:vc animated:YES];
+        //        YWOtherSeePersonCenterViewController * vc = [[YWOtherSeePersonCenterViewController alloc]init];
+        //        YWMessageSearchFriendAddModel * model = self.searchDataArr[indexPath.row];
+        //        vc.uid = model.user_id;
+        //        vc.nickName = model.nickName;
+        //        vc.otherIcon = model.header_img;
+        //        [self.navigationController pushViewController:vc animated:YES];
         return;
     }
 }
@@ -130,6 +130,7 @@
     if ([self isSearch]) {
         YWMessageSearchFriendAddCell * searchCell = [tableView dequeueReusableCellWithIdentifier:MESSAGEADDFRIENDSEARCHCELL];
         searchCell.model = self.searchDataArr[indexPath.row];
+        searchCell.delegate = self;
         return searchCell;
     }
     
@@ -141,20 +142,56 @@
 #pragma mark- UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (self.searchDataArr.count > 0) {
-//        YWOtherSeePersonCenterViewController * vc = [[YWOtherSeePersonCenterViewController alloc]init];
+        
         YWMessageSearchFriendAddModel * model = self.searchDataArr[0];
-//        vc.uid = model.user_id;
-//        vc.nickName = model.nickName;
-//        vc.otherIcon = model.header_img;
-//        [self.navigationController pushViewController:vc animated:YES];
+        if (model.hxID == nil) {
+            model.hxID = self.searchTextField.text;
+        }
         EMError *error = [[EMClient sharedClient].contactManager addContact:model.hxID message:@"我想加您为好友"];
         if (!error) {
             MyLog(@"添加成功");
+        }else{
+            MyLog(@"%u",error.code);
         }
+
         return YES;
     }
-    [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
+    if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
+        [JRToast showWithText:@"不能添加自己为好友" duration:2];
+        
+    }else{
+        [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
+    }
     return NO;
+}
+- (void)addFriends{
+    YWMessageSearchFriendAddModel * model = self.searchDataArr[0];
+    if (model.hxID == nil) {
+        model.hxID = self.searchTextField.text;
+    }
+    if (![self judgeSendRequest]) {
+        return;
+    }
+    EMError *error = [[EMClient sharedClient].contactManager addContact:model.hxID message:@"我想加您为好友"];
+    if (!error) {
+        MyLog(@"添加成功");
+        [JRToast showWithText:@"好友请求发送成功" duration:1.5];
+    }else{
+        [JRToast showWithText:@"好友请求发送失败,请稍后再试" duration:1.5];
+    }
+    
+
+    
+}
+- (BOOL)judgeSendRequest{
+    if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
+        [JRToast showWithText:@"不能添加自己为好友" duration:2];
+        return NO;
+    }else if (self.searchDataArr.count <=0){
+        [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
+        return NO;
+    }
+    return YES;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -170,20 +207,27 @@
 
 #pragma mark - Http
 - (void)requestSearchFriend{
-    if ([self.searchTextField.text isEqualToString:[UserSession instance].account])return;
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.searchTextField.text};
+    if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
+        [JRToast showWithText:@"不能添加自己为好友" duration:2];
+        return;
+    }
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.searchTextField.text,@"user_type":@(2)};
     [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
-        MyLog(@"Regieter Code pragram is %@",pragram);
-        MyLog(@"Regieter Code is %@",responsObj);
+        MyLog(@"参数Regieter Code pragram is %@",pragram);
+        MyLog(@"加好友Regieter Code is %@",responsObj);
         if (responsObj[@"data"][@"user_id"]) {
             [self.searchDataArr removeAllObjects];
             YWMessageSearchFriendAddModel * model = [YWMessageSearchFriendAddModel yy_modelWithDictionary:responsObj[@"data"]];
+            
             [self.searchDataArr addObject:model];
             [self.tableView reloadData];
         }
     } failur:^(id responsObj, NSError *error) {
         MyLog(@"Regieter Code pragram is %@",pragram);
-        MyLog(@"Regieter Code error is %@",responsObj);
+        MyLog(@"加好友Regieter Code error is %@",responsObj);
+        if ([responsObj[@"errorCode"] integerValue] == 9) {
+            [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
+        }
     }];
 }
 

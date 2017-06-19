@@ -105,7 +105,7 @@
             [alertVC addTextFieldWithConfigurationHandler:^(UITextField *textField){
                 textField.placeholder = @"请输入您对客户的回复";
                 textField.secureTextEntry = NO;
-            
+                
             }];
             UIAlertAction * OKAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 UITextField * replayTextField = alertVC.textFields.firstObject;
@@ -113,7 +113,7 @@
             }];
             
             UIAlertAction * delAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+                
             }];
             [alertVC addAction:delAction];
             [alertVC addAction:OKAction];
@@ -126,19 +126,19 @@
                 textField.placeholder = @"请输入您拒绝的理由";
                 textField.secureTextEntry = NO;
             }];
-                UIAlertAction * OKAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction * OKAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 UITextField * rejectTextField = alertVC.textFields.firstObject;
                 [weakSelf requestDelOrderWithReplay:rejectTextField.text withIndexPath:indexPath withType:3];
             }];
             
             UIAlertAction * delAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+                
             }];
             [alertVC addAction:delAction];
             [alertVC addAction:OKAction];
             weakSelf.alertVC = alertVC;
             [weakSelf presentViewController:weakSelf.alertVC animated:YES completion:nil];
-
+            
         };
     }
     return advanceOrderCell;
@@ -190,7 +190,7 @@
         for (int i = 0; i<dataArr.count; i++) {
             YWHomeAdvanceOrderModel * model =[YWHomeAdvanceOrderModel yy_modelWithDictionary:dataArr[i]];
             model.customer_time = [model.customer_time integerValue]>0?model.customer_time:[JWTools dateWithTodayYearMonthDayNumberStr];
-
+            
             [self.dataArr addObject:model];
         }
         [self.tableView reloadData];
@@ -201,8 +201,14 @@
 }
 - (void)requestDelOrderWithReplay:(NSString *)rePlay withIndexPath:(NSIndexPath *)indexPath withType:(NSInteger)type{
     YWHomeAdvanceOrderModel * model = self.dataArr[indexPath.row];
-    if (rePlay == nil) {
-        rePlay = @"";
+    if ([rePlay isEqualToString:@""] ) {
+        if (type == 3) {
+            [JRToast showWithText:@"请输入您拒绝的原因" duration:1.5];
+            return;
+        }else{
+            [JRToast showWithText:@"请输入您的回复" duration:1.5];
+            return;
+        }
     }
     NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"id":@([model.orderID integerValue]),@"seller_message":rePlay,@"status":@(type),@"push_title":[NSString stringWithFormat:@"%@的订单%@",[UserSession instance].nickName,(type==2?@"预定成功":@"已被取消")],@"push_content":rePlay};
     
