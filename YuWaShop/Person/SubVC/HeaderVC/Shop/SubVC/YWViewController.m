@@ -47,7 +47,10 @@
 }
 
 - (void)subcommitActions:(UIBarButtonItem*)sender{
-    
+    if (self.backAry.count <=0) {
+        [JRToast showWithText:@"最少选择一个权限" duration:1];
+        return;
+    }
     if (self.limitBlock) {
         self.limitBlock(self.backAry);
     }

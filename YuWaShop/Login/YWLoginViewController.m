@@ -143,8 +143,8 @@
 }
 
 - (BOOL)canSendRequset{
-    if (![JWTools checkTelNumber:self.accountTextField.text]) {
-        [self showHUDWithStr:@"请输入11位手机号" withSuccess:NO];
+    if ([self.mobileTextField.text isEqualToString:@""]) {
+        [self showHUDWithStr:@"请输入账号" withSuccess:NO];
         return NO;
     }else if (![JWTools isRightPassWordWithStr:self.passwordtextField.text]){
         [self showHUDWithStr:@"请输入6-16位密码" withSuccess:NO];
@@ -235,7 +235,7 @@
             [UserSession saveUserInfoWithDic:responsObj[@"data"]];
             [self showHUDWithStr:@"登录成功" withSuccess:YES];
             EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[UserSession instance].hxPassword];
-            MyLog(@"环信密码%@",[UserSession instance].hxPassword);
+
             if (!errorLog){
                 [[EMClient sharedClient].options setIsAutoLogin:NO];
                 MyLog(@"环信登录成功");
