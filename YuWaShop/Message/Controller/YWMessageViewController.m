@@ -14,7 +14,7 @@
 #import "YWMessageAddressBookTableView.h"
 #import "EaseUI.h"
 #import "NSDictionary+Attributes.h"
-
+#import "VIPTabBarController.h"
 #import "YWMessageTableViewCell.h"
 
 #define MESSAGECELL @"YWMessageTableViewCell"
@@ -289,10 +289,23 @@
                 model.avatarURLPath = modelTemp.header_img;
                 model.jModel = modelTemp;
                 [self.dataArr replaceObjectAtIndex:i withObject:model];
+
                 count++;
+                int badgeValue = 0;
+               
+                for (EaseConversationModel * model in self.dataArr) {
+                    badgeValue += model.conversation.unreadMessagesCount;
+                }
+                VIPTabBarController * rootTabBarVC = (VIPTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                UITabBarItem * item=[rootTabBarVC.tabBar.items objectAtIndex:3];
+                item.badgeValue=[NSString stringWithFormat:@"%d",badgeValue];
+                if (badgeValue == 0) {
+                    item.badgeValue = nil;
+                }
                 if (count >= sorted.count) {
                     [self.tableView reloadData];
                 }
+
             } failur:^(id responsObj, NSError *error) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
                 MyLog(@"Regieter Code error is %@",responsObj);

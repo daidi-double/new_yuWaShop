@@ -167,11 +167,29 @@
         [self reloadData];
         return;
     }
+    //去除重复的好友
+    NSMutableArray *listAry = [[NSMutableArray alloc]init];
+    for (NSString *str in userlist) {
+        if (![listAry containsObject:str]) {
+            [listAry addObject:str];
+        }
+    }
     
     NSMutableArray * sortArr = [NSMutableArray arrayWithCapacity:0];
-                                  
-    for (int i = 0; i < userlist.count; i++) {
-        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":userlist[i],@"user_type":@(2)};
+        NSString * other_username;
+    for (int i = 0; i < listAry.count; i++) {
+            other_username = userlist[i];
+            
+            //用于判断是否是商家的账号，商家的环信账号为2+手机号，为12位
+            NSString * userAccount = userlist[i];
+            if (userAccount.length == 12) {
+                NSString * phoneAccount = [userAccount substringFromIndex:1];//得到手机号
+                if ([JWTools isPhoneIDWithStr:phoneAccount]) {//判断是否为手机号
+                    other_username = phoneAccount;
+                }
+                
+            }
+       NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2)};
         [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
             MyLog(@"Regieter Code pragram is %@",pragram);
             MyLog(@"Regieter Code is %@",responsObj);

@@ -140,6 +140,36 @@
         self.careBlock();
     }
 }
+//- (void)addFriends{
+//   
+//    if (![self judgeSendRequest]) {
+//        return;
+//    }
+//    EMError *error = [[EMClient sharedClient].contactManager addContact:self.model. message:@"我想加您为好友"];
+//    if (!error) {
+//        MyLog(@"添加成功");
+//        [JRToast showWithText:@"好友请求发送成功" duration:1.5];
+//    }else{
+//        [JRToast showWithText:@"好友请求发送失败,请稍后再试" duration:1.5];
+//    }
+//    
+//    
+//    
+//}
+//判断能否加好友
+//- (BOOL)judgeSendRequest{
+//    if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
+//        [JRToast showWithText:@"不能添加自己为好友" duration:2];
+//        return NO;
+//    }else if (self.searchDataArr.count <=0){
+//        [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
+//        return NO;
+//    }else if (![self getFriendsList:self.searchTextField.text]){
+//        [self showHUDWithStr:@"你们已经是好友了" withSuccess:NO];
+//        return NO;
+//    }
+//    return YES;
+//}
 
 #pragma mark - Http
 - (void)requestAttention{//关注此人

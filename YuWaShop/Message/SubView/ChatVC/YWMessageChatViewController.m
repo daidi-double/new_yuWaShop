@@ -37,7 +37,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [EMConversation unreadMessagesCount];
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    //注册消息回调
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     self.title = self.friendNikeName?self.friendNikeName:@"聊天";
+    
+}
+#pragma mark ---------------------------------------接收消息回调------------------
+
+-(void)messagesDidReceive:(NSArray *)aMessages{
+    
+    for (EMMessage *message in aMessages) {
+        if (message.body.type == EMMessageBodyTypeText) {
+            NSLog(@"接收到文字消息");
+            
+            [self.dataArray addObject:message];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+                
+            });
+        }
+        
+    }
     
 }
 - (void)viewWillAppear:(BOOL)animated{

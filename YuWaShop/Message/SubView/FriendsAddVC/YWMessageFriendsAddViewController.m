@@ -142,7 +142,9 @@
 #pragma mark- UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (self.searchDataArr.count > 0) {
-        
+        if (![self judgeSendRequest]) {
+            return NO;
+        }
         YWMessageSearchFriendAddModel * model = self.searchDataArr[0];
         if (model.hxID == nil) {
             model.hxID = self.searchTextField.text;
@@ -190,6 +192,31 @@
     }else if (self.searchDataArr.count <=0){
         [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
         return NO;
+    }else if (![self getFriendsList:self.searchTextField.text]){
+        [self showHUDWithStr:@"你们已经是好友了" withSuccess:NO];
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL )getFriendsList:(NSString *)username{
+    //    从服务器获取所有的好友
+    NSArray *userlist;
+    EMError *error = nil;
+    userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
+    
+    if (error){
+        //        从数据库获取所有的好友
+        userlist = [[EMClient sharedClient].contactManager getContacts];
+    }
+    if (!userlist||userlist.count<=0) {
+        
+        return YES;
+    }
+    for (NSString * userName in userlist) {
+        if ([userName isEqualToString:username]) {
+            return NO;
+        }
     }
     return YES;
 }

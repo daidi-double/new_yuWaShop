@@ -25,8 +25,9 @@
 #import "YWHomeCollectionViewCell.h"
 #import "YWHomeCollectionHeaderView.h"
 
-
-@interface YWHomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+#import "YWMessageTableViewCell.h"
+#import "VIPTabBarController.h"
+@interface YWHomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,EMChatManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic,strong)NSArray * nameArr;
@@ -44,6 +45,28 @@
     [super viewDidLoad];
     [self makeNavi];
     [self dataSet];
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    //注册消息回调
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+
+}
+#pragma mark ---------------------------------------接收消息回调------------------
+
+-(void)messagesDidReceive:(NSArray *)aMessages{
+    
+    for (EMMessage *message in aMessages) {
+        if (message.body.type == EMMessageBodyTypeText) {
+            MyLog(@"接收到文字消息");
+            WEAKSELF;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf requestShopArrData];
+                
+            });
+        }
+        
+    }
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -191,6 +214,56 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     return CGSizeMake(kScreen_Width, 175.f);
+}
+
+#pragma mark --- 用来设置消息模块有几条信息是未读的
+- (void)requestShopArrData{
+    //    NSInteger page = 1;
+    NSMutableArray * dataArr = [NSMutableArray array];
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSArray* sorted = [conversations sortedArrayUsingComparator:^(EMConversation *obj1, EMConversation* obj2){
+        EMMessage *message1 = [obj1 latestMessage];
+        EMMessage *message2 = [obj2 latestMessage];
+        if(message1.timestamp > message2.timestamp) {
+            return(NSComparisonResult)NSOrderedAscending;
+        }else {
+            return(NSComparisonResult)NSOrderedDescending;
+        }
+    }];
+    __block NSInteger count = 0;
+    for (int i = 0; i<sorted.count; i++) {
+        EMConversation * converstion = sorted[i];
+        EaseConversationModel * model = [[EaseConversationModel alloc] initWithConversation:converstion];
+        if (model&&([YWMessageTableViewCell latestMessageTitleForConversationModel:model].length>0)){
+            [dataArr addObject:model];
+            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":([model.title length] > 0?model.title:model.conversation.conversationId),@"user_type":@(2)};
+            [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
+                
+                YWMessageAddressBookModel * modelTemp = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];
+                modelTemp.hxID = [model.title length] > 0?model.title:model.conversation.conversationId;
+                model.title = modelTemp.nikeName;
+                model.avatarURLPath = modelTemp.header_img;
+                model.jModel = modelTemp;
+                [dataArr replaceObjectAtIndex:i withObject:model];
+                count++;
+                int badgeValue = 0;
+                for (EaseConversationModel * model in dataArr) {
+                    badgeValue += model.conversation.unreadMessagesCount;
+                }
+                VIPTabBarController * rootTabBarVC = (VIPTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                UITabBarItem * item=[rootTabBarVC.tabBar.items objectAtIndex:3];
+                item.badgeValue=[NSString stringWithFormat:@"%d",badgeValue];
+                if (badgeValue == 0) {
+                    item.badgeValue = nil;
+                }
+                //还原
+            } failur:^(id responsObj, NSError *error) {
+                //                [JRToast showWithText:];
+//                [self showHUDWithStr:responsObj[@"errorMessage"]withSuccess:YES];
+                MyLog(@"%@~~~~~%@",error,responsObj);
+            }];
+        }
+    }
 }
 
 @end

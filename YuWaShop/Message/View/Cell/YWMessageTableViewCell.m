@@ -47,7 +47,7 @@
     
     if (self.model.conversation.unreadMessagesCount == 0) {
         self.countLabel.hidden = YES;
-    }else{
+    }else{  
         self.countLabel.hidden = NO;
         self.countLabel.text = [NSString stringWithFormat:@"%zi",(self.model.conversation.unreadMessagesCount <=99?self.model.conversation.unreadMessagesCount:99)];
     }
