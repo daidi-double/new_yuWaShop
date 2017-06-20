@@ -143,8 +143,8 @@
 }
 
 - (BOOL)canSendRequset{
-    if ([self.mobileTextField.text isEqualToString:@""]) {
-        [self showHUDWithStr:@"请输入账号" withSuccess:NO];
+    if ([self.accountTextField.text isEqualToString:@""]) {
+        [self showHUDWithStr:@"请输入11位手机号" withSuccess:NO];
         return NO;
     }else if (![JWTools isRightPassWordWithStr:self.passwordtextField.text]){
         [self showHUDWithStr:@"请输入6-16位密码" withSuccess:NO];
