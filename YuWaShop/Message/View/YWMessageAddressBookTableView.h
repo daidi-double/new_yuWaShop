@@ -22,7 +22,7 @@
 @property (nonatomic,strong)NSArray * sortArr;
 @property (nonatomic,copy)NSString * pagens;
 @property (nonatomic,assign)NSInteger pages;
-
+@property (nonatomic,assign)NSInteger type;//1消费者，2商家
 - (void)dataSet;
 - (void)headerRereshing;
 

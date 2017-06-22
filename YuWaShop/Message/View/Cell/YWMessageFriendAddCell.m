@@ -79,7 +79,15 @@
 
 #pragma mark - Http
 - (void)requestFriendData{
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.model.hxID};
+    NSInteger type = 1;
+    if (self.model.hxID.length == 12) {
+        NSString * account = [self.model.hxID substringFromIndex:1];
+        if ([JWTools isPhoneIDWithStr:account]) {
+            type = 2;
+            self.model.hxID = account;
+        }
+    }
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.model.hxID,@"type":@(type),@"user_type":@(2)};
     [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"Regieter Code is %@",responsObj);

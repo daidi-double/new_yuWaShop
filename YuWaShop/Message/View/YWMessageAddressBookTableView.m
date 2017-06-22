@@ -174,7 +174,7 @@
             [listAry addObject:str];
         }
     }
-    
+    self.type = 1;
     NSMutableArray * sortArr = [NSMutableArray arrayWithCapacity:0];
         NSString * other_username;
     for (int i = 0; i < listAry.count; i++) {
@@ -186,10 +186,11 @@
                 NSString * phoneAccount = [userAccount substringFromIndex:1];//得到手机号
                 if ([JWTools isPhoneIDWithStr:phoneAccount]) {//判断是否为手机号
                     other_username = phoneAccount;
+                    self.type =2;
                 }
                 
             }
-       NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2)};
+       NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2),@"type":@(self.type)};
         [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
             MyLog(@"Regieter Code pragram is %@",pragram);
             MyLog(@"Regieter Code is %@",responsObj);

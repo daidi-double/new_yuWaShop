@@ -20,6 +20,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIView *searchBGView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *searchBtn;
+@property (weak, nonatomic) IBOutlet UIButton *userBtn;
+@property (weak, nonatomic) IBOutlet UIButton *shoperBtn;
+@property (weak, nonatomic) IBOutlet UIView *btnBGView;
+@property (nonatomic,assign)NSInteger type;//1消费者，2商家
 
 @end
 
@@ -28,8 +33,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"好友申请";
+    self.type = 1;
     [self dataSet];
     [self makeUI];
+}
+- (IBAction)chooseAction:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    self.btnBGView.hidden = !self.btnBGView.hidden;
+    
+}
+//搜索用户
+- (IBAction)searchUserAction:(UIButton *)sender {
+    [self.searchBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
+    self.btnBGView.hidden = YES;
+    self.searchBtn.selected = NO;
+    self.type = 1;
+}
+//搜索商家
+- (IBAction)searchShoperAction:(UIButton *)sender {
+    [self.searchBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
+    self.btnBGView.hidden = YES;
+    self.searchBtn.selected = NO;
+    self.type = 2;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -66,6 +91,26 @@
 - (void)makeUI{
     self.searchBGView.layer.cornerRadius = 5.f;
     self.searchBGView.layer.masksToBounds = YES;
+    
+    self.searchBtn.layer.cornerRadius = 5.f;
+    self.searchBtn.layer.masksToBounds = YES;
+    
+    self.userBtn.layer.cornerRadius = 5.f;
+    self.userBtn.layer.masksToBounds = YES;
+    
+    self.shoperBtn.layer.cornerRadius = 5.f;
+    self.shoperBtn.layer.masksToBounds = YES;
+    
+    self.btnBGView.layer.cornerRadius = 5.f;
+    self.btnBGView.layer.masksToBounds = YES;
+    self.btnBGView.hidden = YES;
+    
+    [self.searchBtn setTitle:@"搜用户" forState:UIControlStateNormal];
+    [self.searchBtn setImage:[UIImage imageNamed:@"down_nol"] forState:UIControlStateNormal];
+    [self.searchBtn setImage:[UIImage imageNamed:@"down_sel"] forState:UIControlStateSelected];
+    [self.searchBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    [self.searchBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 50, 0, -50)];
+    
 }
 
 - (BOOL)isSearch{
@@ -111,12 +156,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isSearch]) {
-        //        YWOtherSeePersonCenterViewController * vc = [[YWOtherSeePersonCenterViewController alloc]init];
-        //        YWMessageSearchFriendAddModel * model = self.searchDataArr[indexPath.row];
-        //        vc.uid = model.user_id;
-        //        vc.nickName = model.nickName;
-        //        vc.otherIcon = model.header_img;
-        //        [self.navigationController pushViewController:vc animated:YES];
+
         return;
     }
 }
@@ -238,7 +278,7 @@
         [JRToast showWithText:@"不能添加自己为好友" duration:2];
         return;
     }
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.searchTextField.text,@"user_type":@(2)};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.searchTextField.text,@"user_type":@(2),@"type":@(self.type)};
     [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
         MyLog(@"参数Regieter Code pragram is %@",pragram);
         MyLog(@"加好友Regieter Code is %@",responsObj);
