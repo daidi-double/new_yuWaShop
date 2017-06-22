@@ -62,14 +62,52 @@
 }
 
 - (IBAction)agreementBtnAction:(id)sender {
-    EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.model.hxID];
-    if (!error){
-        MyLog(@"发送同意成功");
-        [self makeUIWithStatus:@"2"];
+    if ([self judgeIsFriends]) {
+        EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.model.hxID];
+        if (!error){
+            MyLog(@"发送同意成功");
+            [self makeUIWithStatus:@"2"];
+        }
+        
+    }else{
+        [self.delegate delFriendRequset:self.row];
+        return;
+        
     }
+    
+    
 }
+- (BOOL)judgeIsFriends{
+    //    从服务器获取所有的好友
+    NSArray *userlist;
+    EMError *errors = nil;
+    userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&errors];
+    
+    if (errors){
+        //        从数据库获取所有的好友
+        userlist = [[EMClient sharedClient].contactManager getContacts];
+    }
+    if (!userlist||userlist.count<=0) {
+        return YES;//可以加为好友
+    }else{
+        for (NSString * strs in userlist) {
+            if ([strs isEqualToString:self.model.hxID]) {
+                [JRToast showWithText:@"你们已经是好友了" duration:1];
+                return NO;
+            }else if ([[strs substringFromIndex:1] isEqualToString:self.model.hxID]){
+                [JRToast showWithText:@"你们已经是好友了" duration:1];
+                return NO;
+            }
+        }
+        return YES;
+    }
 
+}
 - (IBAction)refuseBtnAction:(id)sender {
+    if (![self judgeIsFriends]) {
+        [self.delegate delFriendRequset:self.row];
+        return;
+    }
     EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:self.model.hxID];
     if (!error) {
         MyLog(@"发送拒绝成功");

@@ -18,7 +18,7 @@
 #import "YWMessageTableViewCell.h"
 
 #define MESSAGECELL @"YWMessageTableViewCell"
-@interface YWMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface YWMessageViewController ()<UITableViewDelegate,UITableViewDataSource,EMContactManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *noLoginBGBtnView;
@@ -45,6 +45,37 @@
     [self makeUI];
     [self dataSet];
     [self setupRefresh];
+    
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    
+    //注册消息回调
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+    
+    //移除好友回调
+    [[EMClient sharedClient].contactManager removeDelegate:self];
+    //注册好友回调
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+}
+
+- (void)messagesDidReceive:(NSArray *)aMessages{
+    [self.tableView reloadData];
+}
+
+/*!
+ *  用户A发送加用户B为好友的申请，用户B会收到这个回调
+ *
+ *  @param aUsername   用户名
+ *  @param aMessage    附属信息
+ */
+- (void)friendRequestDidReceiveFromUser:(NSString *)aUsername
+                                message:(NSString *)aMessage{
+    [JRToast showWithText:[NSString stringWithFormat:@"收到%@的好友请求",aUsername] duration:1];
+    WEAKSELF;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf requestShopArrDataWithPages:0];
+        
+    });
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -309,10 +340,22 @@
                 }
                 VIPTabBarController * rootTabBarVC = (VIPTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
                 UITabBarItem * item=[rootTabBarVC.tabBar.items objectAtIndex:3];
+                NSMutableArray * friendsRequest = [NSMutableArray arrayWithArray:[KUSERDEFAULT valueForKey:FRIENDSREQUEST]];
+                if (!friendsRequest)friendsRequest = [NSMutableArray arrayWithCapacity:0];
+                if (friendsRequest.count > 0) {
+                    NSInteger unRedCount = 0;
+                    for (NSDictionary * requestDic in friendsRequest) {
+                        if ([requestDic[@"status"] isEqualToString:@"0"])unRedCount++;
+                    }
+                    badgeValue += unRedCount;
+                    
+                    
+                }
                 item.badgeValue=[NSString stringWithFormat:@"%d",badgeValue];
                 if (badgeValue == 0) {
                     item.badgeValue = nil;
                 }
+                
                 if (count >= sorted.count) {
                     [self.tableView reloadData];
                 }

@@ -8,16 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "YWMessageFriendAddModel.h"
+@protocol YWMessageFriendAddCellDelegate <NSObject>
 
+-(void)delFriendRequset:(NSInteger)row;
+
+@end
 @interface YWMessageFriendAddCell : UITableViewCell
 
 @property (nonatomic,strong)YWMessageFriendAddModel * model;
-
+@property (nonatomic,assign)id<YWMessageFriendAddCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *conLabel;
 @property (weak, nonatomic) IBOutlet UIButton *agreementBtn;
 @property (weak, nonatomic) IBOutlet UIButton *refuseBtn;
 @property (weak, nonatomic) IBOutlet UILabel *statesLabel;
-
+@property (nonatomic,assign) NSInteger row;
 @end
+
+
+

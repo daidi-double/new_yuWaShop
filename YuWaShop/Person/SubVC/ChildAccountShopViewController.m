@@ -148,8 +148,10 @@
             //切换关联账号，调用接口
             MainAccountListModel * model = self.accountAry[indexPath.row];
             if ([model.is_current integerValue] != 1) {
+                [[EMClient sharedClient].options setIsAutoLogin:NO];
                 
-                [self changeAccount:model.id];
+                EMError *error = [[EMClient sharedClient] logout:YES];
+                if (!error) [self changeAccount:model.id];
             }
         }
     }else{

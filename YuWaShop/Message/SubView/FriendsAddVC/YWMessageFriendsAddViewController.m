@@ -14,7 +14,7 @@
 
 #define MESSAGEADDFRIENDSEARCHCELL @"YWMessageSearchFriendAddCell"
 #define MESSAGEADDFRIENDCELL @"YWMessageFriendAddCell"
-@interface YWMessageFriendsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,YWMessageSearchFriendAddCellDelegate>
+@interface YWMessageFriendsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,YWMessageSearchFriendAddCellDelegate,YWMessageFriendAddCellDelegate>
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,strong)NSMutableArray * searchDataArr;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -48,6 +48,9 @@
     self.btnBGView.hidden = YES;
     self.searchBtn.selected = NO;
     self.type = 1;
+    if (![self.searchTextField.text isEqualToString:@""]) {
+        [self requestSearchFriend];
+    }
 }
 //搜索商家
 - (IBAction)searchShoperAction:(UIButton *)sender {
@@ -55,6 +58,9 @@
     self.btnBGView.hidden = YES;
     self.searchBtn.selected = NO;
     self.type = 2;
+    if (![self.searchTextField.text isEqualToString:@""]) {
+        [self requestSearchFriend];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -87,7 +93,14 @@
         [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
     }];
 }
-
+-(void)delFriendRequset:(NSInteger)row{
+    NSMutableArray * friendsRequest = [NSMutableArray arrayWithArray:[KUSERDEFAULT valueForKey:FRIENDSREQUEST]];
+    [friendsRequest removeObjectAtIndex:row];
+    [KUSERDEFAULT setObject:friendsRequest forKey:FRIENDSREQUEST];
+    
+    [self.dataArr removeObjectAtIndex:row];
+    [self.tableView reloadData];
+}
 - (void)makeUI{
     self.searchBGView.layer.cornerRadius = 5.f;
     self.searchBGView.layer.masksToBounds = YES;
@@ -156,7 +169,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isSearch]) {
-
+        
         return;
     }
 }
@@ -176,6 +189,8 @@
     
     YWMessageFriendAddCell * friendCell = [tableView dequeueReusableCellWithIdentifier:MESSAGEADDFRIENDCELL];
     friendCell.model = self.dataArr[indexPath.row];
+    friendCell.delegate = self;
+    friendCell.row = indexPath.row;
     return friendCell;
 }
 
@@ -187,15 +202,20 @@
         }
         YWMessageSearchFriendAddModel * model = self.searchDataArr[0];
         if (model.hxID == nil) {
-            model.hxID = self.searchTextField.text;
+            if (self.type == 2) {
+                model.hxID = [NSString stringWithFormat:@"2%@",self.searchTextField.text];
+            }else{
+                
+                model.hxID = self.searchTextField.text;
+            }
         }
         EMError *error = [[EMClient sharedClient].contactManager addContact:model.hxID message:@"我想加您为好友"];
         if (!error) {
             MyLog(@"添加成功");
+            [JRToast showWithText:@"好友请求发送成功" duration:1.5];
         }else{
-            MyLog(@"%u",error.code);
+            [JRToast showWithText:@"好友请求发送失败,请稍后再试" duration:1.5];
         }
-
         return YES;
     }
     if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
@@ -209,7 +229,12 @@
 - (void)addFriends{
     YWMessageSearchFriendAddModel * model = self.searchDataArr[0];
     if (model.hxID == nil) {
-        model.hxID = self.searchTextField.text;
+        if (self.type == 2) {
+            model.hxID = [NSString stringWithFormat:@"2%@",self.searchTextField.text];
+        }else{
+            
+            model.hxID = self.searchTextField.text;
+        }
     }
     if (![self judgeSendRequest]) {
         return;
@@ -222,7 +247,7 @@
         [JRToast showWithText:@"好友请求发送失败,请稍后再试" duration:1.5];
     }
     
-
+    
     
 }
 - (BOOL)judgeSendRequest{

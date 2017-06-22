@@ -189,6 +189,8 @@
                     self.type =2;
                 }
                 
+            }else{
+                self.type = 1;
             }
        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2),@"type":@(self.type)};
         [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
@@ -218,6 +220,9 @@
                 }else{
                     [self sortedArry:sortArr];
                 }
+            }
+            if ([responsObj[@"errorCode"] integerValue] == 9) {
+                [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
             }
         }];
     }
