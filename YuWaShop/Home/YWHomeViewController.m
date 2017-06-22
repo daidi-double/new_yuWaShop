@@ -34,7 +34,7 @@
 @property (nonatomic,strong)NSArray * IDSArr;
 @property (nonatomic,strong)NSArray * imgNameArr;
 @property (nonatomic,strong)NSArray * subVCArr;
-
+@property (nonatomic,copy) NSString * type;
 @property (nonatomic,strong)UIBarButtonItem * rightBarBtn;
 
 @end
@@ -55,17 +55,17 @@
 
 -(void)messagesDidReceive:(NSArray *)aMessages{
     
-    for (EMMessage *message in aMessages) {
-        if (message.body.type == EMMessageBodyTypeText) {
+//    for (EMMessage *message in aMessages) {
+//        if (message.body.type == EMMessageBodyTypeText) {
             MyLog(@"接收到文字消息");
             WEAKSELF;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf requestShopArrData];
                 
             });
-        }
-        
-    }
+//        }
+//        
+//    }
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -107,7 +107,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"YWHomeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"YWHomeCollectionViewCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"YWHomeCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"YWHomeCollectionHeaderView"];
     
-    
+    self.type = @"1";
     
     //加载完数据之后，判断是否是推送了通知，如果是，就跳转制定页面
     NSString * documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
@@ -233,10 +233,21 @@
     __block NSInteger count = 0;
     for (int i = 0; i<sorted.count; i++) {
         EMConversation * converstion = sorted[i];
+        NSString * username;
         EaseConversationModel * model = [[EaseConversationModel alloc] initWithConversation:converstion];
         if (model&&([YWMessageTableViewCell latestMessageTitleForConversationModel:model].length>0)){
             [dataArr addObject:model];
-            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":([model.title length] > 0?model.title:model.conversation.conversationId),@"user_type":@(2)};
+            username = [model.title length] > 0?model.title:model.conversation.conversationId;
+            if (username.length == 12) {
+                NSString * account = [username substringFromIndex:1];
+                if ([JWTools isPhoneIDWithStr:account]) {
+                    username = account;
+                    self.type = @"2";
+                }
+            }
+            
+            
+            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":username,@"user_type":@(2),@"type":self.type};
             [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
                 
                 YWMessageAddressBookModel * modelTemp = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];
@@ -258,8 +269,15 @@
                 }
                 //还原
             } failur:^(id responsObj, NSError *error) {
-                //                [JRToast showWithText:];
-//                [self showHUDWithStr:responsObj[@"errorMessage"]withSuccess:YES];
+                static int a = 0;
+                a++ ;
+                if (a== 1) {
+                    
+                if ([responsObj[@"errorCode"] integerValue] == 1) {
+                    self.type = @"2";
+                    [self requestShopArrData];
+                }
+                }
                 MyLog(@"%@~~~~~%@",error,responsObj);
             }];
         }

@@ -7,7 +7,6 @@
 //
 
 #import "YWMessageChatViewController.h"
-//#import "YWOtherSeePersonCenterViewController.h"
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
@@ -37,31 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [EMConversation unreadMessagesCount];
-    //移除消息回调
-    [[EMClient sharedClient].chatManager removeDelegate:self];
-    //注册消息回调
-    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     self.title = self.friendNikeName?self.friendNikeName:@"聊天";
-    
-}
-#pragma mark ---------------------------------------接收消息回调------------------
-
--(void)messagesDidReceive:(NSArray *)aMessages{
-    
-    for (EMMessage *message in aMessages) {
-        if (message.body.type == EMMessageBodyTypeText) {
-            NSLog(@"接收到文字消息");
-            
-            [self.dataArray addObject:message];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.tableView reloadData];
-                
-            });
-        }
-        
-    }
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -95,7 +70,7 @@
                     if (emcell.delegate == nil) {
                         emcell.delegate = self;
                     }
-                    if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]]) {
+                    if ([model.nickname isEqualToString:[UserSession instance].account]) {
                         emcell.nameLabel.text = [UserSession instance].nickName;
                         [emcell.avatarView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
                         emcell.hasRead.hidden = YES;
@@ -132,7 +107,7 @@
                 }
                 sendCell.model = model;
                 sendCell.delegate = self;
-                if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]]) {
+                if ([model.nickname isEqualToString:[UserSession instance].account]) {
                     sendCell.nameLabel.text = [UserSession instance].nickName;
                     [sendCell.avatarView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
                     sendCell.hasRead.hidden = YES;
@@ -157,7 +132,7 @@
         }
         
         sendCell.model = model;
-        if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]]) {
+        if ([model.nickname isEqualToString:[UserSession instance].account]) {
             sendCell.nameLabel.text = [UserSession instance].nickName;
             [sendCell.avatarView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
             sendCell.hasRead.hidden = YES;
@@ -168,17 +143,12 @@
         }
         return sendCell;
     }
-
 }
 
 - (void)avatarViewSelcted:(id<IMessageModel>)model{
-    if ([model.nickname isEqualToString:[NSString stringWithFormat:@"2%@",[UserSession instance].account]])return;
+    if ([model.nickname isEqualToString:[UserSession instance].account])return;
     MyLog(@"用户点击头像");
-//    YWOtherSeePersonCenterViewController * vc = [[YWOtherSeePersonCenterViewController alloc]init];
-//    vc.uid = self.friendID;
-//    vc.nickName = self.friendNikeName;
-//    vc.otherIcon = self.friendIcon;
-//    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 @end

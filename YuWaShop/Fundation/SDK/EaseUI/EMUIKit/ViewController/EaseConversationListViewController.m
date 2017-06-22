@@ -175,7 +175,7 @@
     for (EMConversation *converstion in sorted) {
         EaseConversationModel *model = nil;
         if (self.dataSource && [self.dataSource respondsToSelector:@selector(conversationListViewController:modelForConversation:)]) {
-            model = [self.dataSource conversationListViewController:self
+            model = (EaseConversationModel*)[self.dataSource conversationListViewController:self
                                                    modelForConversation:converstion];
         }
         else{

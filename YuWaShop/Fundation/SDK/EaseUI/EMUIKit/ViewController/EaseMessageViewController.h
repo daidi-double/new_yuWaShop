@@ -169,7 +169,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
 
 @property (nonatomic) BOOL isJoinedChatroom;
-
+//用来提示不是好友，不能聊天
+@property (nonatomic, copy) NSString * chatMessage;
 - (instancetype)initWithConversationChatter:(NSString *)conversationChatter
                            conversationType:(EMConversationType)conversationType;
 

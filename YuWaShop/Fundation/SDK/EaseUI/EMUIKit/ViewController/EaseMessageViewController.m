@@ -762,7 +762,7 @@
         //send the acknowledgement
         [self _sendHasReadResponseForMessages:@[model.message] isRead:YES];
         __weak EaseMessageViewController *weakSelf = self;
-        BOOL isPrepare = [[EaseMessageReadManager defaultManager] prepareMessageAudioModel:model updateViewCompletion:^(EaseMessageModel *prevAudioModel, EaseMessageModel *currentAudioModel) {
+        BOOL isPrepare = [[EaseMessageReadManager defaultManager] prepareMessageAudioModel:(EaseMessageModel*)model updateViewCompletion:^(EaseMessageModel *prevAudioModel, EaseMessageModel *currentAudioModel) {
             if (prevAudioModel || currentAudioModel) {
                 [weakSelf.tableView reloadData];
             }
@@ -1193,6 +1193,10 @@
 
 - (void)didSendText:(NSString *)text
 {
+    if (self.chatMessage) {
+         [JRToast showWithText:self.chatMessage duration:2];
+        return;
+    }
     if (text && text.length > 0) {
         [self sendTextMessage:text];
         [self.atTargets removeAllObjects];

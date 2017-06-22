@@ -25,7 +25,7 @@
 @property (nonatomic,strong)UIImageView *noChatBGBtnView;
 @property (nonatomic,strong)UILabel * noChatlabel;
 
-@property (nonatomic,strong)NSMutableArray * dataArr;
+@property (nonatomic,strong)NSMutableArray * dataAry;
 @property (nonatomic,copy)NSString * pagens;
 @property (nonatomic,assign)NSInteger pages;
 
@@ -33,7 +33,7 @@
 @property (nonatomic,strong)UISegmentedControl * segmentedControl;
 @property (nonatomic,strong)YWMessageAddressBookTableView * addressBooktableView;
 @property (nonatomic,strong)UIBarButtonItem * rightBarBtn;
-
+@property (nonatomic,copy)NSString * type;
 @end
 
 @implementation YWMessageViewController
@@ -70,7 +70,7 @@
 }
 
 - (void)dataSet{
-    self.dataArr = [NSMutableArray arrayWithCapacity:0];
+    self.dataAry = [NSMutableArray arrayWithCapacity:0];
     
     [self.tableView registerNib:[UINib nibWithNibName:MESSAGECELL bundle:nil] forCellReuseIdentifier:MESSAGECELL];
 }
@@ -89,7 +89,7 @@
     self.noChatlabel.font = [UIFont systemFontOfSize:17.f];
     self.noChatlabel.hidden = YES;
     [self.view addSubview:self.noChatlabel];
-    
+    self.type = @"1";
     [self addressBookMake];
 }
 - (void)makeNavi{
@@ -194,9 +194,9 @@
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle ==UITableViewCellEditingStyleDelete){
-        if (indexPath.row<[self.dataArr count]) {
-            EaseConversationModel *model = self.dataArr[indexPath.row];
-            [self.dataArr removeObjectAtIndex:indexPath.row];//移除数据源的数据
+        if (indexPath.row<[self.dataAry count]) {
+            EaseConversationModel *model = self.dataAry[indexPath.row];
+            [self.dataAry removeObjectAtIndex:indexPath.row];//移除数据源的数据
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
 
                 [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
@@ -213,15 +213,15 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    self.noChatBGBtnView.hidden = self.dataArr.count != 0?YES:NO;
+    self.noChatBGBtnView.hidden = self.dataAry.count != 0?YES:NO;
     if (![UserSession instance].isLogin)self.noChatBGBtnView.hidden = YES;
     self.noChatlabel.hidden = self.noChatBGBtnView.hidden;
-    return self.dataArr.count;
+    return self.dataAry.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YWMessageTableViewCell * messageCell = [tableView dequeueReusableCellWithIdentifier:MESSAGECELL];
-    messageCell.model = self.dataArr[indexPath.row];
+    messageCell.model = self.dataAry[indexPath.row];
     
     return messageCell;
 }
@@ -258,7 +258,7 @@
     if (page>0){
         return;
     }else{
-        [self.dataArr removeAllObjects];
+        [self.dataAry removeAllObjects];
     }
     
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
@@ -276,10 +276,21 @@
     for (int i = 0; i<sorted.count; i++) {
         EMConversation * converstion = sorted[i];
         EaseConversationModel * model = [[EaseConversationModel alloc] initWithConversation:converstion];
-        
+        NSString * username;
         if (model&&([YWMessageTableViewCell latestMessageTitleForConversationModel:model].length>0)){
-            [self.dataArr addObject:model];
-            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":([model.title length] > 0?model.title:model.conversation.conversationId),@"user_type":@(2)};
+            [self.dataAry addObject:model];
+            username = [model.title length] > 0?model.title:model.conversation.conversationId;
+            if (username.length == 12) {
+                NSString * account = [username substringFromIndex:1];
+                if ([JWTools isPhoneIDWithStr:account]) {
+                    username = account;
+                    self.type = @"2";
+                }
+            }else{
+                self.type = @"1";
+            }
+            
+            NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":username,@"user_type":@(2),@"type":self.type};
             [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
                 MyLog(@"Regieter Code is %@",responsObj);
@@ -288,12 +299,12 @@
                 model.title = modelTemp.nikeName;
                 model.avatarURLPath = modelTemp.header_img;
                 model.jModel = modelTemp;
-                [self.dataArr replaceObjectAtIndex:i withObject:model];
+                [self.dataAry replaceObjectAtIndex:i withObject:model];
 
                 count++;
                 int badgeValue = 0;
                
-                for (EaseConversationModel * model in self.dataArr) {
+                for (EaseConversationModel * model in self.dataAry) {
                     badgeValue += model.conversation.unreadMessagesCount;
                 }
                 VIPTabBarController * rootTabBarVC = (VIPTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -309,6 +320,15 @@
             } failur:^(id responsObj, NSError *error) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
                 MyLog(@"Regieter Code error is %@",responsObj);
+                static int a = 0;
+                a++ ;
+                if (a== 1) {
+                    
+                    if ([responsObj[@"errorCode"] integerValue] == 1) {
+                        self.type = @"2";
+                        [self requestShopArrDataWithPages:0];
+                    }
+                }
                 if (count>0) {
                     [self.tableView reloadData];
                 }
