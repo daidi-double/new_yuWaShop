@@ -74,7 +74,7 @@
         return;
         
     }
-    
+
     
 }
 - (BOOL)judgeIsFriends{
@@ -118,14 +118,23 @@
 #pragma mark - Http
 - (void)requestFriendData{
     NSInteger type = 1;
+    NSString * accounts = self.model.hxID;
+    NSString * firstNum = [self.model.hxID substringToIndex:1];//第一个数字
     if (self.model.hxID.length == 12) {
         NSString * account = [self.model.hxID substringFromIndex:1];
         if ([JWTools isPhoneIDWithStr:account]) {
             type = 2;
-            self.model.hxID = account;
+            accounts = account;
+        }
+    }else if ([firstNum isEqualToString:@"2"]){
+            if ([JWTools checkIsHaveNumAndLetter:accounts] == 3) {
+            type = 2;
+            accounts = [accounts substringFromIndex:1];
+        }else{
+            type = 1;
         }
     }
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.model.hxID,@"type":@(type),@"user_type":@(2)};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":accounts,@"type":@(type),@"user_type":@(2)};
     [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"Regieter Code is %@",responsObj);

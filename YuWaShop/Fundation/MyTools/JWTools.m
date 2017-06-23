@@ -637,6 +637,36 @@
     return strTime;
 }
 
-
+//直接调用这个方法就行，判断是否包含数字和字母
++(int)checkIsHaveNumAndLetter:(NSString*)other_username{
+    //数字条件
+    NSRegularExpression *tNumRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    //符合数字条件的有几个字节
+    NSUInteger tNumMatchCount = [tNumRegularExpression numberOfMatchesInString:other_username
+                                                                       options:NSMatchingReportProgress
+                                                                         range:NSMakeRange(0, other_username.length)];
+    
+    //英文字条件
+    NSRegularExpression *tLetterRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[A-Za-z]" options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    //符合英文字条件的有几个字节
+    NSUInteger tLetterMatchCount = [tLetterRegularExpression numberOfMatchesInString:other_username options:NSMatchingReportProgress range:NSMakeRange(0, other_username.length)];
+    
+    if (tNumMatchCount == other_username.length) {
+        //全部符合数字，表示沒有英文
+        return 1;
+    } else if (tLetterMatchCount == other_username.length) {
+        //全部符合英文，表示沒有数字
+        return 2;
+    } else if (tNumMatchCount + tLetterMatchCount == other_username.length) {
+        //符合英文和符合数字条件的相加等于密码长度
+        return 3;
+    } else {
+        return 4;
+        //可能包含标点符号的情況，或是包含非英文的文字，这里再依照需求详细判断想呈现的错误
+    }
+    
+}
 
 @end

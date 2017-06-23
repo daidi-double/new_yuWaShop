@@ -119,6 +119,13 @@
         if (!errorLog){
             [[EMClient sharedClient].options setIsAutoLogin:NO];
             MyLog(@"环信登录成功");
+        }else if (errorLog.code == 202){
+            EMError *errorLogs = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:account];
+            if (errorLogs==nil){
+                [[EMClient sharedClient].options setIsAutoLogin:YES];
+                [UserSession instance].hxPassword = account;
+                MyLog(@"环信登录成功");
+            }
         }else{
             EMError *error = [[EMClient sharedClient] registerWithUsername:[NSString stringWithFormat:@"2%@",account] password:account];
             if (error==nil) {

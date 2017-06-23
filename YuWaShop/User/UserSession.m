@@ -126,12 +126,14 @@ static UserSession * user=nil;
 + (void)saveUserInfoWithDic:(NSDictionary *)dataDic{//analyse date
     user.token = dataDic[@"token"];
     user.uid = [dataDic[@"id"] integerValue];
-    
     user.password = dataDic[@"password"];
     [KUSERDEFAULT setValue:user.password forKey:AUTOLOGINCODE];
     user.nickName = (dataDic[@"company_name"]&&![dataDic[@"company_name"] isKindOfClass:[NSNull class]])?dataDic[@"company_name"]:user.account;
     user.birthDay = dataDic[@"birthday"];
     user.hxPassword = [NSString stringWithFormat:@"%@",dataDic[@"mobile"]];
+    if ([dataDic[@"mobile"] isEqualToString:@""]) {
+        user.hxPassword = [NSString stringWithFormat:@"%@",dataDic[@"username"]];
+    }
     user.mobile = [NSString stringWithFormat:@"%@",dataDic[@"mobile"]];
     user.local = dataDic[@"address"];
     

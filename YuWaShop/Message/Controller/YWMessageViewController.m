@@ -308,6 +308,7 @@
         EMConversation * converstion = sorted[i];
         EaseConversationModel * model = [[EaseConversationModel alloc] initWithConversation:converstion];
         NSString * username;
+        NSString * firstNum = [[model.title length] > 0?model.title:model.conversation.conversationId substringToIndex:1];
         if (model&&([YWMessageTableViewCell latestMessageTitleForConversationModel:model].length>0)){
             [self.dataAry addObject:model];
             username = [model.title length] > 0?model.title:model.conversation.conversationId;
@@ -316,6 +317,14 @@
                 if ([JWTools isPhoneIDWithStr:account]) {
                     username = account;
                     self.type = @"2";
+                }
+            }else if ([firstNum isEqualToString:@"2"]){
+                username = [model.title length] > 0?model.title:model.conversation.conversationId;
+                if ([JWTools checkIsHaveNumAndLetter:username] == 3) {
+                    self.type = @"2";
+                    username = [[model.title length] > 0?model.title:model.conversation.conversationId substringFromIndex:1];
+                }else{
+                    self.type = @"1";
                 }
             }else{
                 self.type = @"1";
@@ -377,6 +386,7 @@
                 }
             }];
         }
+        [self.tableView reloadData];
     }
 }
 

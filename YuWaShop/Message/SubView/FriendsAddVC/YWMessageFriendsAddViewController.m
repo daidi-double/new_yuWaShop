@@ -189,6 +189,7 @@
     
     YWMessageFriendAddCell * friendCell = [tableView dequeueReusableCellWithIdentifier:MESSAGEADDFRIENDCELL];
     friendCell.model = self.dataArr[indexPath.row];
+
     friendCell.delegate = self;
     friendCell.row = indexPath.row;
     return friendCell;
@@ -196,7 +197,9 @@
 
 #pragma mark- UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (self.searchDataArr.count > 0) {
+    if (self.searchDataArr.count<= 0) {
+        [self requestSearchFriend];
+    }else if (self.searchDataArr.count > 0) {
         if (![self judgeSendRequest]) {
             return NO;
         }
@@ -279,7 +282,11 @@
         return YES;
     }
     for (NSString * userName in userlist) {
-        if ([userName isEqualToString:username]) {
+        if (self.type == 2) {
+            if ([[NSString stringWithFormat:@"2%@",username] isEqualToString:userName]) {
+                return NO;
+            }
+        }else if ([userName isEqualToString:username]) {
             return NO;
         }
     }
@@ -287,7 +294,7 @@
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (textField.text.length>10) {
+        if (textField.text.length>8) {
             [self.tableView scrollsToTop];
             [self requestSearchFriend];
         }else if (self.searchDataArr.count > 0){
@@ -317,9 +324,9 @@
     } failur:^(id responsObj, NSError *error) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"加好友Regieter Code error is %@",responsObj);
-        if ([responsObj[@"errorCode"] integerValue] == 9) {
+        
             [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
-        }
+        
     }];
 }
 

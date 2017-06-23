@@ -48,6 +48,9 @@
 - (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
     return @"删除";
 }
+//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return @[@"删除",@"编辑"];
+//}
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return indexPath.section == 0?UITableViewCellEditingStyleNone:UITableViewCellEditingStyleDelete;
 }
@@ -177,9 +180,11 @@
     self.type = 1;
     NSMutableArray * sortArr = [NSMutableArray arrayWithCapacity:0];
         NSString * other_username;
+    //第一个数字
+    NSString * firstNum;
     for (int i = 0; i < listAry.count; i++) {
             other_username = userlist[i];
-            
+        firstNum = [other_username substringToIndex:1];
             //用于判断是否是商家的账号，商家的环信账号为2+手机号，为12位
             NSString * userAccount = userlist[i];
             if (userAccount.length == 12) {
@@ -189,7 +194,13 @@
                     self.type =2;
                 }
                 
-            }else{
+            }else if ([firstNum isEqualToString:@"2"]){
+                //其他部分为数字加字母组合
+                if ([JWTools checkIsHaveNumAndLetter:other_username]==3) {
+                    other_username = [other_username substringFromIndex:1];
+                    self.type = 2;
+                }
+            } else{
                 self.type = 1;
             }
        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2),@"type":@(self.type)};

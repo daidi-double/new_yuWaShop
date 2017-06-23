@@ -63,7 +63,8 @@
 + (NSArray *)imageFilterArr;
 + (NSString *)getUUID;
 
-
+//直接调用这个方法就行，判断是否包含数字和字母
++(int)checkIsHaveNumAndLetter:(NSString*)other_username;
 
 //得到当前时间
 + (NSString*)currentTime;
