@@ -278,7 +278,9 @@
         } failur:^(id responsObj, NSError *error) {
             NSInteger number = [responsObj[@"errorCode"] integerValue];
             if ( number == 1) {
-                [JRToast showWithText:@"账号或密码错误" duration:2];
+                [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
+            }else{
+                 [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
             }
             MyLog(@"Pragram is %@",pragram);
             MyLog(@"Data Error error is %@",responsObj);

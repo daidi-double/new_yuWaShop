@@ -107,7 +107,7 @@
 
 #pragma mark - Http
 - (void)requestReSetPasswordCodeWithAccount:(NSString *)account withPassword:(NSString *)password withCode:(NSString *)code{
-    
+
     NSDictionary * pragram = @{@"phone":account,@"password":password,@"code":code};
     [[HttpObject manager]postDataWithType:YuWaType_Logion_Forget_Tel withPragram:pragram success:^(id responsObj) {
         MyLog(@"Pragram is %@",pragram);
