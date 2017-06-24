@@ -209,10 +209,36 @@
 }
 - (void)chatWithUser:(YWMessageAddressBookModel *)model{
     YWMessageChatViewController *chatVC = [[YWMessageChatViewController alloc] initWithConversationChatter:model.hxID conversationType:EMConversationTypeChat];
+    
     chatVC.friendNikeName = model.nikeName;
     chatVC.friendID = model.user_id;
     chatVC.friendIcon = model.header_img;
+    
+    
+    //    从服务器获取所有的好友
+    NSArray *userlist;
+    EMError *error = nil;
+    userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
+    
+    if (error){
+        //        从数据库获取所有的好友
+        userlist = [[EMClient sharedClient].contactManager getContacts];
+    }
+    if (!userlist||userlist.count<=0) {
+        chatVC.chatMessage = @"你们已不是好友了哦~";
+    }else{
+        [userlist enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (![obj isEqualToString:model.hxID]) {
+                chatVC.chatMessage = @"你们已不是好友了哦~";
+                *stop = YES;
+                return ;
+            }else{
+                chatVC.chatMessage = nil;
+            }
+        }];
+    }
     [self.navigationController pushViewController:chatVC animated:YES];
+
 }
 
 #pragma mark - UITableViewDelegate

@@ -7,7 +7,7 @@
 //
 
 #import "YWMessageFriendsAddViewController.h"
-//#import "YWOtherSeePersonCenterViewController.h"
+
 
 #import "YWMessageFriendAddCell.h"
 #import "YWMessageSearchFriendAddCell.h"
@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shoperBtn;
 @property (weak, nonatomic) IBOutlet UIView *btnBGView;
 @property (nonatomic,assign)NSInteger type;//1消费者，2商家
+@property (nonatomic,assign)NSInteger index;//0输入完直接搜索，1其他
 
 @end
 
@@ -34,6 +35,7 @@
     [super viewDidLoad];
     self.title = @"好友申请";
     self.type = 1;
+    self.index = 1;
     [self dataSet];
     [self makeUI];
 }
@@ -93,6 +95,7 @@
         [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
     }];
 }
+//代理，若是已经是好友了，则在再次同意或者拒绝时删除该请求
 -(void)delFriendRequset:(UIButton *)sender{
     YWMessageFriendAddCell* cell = (YWMessageFriendAddCell *)[[sender superview] superview];
     NSIndexPath * path = [self.tableView indexPathForCell:cell];
@@ -296,12 +299,14 @@
     return YES;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    WEAKSELF;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (textField.text.length>8) {
-            [self.tableView scrollsToTop];
-            [self requestSearchFriend];
-        }else if (self.searchDataArr.count > 0){
-            [self.searchDataArr removeAllObjects];
+            [weakSelf.tableView scrollsToTop];
+            weakSelf.index = 0;
+            [weakSelf requestSearchFriend];
+        }else if (weakSelf.searchDataArr.count > 0){
+            [weakSelf.searchDataArr removeAllObjects];
         }
     });
     return YES;
@@ -327,8 +332,10 @@
     } failur:^(id responsObj, NSError *error) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"加好友Regieter Code error is %@",responsObj);
-        
-        [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
+        if (self.index != 0) {
+            
+            [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
+        }
         
     }];
 }
