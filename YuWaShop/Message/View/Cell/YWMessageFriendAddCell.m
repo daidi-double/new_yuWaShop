@@ -70,7 +70,7 @@
         }
         
     }else{
-        [self.delegate delFriendRequset:self.row];
+        [self.delegate delFriendRequset:sender];
         return;
         
     }
@@ -105,7 +105,7 @@
 }
 - (IBAction)refuseBtnAction:(id)sender {
     if (![self judgeIsFriends]) {
-        [self.delegate delFriendRequset:self.row];
+        [self.delegate delFriendRequset:sender];
         return;
     }
     EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:self.model.hxID];

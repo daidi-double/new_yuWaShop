@@ -93,12 +93,15 @@
         [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
     }];
 }
--(void)delFriendRequset:(NSInteger)row{
+-(void)delFriendRequset:(UIButton *)sender{
+    YWMessageFriendAddCell* cell = (YWMessageFriendAddCell *)[[sender superview] superview];
+    NSIndexPath * path = [self.tableView indexPathForCell:cell];
+    
     NSMutableArray * friendsRequest = [NSMutableArray arrayWithArray:[KUSERDEFAULT valueForKey:FRIENDSREQUEST]];
-    [friendsRequest removeObjectAtIndex:row];
+    [friendsRequest removeObjectAtIndex:path.row];
     [KUSERDEFAULT setObject:friendsRequest forKey:FRIENDSREQUEST];
     
-    [self.dataArr removeObjectAtIndex:row];
+    [self.dataArr removeObjectAtIndex:path.row];
     [self.tableView reloadData];
 }
 - (void)makeUI{
@@ -189,9 +192,9 @@
     
     YWMessageFriendAddCell * friendCell = [tableView dequeueReusableCellWithIdentifier:MESSAGEADDFRIENDCELL];
     friendCell.model = self.dataArr[indexPath.row];
-
+    
     friendCell.delegate = self;
-    friendCell.row = indexPath.row;
+//    friendCell.row = indexPath.row;
     return friendCell;
 }
 
@@ -325,7 +328,7 @@
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"加好友Regieter Code error is %@",responsObj);
         
-            [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
+        [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
         
     }];
 }

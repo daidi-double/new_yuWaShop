@@ -45,34 +45,32 @@
     headerView.nameLabel.text = self.keyArr[section - 1];
     return headerView;
 }
-- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return @"删除";
-}
-//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return @[@"删除",@"编辑"];
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return @"删除";
 //}
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0?UITableViewCellEditingStyleNone:UITableViewCellEditingStyleDelete;
-}
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0)return;
-    if (editingStyle ==UITableViewCellEditingStyleDelete){
-        if (indexPath.row<[self.dataArr[indexPath.section - 1] count]) {
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //添加一个删除按钮
+    WEAKSELF;
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:(UITableViewRowActionStyleDestructive) title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        if (indexPath.section == 0)return;
+        
+        if (indexPath.row<[weakSelf.dataArr[indexPath.section - 1] count]) {
             UIAlertAction * OKAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSMutableArray * dataArr = self.dataArr[indexPath.section - 1];
+                NSMutableArray * dataArr = weakSelf.dataArr[indexPath.section - 1];
                 YWMessageAddressBookModel * model = dataArr[indexPath.row];
                 [dataArr removeObjectAtIndex:indexPath.row];
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
                     EMError *error = [[EMClient sharedClient].contactManager deleteContact:model.hxID];
                     if (!error)MyLog(@"删除%@成功",model.hxID);
+                    [JRToast showWithText:[NSString stringWithFormat:@"删除%@成功",model.hxID] duration:1.5];
                 });
                 
                 if (dataArr.count > 0) {
                     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 }else{
-                    [self.keyArr removeObjectAtIndex:(indexPath.section - 1)];
-                    [self.dataArr removeObjectAtIndex:(indexPath.section - 1)];
+                    [weakSelf.keyArr removeObjectAtIndex:(indexPath.section - 1)];
+                    [weakSelf.dataArr removeObjectAtIndex:(indexPath.section - 1)];
                     [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
                 }
             }];
@@ -84,8 +82,57 @@
             [alertVC addAction:OKAction];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
         }
-    }
+        
+    }];
+    //删除按钮颜色
+    deleteAction.backgroundColor = [UIColor redColor];
+    //添加一个编辑按钮
+    UITableViewRowAction *editRowAction =[UITableViewRowAction rowActionWithStyle:(UITableViewRowActionStyleDestructive) title:@"编辑" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        if (indexPath.section == 0)return;
+        
+        if (indexPath.row<[weakSelf.dataArr[indexPath.section - 1] count]) {
+           
+            NSMutableArray * dataArr = weakSelf.dataArr[indexPath.section - 1];
+            YWMessageAddressBookModel * model = dataArr[indexPath.row];
+
+            UIAlertController*alertVC=[UIAlertController alertControllerWithTitle:@"添加备注" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder=@"请输入内容,不能少于1个字";
+                textField.secureTextEntry=NO;
+            }];
+            UIAlertAction*OKAction=[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UITextField*replayTextField=alertVC.textFields.firstObject;
+                if (replayTextField.text.length<1) {
+                    [JRToast showWithText:@"昵称不能为空"];
+                    return;
+                }
+                
+                [weakSelf chanegMarkName:replayTextField.text andUid:model.user_id andIndexPath:indexPath];
+                
+            }];
+            
+            UIAlertAction*cancelAction=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [alertVC addAction:OKAction];
+            [alertVC addAction:cancelAction];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+        
+            
+        }
+        
+    }];
+   
+    //编辑按钮颜色
+    editRowAction.backgroundColor = CNaviColor;
+    
+    //将设置好的按钮方到数组中返回
+    return @[deleteAction,editRowAction];
+    
 }
+
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
@@ -155,16 +202,16 @@
     [self.dataArr removeAllObjects];
     [self.keyArr removeAllObjects];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(RefreshTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         [self.mj_header endRefreshing];
+        [self.mj_header endRefreshing];
     });
-//    从服务器获取所有的好友
+    //    从服务器获取所有的好友
     NSArray *userlist;
     EMError *error = nil;
     userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
     
     if (error){
-//        从数据库获取所有的好友
-       userlist = [[EMClient sharedClient].contactManager getContacts];
+        //        从数据库获取所有的好友
+        userlist = [[EMClient sharedClient].contactManager getContacts];
     }
     if (!userlist||userlist.count<=0) {
         [self reloadData];
@@ -179,31 +226,31 @@
     }
     self.type = 1;
     NSMutableArray * sortArr = [NSMutableArray arrayWithCapacity:0];
-        NSString * other_username;
+    NSString * other_username;
     //第一个数字
     NSString * firstNum;
     for (int i = 0; i < listAry.count; i++) {
-            other_username = userlist[i];
+        other_username = userlist[i];
         firstNum = [other_username substringToIndex:1];
-            //用于判断是否是商家的账号，商家的环信账号为2+手机号，为12位
-            NSString * userAccount = userlist[i];
-            if (userAccount.length == 12) {
-                NSString * phoneAccount = [userAccount substringFromIndex:1];//得到手机号
-                if ([JWTools isPhoneIDWithStr:phoneAccount]) {//判断是否为手机号
-                    other_username = phoneAccount;
-                    self.type =2;
-                }
-                
-            }else if ([firstNum isEqualToString:@"2"]){
-                //其他部分为数字加字母组合
-                if ([JWTools checkIsHaveNumAndLetter:other_username]==3) {
-                    other_username = [other_username substringFromIndex:1];
-                    self.type = 2;
-                }
-            } else{
-                self.type = 1;
+        //用于判断是否是商家的账号，商家的环信账号为2+手机号，为12位
+        NSString * userAccount = userlist[i];
+        if (userAccount.length == 12) {
+            NSString * phoneAccount = [userAccount substringFromIndex:1];//得到手机号
+            if ([JWTools isPhoneIDWithStr:phoneAccount]) {//判断是否为手机号
+                other_username = phoneAccount;
+                self.type =2;
             }
-       NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2),@"type":@(self.type)};
+            
+        }else if ([firstNum isEqualToString:@"2"]){
+            //其他部分为数字加字母组合
+            if ([JWTools checkIsHaveNumAndLetter:other_username]==3) {
+                other_username = [other_username substringFromIndex:1];
+                self.type = 2;
+            }
+        } else{
+            self.type = 1;
+        }
+        NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2),@"type":@(self.type)};
         [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
             MyLog(@"Regieter Code pragram is %@",pragram);
             MyLog(@"Regieter Code is %@",responsObj);
@@ -275,6 +322,28 @@
         }
     }];
 }
-
+//修改昵称
+-(void)chanegMarkName:(NSString *)name andUid:(NSString *)uid andIndexPath:(NSIndexPath*)indexPath{
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_SEEOTHERCENTER];
+    NSDictionary*params=@{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_uid":uid,@"user_type":@(2),@"nickname":name};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDatasNoHudWithUrl:urlStr withParams:params compliation:^(id data, NSError *error) {
+        MyLog(@"！！！！%@",data);
+        NSNumber*number=data[@"errorCode"];
+        NSString*errorCode=[NSString stringWithFormat:@"%@",number];
+        if ([errorCode isEqualToString:@"0"]) {
+            NSDictionary*dict=data[@"data"];
+            
+            NSMutableArray * dataArr = self.dataArr[indexPath.section - 1];
+            YWMessageAddressBookModel * model = dataArr[indexPath.row];
+            model.nikeName = dict[@"nickname"];            
+            [JRToast showWithText:@"备注修改成功"];
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+        }
+          NSIndexPath *firstIndexPath =[NSIndexPath indexPathForRow:0 inSection:indexPath.section];
+        [self reloadRowsAtIndexPaths:[NSArray arrayWithObjects:firstIndexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
+    }];
+}
 
 @end

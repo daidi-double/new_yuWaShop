@@ -85,7 +85,7 @@
     self.noChatlabel.hidden = self.noChatBGBtnView.hidden;
     if (self.status == 1&&![UserSession instance].isLogin){
         self.segmentedControl.selectedSegmentIndex = 0;
-        [self requestShopArrDataWithPages:0];
+        [self headerRereshing];
     }
 }
 - (void)viewDidAppear:(BOOL)animated{

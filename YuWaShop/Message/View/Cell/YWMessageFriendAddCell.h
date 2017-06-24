@@ -10,7 +10,7 @@
 #import "YWMessageFriendAddModel.h"
 @protocol YWMessageFriendAddCellDelegate <NSObject>
 
--(void)delFriendRequset:(NSInteger)row;
+-(void)delFriendRequset:(UIButton *)sender;
 
 @end
 @interface YWMessageFriendAddCell : UITableViewCell
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *agreementBtn;
 @property (weak, nonatomic) IBOutlet UIButton *refuseBtn;
 @property (weak, nonatomic) IBOutlet UILabel *statesLabel;
-@property (nonatomic,assign) NSInteger row;
+//@property (nonatomic,assign) NSInteger row;
 @end
 
 
