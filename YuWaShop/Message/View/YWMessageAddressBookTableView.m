@@ -199,8 +199,7 @@
 
 #pragma mark - Http
 - (void)requestShopArrData{
-    [self.dataArr removeAllObjects];
-    [self.keyArr removeAllObjects];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(RefreshTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.mj_header endRefreshing];
     });
@@ -233,25 +232,19 @@
         other_username = userlist[i];
         firstNum = [other_username substringToIndex:1];
         //用于判断是否是商家的账号，商家的环信账号为2+手机号，为12位
-        NSString * userAccount = userlist[i];
-        if (userAccount.length == 12) {
-            NSString * phoneAccount = [userAccount substringFromIndex:1];//得到手机号
-            if ([JWTools isPhoneIDWithStr:phoneAccount]) {//判断是否为手机号
-                other_username = phoneAccount;
-                self.type =2;
-            }
-            
-        }else if ([firstNum isEqualToString:@"2"]){
-            //其他部分为数字加字母组合
-            if ([JWTools checkIsHaveNumAndLetter:other_username]==3) {
+       
+        if ([firstNum isEqualToString:@"2"]){
+           
                 other_username = [other_username substringFromIndex:1];
                 self.type = 2;
-            }
+            
         } else{
             self.type = 1;
         }
         NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":other_username,@"user_type":@(2),@"type":@(self.type)};
         [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
+            [self.dataArr removeAllObjects];
+            [self.keyArr removeAllObjects];
             MyLog(@"Regieter Code pragram is %@",pragram);
             MyLog(@"Regieter Code is %@",responsObj);
             YWMessageAddressBookModel * model = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];

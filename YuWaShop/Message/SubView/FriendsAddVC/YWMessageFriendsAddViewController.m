@@ -197,7 +197,7 @@
     friendCell.model = self.dataArr[indexPath.row];
     
     friendCell.delegate = self;
-//    friendCell.row = indexPath.row;
+
     return friendCell;
 }
 
@@ -228,7 +228,11 @@
         return YES;
     }
     if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
-        [JRToast showWithText:@"不能添加自己为好友" duration:2];
+        if (_type == 2) {
+            
+            [JRToast showWithText:@"不能添加自己为好友" duration:2];
+            return NO;
+        }
         
     }else{
         [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
@@ -261,8 +265,12 @@
 }
 - (BOOL)judgeSendRequest{
     if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
-        [JRToast showWithText:@"不能添加自己为好友" duration:2];
-        return NO;
+        if (_type == 2) {
+            
+            [JRToast showWithText:@"不能添加自己为好友" duration:2];
+            return NO;
+        }
+        
     }else if (self.searchDataArr.count <=0){
         [self showHUDWithStr:@"不存在该用户" withSuccess:NO];
         return NO;
@@ -315,8 +323,11 @@
 #pragma mark - Http
 - (void)requestSearchFriend{
     if ([self.searchTextField.text isEqualToString:[UserSession instance].account]){
-        [JRToast showWithText:@"不能添加自己为好友" duration:2];
-        return;
+        if (_type == 2) {
+            
+            [JRToast showWithText:@"不能添加自己为好友" duration:2];
+            return;
+        }
     }
     NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":self.searchTextField.text,@"user_type":@(2),@"type":@(self.type)};
     [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {

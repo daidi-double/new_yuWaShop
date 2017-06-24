@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
     [self makeNavi];
     [self makeUI];
     [self dataSet];
@@ -73,7 +73,7 @@
     [JRToast showWithText:[NSString stringWithFormat:@"收到%@的好友请求",aUsername] duration:1];
     WEAKSELF;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf requestShopArrDataWithPages:0];
+        [weakSelf.tableView reloadData];
         
     });
 }
@@ -127,7 +127,7 @@
     self.segmentedControl = [self makeSegmentedControl];
     self.navigationItem.titleView = self.segmentedControl;
     
-
+    
 }
 
 - (UISegmentedControl *)makeSegmentedControl{
@@ -228,17 +228,18 @@
         chatVC.chatMessage = @"你们已不是好友了哦~";
     }else{
         [userlist enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (![obj isEqualToString:model.hxID]) {
-                chatVC.chatMessage = @"你们已不是好友了哦~";
-                *stop = YES;
-                return ;
-            }else{
+            if ([obj isEqualToString:model.hxID]) {
                 chatVC.chatMessage = nil;
+                *stop = YES;
+                
+            }else{
+                chatVC.chatMessage = @"你们已不是好友了哦~";
+                return ;
             }
         }];
     }
     [self.navigationController pushViewController:chatVC animated:YES];
-
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -255,9 +256,9 @@
             EaseConversationModel *model = self.dataAry[indexPath.row];
             [self.dataAry removeObjectAtIndex:indexPath.row];//移除数据源的数据
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-
+                
                 [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
-
+                
             });
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         }
@@ -266,7 +267,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YWMessageTableViewCell * messageCell = [tableView cellForRowAtIndexPath:indexPath];
     [self chatWithUser:messageCell.model.jModel];
-
+    
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -366,10 +367,10 @@
                 model.avatarURLPath = modelTemp.header_img;
                 model.jModel = modelTemp;
                 [self.dataAry replaceObjectAtIndex:i withObject:model];
-
+                
                 count++;
                 int badgeValue = 0;
-               
+                
                 for (EaseConversationModel * model in self.dataAry) {
                     badgeValue += model.conversation.unreadMessagesCount;
                 }
@@ -391,10 +392,10 @@
                     item.badgeValue = nil;
                 }
                 
-                if (count >= sorted.count) {
-                    [self.tableView reloadData];
-                }
-
+                
+                [self.tableView reloadData];
+                
+                
             } failur:^(id responsObj, NSError *error) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
                 MyLog(@"Regieter Code error is %@",responsObj);
