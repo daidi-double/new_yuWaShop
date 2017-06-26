@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 @property (weak, nonatomic) IBOutlet UIButton *userBtn;
-@property (weak, nonatomic) IBOutlet UIButton *shoperBtn;
+
 @property (weak, nonatomic) IBOutlet UIView *btnBGView;
 @property (nonatomic,assign)NSInteger type;//1消费者，2商家
 @property (nonatomic,assign)NSInteger index;//0输入完直接搜索，1其他
@@ -46,24 +46,31 @@
 }
 //搜索用户
 - (IBAction)searchUserAction:(UIButton *)sender {
-    [self.searchBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-    self.btnBGView.hidden = YES;
-    self.searchBtn.selected = NO;
-    self.type = 1;
-    if (![self.searchTextField.text isEqualToString:@""]) {
-        [self requestSearchFriend];
+    sender.selected = !sender.selected;
+    if (!sender.selected) {
+        
+        [self.searchBtn setTitle:@"搜用户" forState:UIControlStateNormal];
+        self.btnBGView.hidden = YES;
+        self.searchBtn.selected = NO;
+        self.type = 1;
+        if (![self.searchTextField.text isEqualToString:@""]) {
+            [self requestSearchFriend];
+        }
+        [sender setTitle:@"搜商家" forState:UIControlStateNormal];
+    }else{
+        [self.searchBtn setTitle:@"搜商家" forState:UIControlStateNormal];
+        
+        self.btnBGView.hidden = YES;
+        self.searchBtn.selected = NO;
+        self.type = 2;
+        if (![self.searchTextField.text isEqualToString:@""]) {
+            [self requestSearchFriend];
+        }
+        [sender setTitle:@"搜用户" forState:UIControlStateNormal];
     }
+    
 }
-//搜索商家
-- (IBAction)searchShoperAction:(UIButton *)sender {
-    [self.searchBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-    self.btnBGView.hidden = YES;
-    self.searchBtn.selected = NO;
-    self.type = 2;
-    if (![self.searchTextField.text isEqualToString:@""]) {
-        [self requestSearchFriend];
-    }
-}
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -116,9 +123,6 @@
     
     self.userBtn.layer.cornerRadius = 5.f;
     self.userBtn.layer.masksToBounds = YES;
-    
-    self.shoperBtn.layer.cornerRadius = 5.f;
-    self.shoperBtn.layer.masksToBounds = YES;
     
     self.btnBGView.layer.cornerRadius = 5.f;
     self.btnBGView.layer.masksToBounds = YES;
@@ -197,7 +201,7 @@
     friendCell.model = self.dataArr[indexPath.row];
     
     friendCell.delegate = self;
-
+    
     return friendCell;
 }
 

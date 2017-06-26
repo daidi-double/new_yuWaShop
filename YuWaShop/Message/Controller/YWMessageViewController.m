@@ -154,6 +154,7 @@
             YWMessageAddressBookTableViewCell * firstCell = [weakSelf.addressBooktableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             firstCell.countLabel.hidden = YES;
         });
+        
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
     self.addressBooktableView.friendsChatBlock = ^(YWMessageAddressBookModel * model){
