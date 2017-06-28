@@ -129,6 +129,7 @@
     NSString * documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     NSString * filePath1 = [NSString stringWithFormat:@"%@/isPush.plist",documentPath];
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithContentsOfFile:filePath1];
+    
     if (dic == nil) {
         //表示没有这个文件时候。我们创建一个.plist文件
         NSMutableDictionary* arrM = [NSMutableDictionary dictionary];

@@ -43,7 +43,7 @@
 }
 
 - (void)dataSet{
-    if (self.model.jModel.friend_remark == nil) {
+    if ([self.model.jModel.friend_remark isEqualToString:@""]) {
         
         self.nameLabel.text = self.model.jModel.nikeName;
     }else{

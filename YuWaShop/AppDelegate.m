@@ -122,10 +122,11 @@
     }
     
     NSString * appKey = @"980bbea59e896101b75d4286";
-    
     BOOL isProduction = NO;
+   
 #if DEBUG
     isProduction = NO;
+//     isProduction = YES;
 #else
     isProduction = YES;
 #endif
@@ -216,7 +217,13 @@ forRemoteNotification:(NSDictionary *)userInfo
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
         MyLog(@"iOS10 前台收到远程通知:%@", [self logDic:userInfo]);
-        
+        if ([body isEqualToString:@"用户买单"]) {
+            
+            EMError *error = [[EMClient sharedClient].contactManager addContact:title message:@"我想加您为好友"];
+            if (!error) {
+                MyLog(@"自动申请成功");
+            }
+        }
         [self saveJupshNotificationDicWithDic:userInfo];
         
     }else {// 判断为本地通知
@@ -240,6 +247,13 @@ forRemoteNotification:(NSDictionary *)userInfo
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
         NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
+        if ([body isEqualToString:@"用户买单"]) {
+            
+            EMError *error = [[EMClient sharedClient].contactManager addContact:title message:@"我想加您为好友"];
+            if (!error) {
+                MyLog(@"自动申请成功");
+            }
+        }
         [self saveJupshNotificationDicWithDic:userInfo];
         
         NSString * documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
