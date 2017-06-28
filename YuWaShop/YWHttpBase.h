@@ -260,5 +260,6 @@
 
 
 #define HTTP_SEEOTHERCENTER       @"/api.php/User/getUserInfo/"  //查看他人个人中心
+#define HTTP_CHANGEFRIENDSNAME       @"/api.php/User/editFriend/"  //修改好友昵称
 
 #endif /* YWHttpBase_h */

@@ -43,7 +43,12 @@
 }
 
 - (void)dataSet{
-    self.nameLabel.text = self.model.jModel.nikeName;
+    if (self.model.jModel.friend_remark == nil) {
+        
+        self.nameLabel.text = self.model.jModel.nikeName;
+    }else{
+        self.nameLabel.text = self.model.jModel.friend_remark;
+    }
     
     if (self.model.conversation.unreadMessagesCount == 0) {
         self.countLabel.hidden = YES;

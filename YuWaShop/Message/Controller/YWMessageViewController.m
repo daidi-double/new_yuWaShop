@@ -211,7 +211,12 @@
 - (void)chatWithUser:(YWMessageAddressBookModel *)model{
     YWMessageChatViewController *chatVC = [[YWMessageChatViewController alloc] initWithConversationChatter:model.hxID conversationType:EMConversationTypeChat];
     
-    chatVC.friendNikeName = model.nikeName;
+    if (model.friend_remark == nil) {
+        
+        chatVC.friendNikeName = model.nikeName;
+    }else{
+        chatVC.friendNikeName = model.friend_remark;
+    }
     chatVC.friendID = model.user_id;
     chatVC.friendIcon = model.header_img;
     

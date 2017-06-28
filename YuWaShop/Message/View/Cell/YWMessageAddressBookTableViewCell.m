@@ -35,7 +35,12 @@
 }
 
 - (void)dataSet{
-    self.nameLabel.text = self.model.nikeName;
+    if (self.model.friend_remark== nil) {
+        
+        self.nameLabel.text = self.model.nikeName;
+    }else{
+        self.nameLabel.text = self.model.friend_remark;
+    }
     [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.header_img] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
 }
 

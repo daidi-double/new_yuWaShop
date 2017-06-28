@@ -107,7 +107,7 @@
                     return;
                 }
                 
-                [weakSelf chanegMarkName:replayTextField.text andUid:model.user_id andIndexPath:indexPath];
+                [weakSelf chanegMarkName:replayTextField.text andUid:model andIndexPath:indexPath];
                 
             }];
             
@@ -246,7 +246,7 @@
             [self.dataArr removeAllObjects];
             [self.keyArr removeAllObjects];
             MyLog(@"Regieter Code pragram is %@",pragram);
-            MyLog(@"Regieter Code is %@",responsObj);
+            MyLog(@"好友信息Regieter Code is %@",responsObj);
             YWMessageAddressBookModel * model = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];
             model.hxID = userlist[i];//无昵称时设为环信ID
             [sortArr addObject:model];
@@ -316,12 +316,18 @@
     }];
 }
 //修改昵称
--(void)chanegMarkName:(NSString *)name andUid:(NSString *)uid andIndexPath:(NSIndexPath*)indexPath{
-    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_SEEOTHERCENTER];
-    NSDictionary*params=@{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_uid":uid,@"user_type":@(2),@"nickname":name};
+-(void)chanegMarkName:(NSString *)name andUid:(YWMessageAddressBookModel *)model andIndexPath:(NSIndexPath*)indexPath{
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_CHANGEFRIENDSNAME];
+    NSString * ruser_type;//被修改人的类型
+    if ([[model.hxID substringToIndex:1]integerValue] == 2) {
+        ruser_type = @"2";
+    }else{
+        ruser_type = @"1";
+    }
+    NSDictionary*params=@{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"remark_id":model.user_id,@"user_type":@(2),@"remark":name,@"ruser_type":ruser_type};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDatasNoHudWithUrl:urlStr withParams:params compliation:^(id data, NSError *error) {
-        MyLog(@"！！！！%@",data);
+        MyLog(@"修改昵称%@",data);
         NSNumber*number=data[@"errorCode"];
         NSString*errorCode=[NSString stringWithFormat:@"%@",number];
         if ([errorCode isEqualToString:@"0"]) {
@@ -329,8 +335,8 @@
             
             NSMutableArray * dataArr = self.dataArr[indexPath.section - 1];
             YWMessageAddressBookModel * model = dataArr[indexPath.row];
-            model.nikeName = dict[@"nickname"];            
-            [JRToast showWithText:@"备注修改成功"];
+            model.nikeName = name;
+            [JRToast showWithText:dict[@"msg"]];
         }else{
             [JRToast showWithText:data[@"errorMessage"]];
         }
