@@ -99,7 +99,7 @@
     
     self.publishBtn = [[UIButton alloc]initWithFrame:CGRectMake(0.f, kScreen_Height - 44.f, kScreen_Width, 44.f)];
     [self.publishBtn setTitle:@"发布 ➔" forState:UIControlStateNormal];
-    self.publishBtn.backgroundColor = CNaviColor;
+    self.publishBtn.backgroundColor = RGBCOLOR(78, 154, 225, 1);
     [self.publishBtn addTarget:self action:@selector(publishBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.publishBtn];
     
@@ -311,7 +311,7 @@
     NSString * tagStr = [self tagArrJsonCreate];
 //    MyLog(@"%@",tagStr);
     NSInteger annotionCount = [RBPublishSession sharePublishSession].status;
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"cid":@(annotionCount),@"title":self.scrollView.nameTextField.text,@"location":[self.scrollView.locationnameLabel.text isEqualToString:@"添加地点"]?@"":self.scrollView.locationnameLabel.text,@"content":[JWTools UTF8WithStringJW:self.scrollView.conTextView.text],@"img_list":[JWTools jsonStrWithArr:self.picUrlArr],@"tag":tagStr,@"user_type":@([UserSession instance].isVIP==3?2:1)};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"cid":@(annotionCount),@"title":[JWTools UTF8WithStringJW:self.scrollView.nameTextField.text],@"location":[self.scrollView.locationnameLabel.text isEqualToString:@"添加地点"]?@"":self.scrollView.locationnameLabel.text,@"content":[JWTools UTF8WithStringJW:self.scrollView.conTextView.text],@"img_list":[JWTools jsonStrWithArr:self.picUrlArr],@"tag":tagStr,@"user_type":@([UserSession instance].isVIP==3?2:1)};
     MyLog(@"pragram = %@",pragram);
     [[HttpObject manager]postDataWithType:YuWaType_RB_NODE_PUBLISH withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);

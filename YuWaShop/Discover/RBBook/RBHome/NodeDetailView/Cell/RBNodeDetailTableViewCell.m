@@ -27,7 +27,7 @@
 }
 
 - (void)dataSet{
-    self.nameLabel.text = self.model.title;
+    self.nameLabel.text = [self.model.title stringByRemovingPercentEncoding];
     self.conLabel.text = self.model.desc;
     self.timeLabel.text = [JWTools dateWithStr:self.model.time];
     self.collectionLabel.text = [NSString stringWithFormat:@"%@次收藏",self.model.fav_count];

@@ -28,24 +28,24 @@
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1st-H7-dX3">
                     <rect key="frame" x="15" y="55" width="345" height="1"/>
-                    <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="345" id="bey-bZ-2b2"/>
-                        <constraint firstAttribute="height" constant="1" id="qL7-ZS-eZP"/>
+                        <constraint firstAttribute="height" constant="0.5" id="qL7-ZS-eZP"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdg-of-vrT">
                     <rect key="frame" x="15" y="336" width="345" height="1"/>
-                    <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="vAg-GZ-vAc"/>
+                        <constraint firstAttribute="height" constant="0.5" id="vAg-GZ-vAc"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTS-EK-m96">
                     <rect key="frame" x="15" y="381" width="345" height="1"/>
-                    <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="3HQ-oF-7Nv"/>
+                        <constraint firstAttribute="height" constant="0.5" id="3HQ-oF-7Nv"/>
                     </constraints>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4aB-xD-fx0" customClass="JWTextView">
@@ -89,15 +89,15 @@
                                 <constraint firstAttribute="height" constant="28" id="gId-cY-4cX"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageTypeChoose_right" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-c3-1rl">
-                            <rect key="frame" x="333" y="12" width="12" height="20"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="右箭头" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-c3-1rl">
+                            <rect key="frame" x="337" y="14.5" width="8" height="15"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="FiZ-vg-S7u"/>
-                                <constraint firstAttribute="width" constant="12" id="MTj-S6-sVB"/>
+                                <constraint firstAttribute="height" constant="15" id="FiZ-vg-S7u"/>
+                                <constraint firstAttribute="width" constant="8" id="MTj-S6-sVB"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加地点" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p86-Gx-xxh">
-                            <rect key="frame" x="33" y="8" width="295" height="28"/>
+                            <rect key="frame" x="33" y="8" width="299" height="28"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.32156862745098042" green="0.32156862745098042" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -157,7 +157,7 @@
         </scrollView>
     </objects>
     <resources>
-        <image name="imageTypeChoose_right" width="12" height="20"/>
         <image name="rb_locate" width="28" height="28"/>
+        <image name="右箭头" width="14" height="25"/>
     </resources>
 </document>

@@ -53,7 +53,7 @@
         }];
     }];
     
-    self.nameLabel.text = self.model.title;
+    self.nameLabel.text = [self.model.title stringByRemovingPercentEncoding];
     self.conLabel.text = self.model.desc;
     
     [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.user.images] placeholderImage:[UIImage imageNamed:@"Head-portrait"] completed:nil];
