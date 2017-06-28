@@ -125,6 +125,7 @@
                 [[EMClient sharedClient].options setIsAutoLogin:YES];
                 [UserSession instance].hxPassword = account;
                 MyLog(@"环信登录成功");
+                [UserSession instance].isLoginHX = YES;
             }
         }else{
             EMError *error = [[EMClient sharedClient] registerWithUsername:[NSString stringWithFormat:@"2%@",account] password:account];
@@ -136,6 +137,17 @@
                     if (errorLog==nil){
                         [[EMClient sharedClient].options setIsAutoLogin:YES];
                         MyLog(@"环信登录成功");
+                        [UserSession instance].isLoginHX = YES;
+                    }else{
+                        //如果登录失败，在尝试一次
+                        EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"%@",account]];
+                        if (errorLog==nil){
+                            [[EMClient sharedClient].options setIsAutoLogin:YES];
+                            MyLog(@"环信登录成功");
+                            [UserSession instance].isLoginHX = YES;
+                        }else{
+                            [UserSession instance].isLogin = NO;
+                        }
                     }
                 }
             }

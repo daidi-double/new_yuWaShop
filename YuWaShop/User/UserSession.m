@@ -97,6 +97,7 @@ static UserSession * user=nil;
                 [[EMClient sharedClient].options setIsAutoLogin:NO];
                 [[EMClient sharedClient].chatManager getAllConversations];
                 MyLog(@"环信登录成功");
+                 [UserSession instance].isLoginHX = YES;
             }else{
                 EMError *error = [[EMClient sharedClient] registerWithUsername:[NSString stringWithFormat:@"2%@",[NSString stringWithFormat:@"2%@",user.account]] password:[NSString stringWithFormat:@"2%@",user.account]];
                 if (error==nil) {
@@ -107,6 +108,16 @@ static UserSession * user=nil;
                         if (errorLog==nil){
                             [[EMClient sharedClient].options setIsAutoLogin:YES];
                             MyLog(@"环信登录成功");
+                            [UserSession instance].isLoginHX = YES;
+                        }else{
+                            EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",user.account] password:[NSString stringWithFormat:@"2%@",user.account]];
+                            if (errorLog==nil){
+                                [[EMClient sharedClient].options setIsAutoLogin:YES];
+                                MyLog(@"环信登录成功");
+                                [UserSession instance].isLoginHX = YES;
+                            }else{
+                                [UserSession instance].isLogin = NO;
+                            }
                         }
                     }
                 }

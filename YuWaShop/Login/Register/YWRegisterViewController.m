@@ -160,6 +160,9 @@
                 if (errorLog==nil){
                     [[EMClient sharedClient].options setIsAutoLogin:YES];
                     MyLog(@"环信登录成功");
+                    [UserSession instance].isLogin = YES;
+                }else{
+                    [UserSession instance].isLogin = NO;
                 }
             }
         }

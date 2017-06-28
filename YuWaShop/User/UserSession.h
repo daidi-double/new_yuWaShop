@@ -72,7 +72,8 @@
 
 @property (nonatomic,assign)CGFloat star;
 @property (nonatomic,copy)NSString * infrastructure;
-
+//记录环信是否登录成功，成功是 yes  失败是NO；
+@property (nonatomic, assign)  BOOL isLoginHX;
 
 + (UserSession*)instance;  //创建单例
 + (void)clearUser;   //退出登录 删除数据
