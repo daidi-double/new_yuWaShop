@@ -126,7 +126,7 @@
    
 #if DEBUG
     isProduction = NO;
-//     isProduction = YES;
+
 #else
     isProduction = YES;
 #endif
