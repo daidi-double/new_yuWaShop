@@ -40,7 +40,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self makeNavi];
     [self makeUI];
     [self dataSet];
@@ -56,6 +55,7 @@
     [[EMClient sharedClient].contactManager removeDelegate:self];
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+    
 }
 
 - (void)messagesDidReceive:(NSArray *)aMessages{
@@ -211,7 +211,7 @@
 - (void)chatWithUser:(YWMessageAddressBookModel *)model{
     YWMessageChatViewController *chatVC = [[YWMessageChatViewController alloc] initWithConversationChatter:model.hxID conversationType:EMConversationTypeChat];
     
-    if (model.friend_remark == nil) {
+    if ([model.friend_remark isEqualToString:@""]) {
         
         chatVC.friendNikeName = model.nikeName;
     }else{
@@ -308,7 +308,7 @@
     if ([UserSession instance].isLogin ) {
         [self requestShopArrDataWithPages:0];
     }else{
-         [self cancelRefreshWithIsHeader:YES];
+        [self cancelRefreshWithIsHeader:YES];
     }
 }
 - (void)cancelRefreshWithIsHeader:(BOOL)isHeader{
@@ -421,10 +421,15 @@
                 if (count>0) {
                     [self.tableView reloadData];
                 }
+                if ([responsObj[@"errorMessage"] isEqualToString:@"没有权限"]) {
+                    [self.dataAry removeAllObjects ];
+                    [self.tableView reloadData];
+                }
             }];
         }
         [self.tableView reloadData];
     }
+     [self.tableView reloadData];
 }
 
 
