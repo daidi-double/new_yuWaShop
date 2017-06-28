@@ -305,7 +305,11 @@
 }
 - (void)headerRereshing{
     self.pages = 0;
-    [self requestShopArrDataWithPages:0];
+    if ([UserSession instance].isLogin ) {
+        [self requestShopArrDataWithPages:0];
+    }else{
+         [self cancelRefreshWithIsHeader:YES];
+    }
 }
 - (void)cancelRefreshWithIsHeader:(BOOL)isHeader{
     if (isHeader) {

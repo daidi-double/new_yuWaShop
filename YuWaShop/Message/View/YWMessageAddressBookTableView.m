@@ -193,7 +193,12 @@
     }];
 }
 - (void)headerRereshing{
-    [self requestShopArrData];
+    if ([UserSession instance].isLogin) {
+        
+        [self requestShopArrData];
+    }else{
+         [self.mj_header endRefreshing];
+    }
 }
 
 
