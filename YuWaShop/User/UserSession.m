@@ -48,7 +48,10 @@ static UserSession * user=nil;
         [[EMClient sharedClient].options setIsAutoLogin:NO];
         
         EMError *error = [[EMClient sharedClient] logout:YES];
-        if (!error)MyLog(@"环信退出成功");
+        if (!error){
+            MyLog(@"环信退出成功");
+            [UserSession instance].isLogin = NO;
+        };
         
         [UserSession getDataFromUserDefault];
         
