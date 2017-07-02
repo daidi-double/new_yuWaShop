@@ -270,6 +270,7 @@
            
             if (!errorLog){
                 [[EMClient sharedClient].options setIsAutoLogin:YES];
+                [UserSession instance].isLoginHX = YES;
                 MyLog(@"环信登录成功");
                 [UserSession instance].isLogin = YES;
             }else if (errorLog.code == 202){
@@ -289,6 +290,7 @@
                         EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[NSString stringWithFormat:@"%@",account]];
                         if (errorLog==nil){
                             [[EMClient sharedClient].options setIsAutoLogin:YES];
+                            [UserSession instance].isLoginHX = YES;
                             MyLog(@"环信登录成功");
                             [UserSession instance].isLogin = YES;
                         }

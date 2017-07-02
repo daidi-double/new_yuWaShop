@@ -218,6 +218,8 @@
         userlist = [[EMClient sharedClient].contactManager getContacts];
     }
     if (!userlist||userlist.count<=0) {
+        [self.dataArr removeAllObjects];
+        [self.keyArr removeAllObjects];
         [self reloadData];
         return;
     }
