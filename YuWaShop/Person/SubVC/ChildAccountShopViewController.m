@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *accountTableView;
 @property (weak, nonatomic) IBOutlet UIButton *quitBtn;
 @property (nonatomic,strong)NSMutableArray * accountAry;//账号数据
+@property (nonatomic, strong) UIView *bgView;
 
 @end
 
@@ -89,15 +90,7 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        
-        UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 30)];
-        bgView.backgroundColor = [UIColor colorWithHexString:@"#e9eeef"];
-        UILabel * str = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, kScreen_Width-30, 30)];
-        str.text = @"已关联账号，可用于快速切换";
-        str.textColor = [UIColor colorWithHexString:@"#999999"];
-        str.font = [UIFont systemFontOfSize:10];
-        [bgView addSubview:str];
-        return bgView;
+        return self.bgView;
     }
     return nil;
 }
@@ -350,15 +343,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(UIView *)bgView{
+    if (_bgView == nil) {
+        _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 30)];
+        _bgView.backgroundColor = [UIColor colorWithHexString:@"#e9eeef"];
+        UILabel * str = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, kScreen_Width-30, 30)];
+        str.text = @"已关联账号，可用于快速切换";
+        str.textColor = [UIColor colorWithHexString:@"#999999"];
+        str.font = [UIFont systemFontOfSize:10];
+        [_bgView addSubview:str];
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+    }
+    return _bgView;
+}
 
 @end

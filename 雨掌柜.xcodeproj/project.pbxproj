@@ -6581,7 +6581,7 @@
 					B31096FF1DE44EA00033A984 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = JQ283T24DV;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -7675,7 +7675,7 @@
 				CODE_SIGN_ENTITLEMENTS = YuWaShop/YuWaShop.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mingbang Network Technology Co., Ltd. (JQ283T24DV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JQ283T24DV;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/YuWaShop/VipxoxPrefixHeader.pch";
 				INFOPLIST_FILE = YuWaShop/Info.plist;
@@ -7691,8 +7691,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.duruikeji.YuWaShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "83faae64-cd69-4f90-a74f-82fa43a592e7";
+				PROVISIONING_PROFILE_SPECIFIER = luoyun2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
