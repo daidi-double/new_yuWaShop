@@ -10,7 +10,8 @@
 #define GlobalInfo_h
 
 
-
+#define KNOTIFICATION_CALL @"callOutWithChatter"
+#define KNOTIFICATION_CALL_CLOSE @"callControllerClose"
 
 
 #pragma mark  --    商家版的接口

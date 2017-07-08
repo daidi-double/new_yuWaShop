@@ -12,6 +12,8 @@
 		AA0361421EB0CA6B00684ED7 /* AddShopCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0361401EB0CA6B00684ED7 /* AddShopCategoryViewController.xib */; };
 		AA0361461EB0DF5400684ED7 /* YWCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0361441EB0DF5400684ED7 /* YWCategoryViewController.m */; };
 		AA0361471EB0DF5400684ED7 /* YWCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0361451EB0DF5400684ED7 /* YWCategoryViewController.xib */; };
+		AA124D251F1072CA0003E7E9 /* VoiceChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA124D231F1072CA0003E7E9 /* VoiceChatViewController.m */; };
+		AA124D261F1072CA0003E7E9 /* VoiceChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA124D241F1072CA0003E7E9 /* VoiceChatViewController.xib */; };
 		AA1E73BD1EEFB3B70079D716 /* MainAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E73BC1EEFB3B70079D716 /* MainAccountListModel.m */; };
 		AA20DA8E1EFB88E1002953A4 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AA20D9A31EFB88E1002953A4 /* EMAudioPlayerUtil.m */; };
 		AA20DA8F1EFB88E1002953A4 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AA20D9A51EFB88E1002953A4 /* EMAudioRecorderUtil.m */; };
@@ -915,6 +917,9 @@
 		AA0361441EB0DF5400684ED7 /* YWCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWCategoryViewController.m; sourceTree = "<group>"; };
 		AA0361451EB0DF5400684ED7 /* YWCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YWCategoryViewController.xib; sourceTree = "<group>"; };
 		AA0361481EB0E40300684ED7 /* AddShopCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopCategoryViewController.h; sourceTree = "<group>"; };
+		AA124D221F1072CA0003E7E9 /* VoiceChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceChatViewController.h; sourceTree = "<group>"; };
+		AA124D231F1072CA0003E7E9 /* VoiceChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceChatViewController.m; sourceTree = "<group>"; };
+		AA124D241F1072CA0003E7E9 /* VoiceChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceChatViewController.xib; sourceTree = "<group>"; };
 		AA1E73BB1EEFB3B70079D716 /* MainAccountListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAccountListModel.h; sourceTree = "<group>"; };
 		AA1E73BC1EEFB3B70079D716 /* MainAccountListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainAccountListModel.m; sourceTree = "<group>"; };
 		AA20D9991EFB88E1002953A4 /* EaseUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseUI.h; sourceTree = "<group>"; };
@@ -2459,6 +2464,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA124D211F1072A60003E7E9 /* 语音视频聊天 */ = {
+			isa = PBXGroup;
+			children = (
+				AA124D221F1072CA0003E7E9 /* VoiceChatViewController.h */,
+				AA124D231F1072CA0003E7E9 /* VoiceChatViewController.m */,
+				AA124D241F1072CA0003E7E9 /* VoiceChatViewController.xib */,
+			);
+			name = "语音视频聊天";
+			sourceTree = "<group>";
+		};
 		AA1417991EF5176C004092D3 /* 通知 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4903,6 +4918,7 @@
 		B35C9D251DEC3FE80051E352 /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
+				AA124D211F1072A60003E7E9 /* 语音视频聊天 */,
 				B35C9D261DEC3FE80051E352 /* YWMessageChatViewController.h */,
 				B35C9D271DEC3FE80051E352 /* YWMessageChatViewController.m */,
 				B35C9D281DEC3FE80051E352 /* YWMessageChatViewController.xib */,
@@ -6626,6 +6642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEA62D51E98F8440022F4DE /* OrderInfoTableViewCell.xib in Resources */,
+				AA124D261F1072CA0003E7E9 /* VoiceChatViewController.xib in Resources */,
 				AAF128331E8BBB6500121621 /* ForgetPayPasswordTableViewCell.xib in Resources */,
 				C14BA3B11DF93A9F001BDFBD /* IntroduceMoneyTableViewCell.xib in Resources */,
 				B35C9F131DEC3FE80051E352 /* RBHomeSearchToolsView.xib in Resources */,
@@ -7025,6 +7042,7 @@
 				B35C9F211DEC3FE80051E352 /* JWEmojisKeyBoards.m in Sources */,
 				B317AF261DE5B5110093C511 /* YWPersonCooperaViewController.m in Sources */,
 				C174997A1DF6B59900F17B77 /* StorePhotoCollectionViewCell.m in Sources */,
+				AA124D251F1072CA0003E7E9 /* VoiceChatViewController.m in Sources */,
 				B31098B21DE4543E0033A984 /* MJRefreshAutoNormalFooter.m in Sources */,
 				AAF128221E8BB4D800121621 /* ForgetViewController.m in Sources */,
 				B31098A01DE4543E0033A984 /* MASConstraintMaker.m in Sources */,

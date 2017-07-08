@@ -17,8 +17,10 @@
 #import "VIPTabBarController.h"
 #import "YWMessageTableViewCell.h"
 
+#import "VoiceChatViewController.h"
+
 #define MESSAGECELL @"YWMessageTableViewCell"
-@interface YWMessageViewController ()<UITableViewDelegate,UITableViewDataSource,EMContactManagerDelegate>
+@interface YWMessageViewController ()<UITableViewDelegate,UITableViewDataSource,EMContactManagerDelegate,EMCallManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *noLoginBGBtnView;
@@ -34,6 +36,8 @@
 @property (nonatomic,strong)YWMessageAddressBookTableView * addressBooktableView;
 @property (nonatomic,strong)UIBarButtonItem * rightBarBtn;
 @property (nonatomic,copy)NSString * type;
+
+@property (nonatomic,strong)VoiceChatViewController * voiceController;
 @end
 
 @implementation YWMessageViewController
@@ -55,9 +59,45 @@
     [[EMClient sharedClient].contactManager removeDelegate:self];
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
-    
+    //移除实时通话回调
+    [[EMClient sharedClient].callManager removeDelegate:self];
+    //注册实时通话回调
+    [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
+
+
 }
 
+
+
+/*!
+ *  用户A拨打用户B，用户B会收到这个回调
+ *
+ *  @param aSession  会话实例
+ */
+- (void)callDidReceive:(EMCallSession *)aSession{
+    MyLog(@"有来电");
+    _voiceController = [[VoiceChatViewController alloc]init];
+
+    self.voiceController.callSession = aSession;
+    //    self.voiceController.statusLabel.hidden = YES;
+    if (!aSession.type) {
+        self.voiceController.isHidden = NO;
+        [self getIconAccount:aSession.remoteUsername];
+        [self presentViewController:self.voiceController animated:YES completion:nil];
+        
+    }else{//视频
+        //        self.voiceViewController.type = 1;
+        //        self.voiceViewController.isSender = NO;
+        //        [self presentViewController:self.voiceViewController animated:YES completion:nil];
+        //        
+    }
+
+}
+- (void)callDidEnd:(EMCallSession *)aSession
+            reason:(EMCallEndReason)aReason
+             error:(EMError *)aError{
+    self.voiceController = nil;
+}
 - (void)messagesDidReceive:(NSArray *)aMessages{
     [self.tableView reloadData];
 }
@@ -431,6 +471,39 @@
     }
      [self.tableView reloadData];
 }
-
+- (void)getIconAccount:(NSString *)username{
+  
+    NSString * account = [username substringFromIndex:1];
+    if (username.length == 12) {
+        if ([JWTools isPhoneIDWithStr:account]) {
+            username = account;
+            self.type = @"2";
+        }
+    }else if ([[username substringToIndex:1] isEqualToString:@"2"]){
+ 
+        if ([JWTools checkIsHaveNumAndLetter:username] == 3) {
+            self.type = @"2";
+           username = account;
+        }else{
+            self.type = @"1";
+        }
+    }else{
+        self.type = @"1";
+    }
+    
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":username,@"user_type":@(2),@"type":self.type};
+    [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
+        YWMessageAddressBookModel * modelTemp = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];
+        [self.voiceController.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",modelTemp.header_img]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        if ([modelTemp.friend_remark isEqualToString:@""]) {
+            
+            self.voiceController.friendsName = modelTemp.nikeName;
+        }else{
+            self.voiceController.friendsName = modelTemp.friend_remark;
+        }
+    } failur:^(id errorData, NSError *error) {
+      
+    }];
+}
 
 @end
