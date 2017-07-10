@@ -14,6 +14,8 @@
 		AA0361471EB0DF5400684ED7 /* YWCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0361451EB0DF5400684ED7 /* YWCategoryViewController.xib */; };
 		AA124D251F1072CA0003E7E9 /* VoiceChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA124D231F1072CA0003E7E9 /* VoiceChatViewController.m */; };
 		AA124D261F1072CA0003E7E9 /* VoiceChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA124D241F1072CA0003E7E9 /* VoiceChatViewController.xib */; };
+		AA16D86B1F134D92005858CB /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16D8691F134D92005858CB /* VideoViewController.m */; };
+		AA16D86C1F134D92005858CB /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA16D86A1F134D92005858CB /* VideoViewController.xib */; };
 		AA1E73BD1EEFB3B70079D716 /* MainAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E73BC1EEFB3B70079D716 /* MainAccountListModel.m */; };
 		AA20DA8E1EFB88E1002953A4 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AA20D9A31EFB88E1002953A4 /* EMAudioPlayerUtil.m */; };
 		AA20DA8F1EFB88E1002953A4 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AA20D9A51EFB88E1002953A4 /* EMAudioRecorderUtil.m */; };
@@ -920,6 +922,9 @@
 		AA124D221F1072CA0003E7E9 /* VoiceChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceChatViewController.h; sourceTree = "<group>"; };
 		AA124D231F1072CA0003E7E9 /* VoiceChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceChatViewController.m; sourceTree = "<group>"; };
 		AA124D241F1072CA0003E7E9 /* VoiceChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceChatViewController.xib; sourceTree = "<group>"; };
+		AA16D8681F134D92005858CB /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		AA16D8691F134D92005858CB /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		AA16D86A1F134D92005858CB /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
 		AA1E73BB1EEFB3B70079D716 /* MainAccountListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAccountListModel.h; sourceTree = "<group>"; };
 		AA1E73BC1EEFB3B70079D716 /* MainAccountListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainAccountListModel.m; sourceTree = "<group>"; };
 		AA20D9991EFB88E1002953A4 /* EaseUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseUI.h; sourceTree = "<group>"; };
@@ -2470,6 +2475,9 @@
 				AA124D221F1072CA0003E7E9 /* VoiceChatViewController.h */,
 				AA124D231F1072CA0003E7E9 /* VoiceChatViewController.m */,
 				AA124D241F1072CA0003E7E9 /* VoiceChatViewController.xib */,
+				AA16D8681F134D92005858CB /* VideoViewController.h */,
+				AA16D8691F134D92005858CB /* VideoViewController.m */,
+				AA16D86A1F134D92005858CB /* VideoViewController.xib */,
 			);
 			name = "语音视频聊天";
 			sourceTree = "<group>";
@@ -6946,6 +6954,7 @@
 				AA37888E1E8ABA4700B7F9CC /* YWBankViewController.xib in Resources */,
 				B35C9F221DEC3FE80051E352 /* JWEmojisKeyBoards.xib in Resources */,
 				AA3788881E8ABA4700B7F9CC /* YWBankTableViewCell.xib in Resources */,
+				AA16D86C1F134D92005858CB /* VideoViewController.xib in Resources */,
 				B35C9EE81DEC3FE80051E352 /* RBNodeDetailCommentHeader.xib in Resources */,
 				B35C9F0F1DEC3FE80051E352 /* MDHotelRightBtn.xib in Resources */,
 				B35C9F091DEC3FE80051E352 /* RBHomeViewController.xib in Resources */,
@@ -7095,6 +7104,7 @@
 				B35C9EF61DEC3FE80051E352 /* RBNodeUserModel.m in Sources */,
 				AA3C141D1EA73D7900530095 /* AbountAndFansModel.m in Sources */,
 				B35C9EDB1DEC3FE80051E352 /* RBHomeListImagesModel.m in Sources */,
+				AA16D86B1F134D92005858CB /* VideoViewController.m in Sources */,
 				AA22AE761EE295A500528A62 /* AmendInfoViewController.m in Sources */,
 				AA3C41731E8DD9510052C732 /* AccountIncomeModel.m in Sources */,
 				B31098D11DE4543E0033A984 /* UIImage+MultiFormat.m in Sources */,

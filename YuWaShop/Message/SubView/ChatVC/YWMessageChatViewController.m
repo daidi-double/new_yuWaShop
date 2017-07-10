@@ -23,7 +23,7 @@
 #import "EaseLocalDefine.h"
 #import "EaseSDKHelper.h"
 
-
+#import "VideoViewController.h"
 #import "VoiceChatViewController.h"
 
 #define KHintAdjustY    50
@@ -31,11 +31,11 @@
 #define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
 
 @interface YWMessageChatViewController ()<EMCallManagerDelegate>
-@property (nonatomic,strong)VoiceChatViewController * voiceController;
+@property (nonatomic,strong)VoiceChatViewController * voiceController;//语音聊天
 @property (nonatomic,strong)NSTimer * timer;
 @property (nonatomic,strong)NSString * currentFriendsName;
 @property (nonatomic,strong)EMCallSession * currentSession;
-
+@property (nonatomic,strong)VideoViewController * videoController;//视频聊天
 @end
 
 @implementation YWMessageChatViewController
@@ -48,15 +48,16 @@
     //注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeCall:) name:KNOTIFICATION_CALL object:nil];
+    
 }
 
 - (void)makeCall:(NSNotification*)notifi{
     
     NSInteger type = [[notifi object][@"type"] integerValue];
     _currentFriendsName = [notifi object][@"chatter"];
-    _voiceController = [[VoiceChatViewController alloc]init];
-
+    
     if (type == 0) {
+        _voiceController = [[VoiceChatViewController alloc]init];
         self.voiceController.friendsName = self.friendNikeName;
         self.voiceController.isHidden = YES;
         self.voiceController.friendsHXID = [notifi object][@"chatter"];
@@ -64,34 +65,15 @@
         [self _startCallTimer];//开始计时
         [self presentViewController:self.voiceController animated:YES completion:nil];
     }else{
-        
+        _videoController = [[VideoViewController alloc]init];
+        self.videoController.friendsName = self.friendNikeName;
+        self.videoController.isHidden = YES;
+        self.videoController.friendsHXID = [notifi object][@"chatter"];
+        self.videoController.friendsIcon = self.friendIcon;
+        [self _startCallTimer];//开始计时
+        [self presentViewController:self.videoController animated:YES completion:nil];
     }
     
-}
-/*!
- *  \~chinese
- *  用户A拨打用户B，用户B会收到这个回调
- *
- *  @param aSession  会话实例
- */
-- (void)callDidReceive:(EMCallSession *)aSession{
-    _currentSession = aSession;
-    MyLog(@"有来电");
-    _voiceController = [[VoiceChatViewController alloc]init];
-
-    self.voiceController.callSession = aSession;
-//    self.voiceController.statusLabel.hidden = YES;
-    if (!aSession.type) {
-        self.voiceController.isHidden = NO;
-        
-        [self presentViewController:self.voiceController animated:YES completion:nil];
-        
-    }else{//视频
-//        self.voiceViewController.type = 1;
-//        self.voiceViewController.isSender = NO;
-//        [self presentViewController:self.voiceViewController animated:YES completion:nil];
-//        
-    }
 }
 - (void)_startCallTimer
 {
@@ -125,55 +107,61 @@
     self.voiceController.statusLabel.text = @"正在通话";
 }
 /*
-*  1. 用户A或用户B结束通话后，对方会收到该回调
-*  2. 通话出现错误，双方都会收到该回调
-*
-*  @param aSession  会话实例
-*  @param aReason   结束原因
-*  @param aError    错误
+ *  1. 用户A或用户B结束通话后，对方会收到该回调
+ *  2. 通话出现错误，双方都会收到该回调
+ *
+ *  @param aSession  会话实例
+ *  @param aReason   结束原因
+ *  @param aError    错误
  */
 
 - (void)callDidEnd:(EMCallSession *)aSession reason:(EMCallEndReason)aReason error:(EMError *)aError
 {
-  
-        [self _stopCallTimer];
-
-        if (aReason != EMCallEndReasonHangup) {
-            NSString *reasonStr = @"end";
-            switch (aReason) {
-                case EMCallEndReasonNoResponse:
-                {
-                    reasonStr = NSLocalizedString(@"对方无人接听", @"NO response");
-                }
-                    break;
-                case EMCallEndReasonDecline:
-                {
-                    reasonStr = NSLocalizedString(@"对方拒绝了您的通话", @"Reject the call");
-                }
-                    break;
-                case EMCallEndReasonBusy:
-                {
-                    reasonStr = NSLocalizedString(@"对方正在通话中", @"In the call...");
-                }
-                    break;
-                case EMCallEndReasonFailed:
-                {
-                    reasonStr = NSLocalizedString(@"连接失败", @"Connect failed");
-                }
-                    break;
-                default:
-                    break;
+    
+    [self _stopCallTimer];
+    
+    if (aReason != EMCallEndReasonHangup) {
+        NSString *reasonStr = @"end";
+        switch (aReason) {
+            case EMCallEndReasonNoResponse:
+            {
+                reasonStr = NSLocalizedString(@"对方无人接听", @"NO response");
             }
+                break;
+            case EMCallEndReasonDecline:
+            {
+                reasonStr = NSLocalizedString(@"对方拒绝了您的通话", @"Reject the call");
+            }
+                break;
+            case EMCallEndReasonBusy:
+            {
+                reasonStr = NSLocalizedString(@"对方正在通话中", @"In the call...");
+            }
+                break;
+            case EMCallEndReasonFailed:
+            {
+                reasonStr = NSLocalizedString(@"连接失败", @"Connect failed");
+            }
+                break;
+            default:
+                break;
+        }
+        
+        if (aError) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+        else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:reasonStr delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+        if (self.videoController) {
+            [self.videoController dismissViewControllerAnimated:YES completion:nil];
+        }else{
             
-            if (aError) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-            else{
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:reasonStr delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
-            }
             [self.voiceController dismissViewControllerAnimated:YES completion:nil];
+        }
+        
     }
 }
 - (void)hangupCallWithReason:(EMCallEndReason)aReason
@@ -184,20 +172,20 @@
         [[EMClient sharedClient].callManager endCall:_currentSession.sessionId reason:EMCallEndReasonDecline];
         _currentSession = nil;
     }
-       [self _clearCurrentCallViewAndData];
+    [self _clearCurrentCallViewAndData];
     
     
-
+    
 }
 
 - (void)_clearCurrentCallViewAndData
 {
-
-        self.currentSession = nil;
-
-        [self.voiceController clearData];
-
-        self.voiceController = nil;
+    
+    self.currentSession = nil;
+    
+    [self.voiceController clearData];
+    [self.videoController clearData];
+    self.voiceController = nil;
     
 }
 
@@ -312,7 +300,7 @@
 - (void)avatarViewSelcted:(id<IMessageModel>)model{
     if ([model.nickname isEqualToString:[UserSession instance].account])return;
     MyLog(@"用户点击头像");
-
+    
 }
 
 @end

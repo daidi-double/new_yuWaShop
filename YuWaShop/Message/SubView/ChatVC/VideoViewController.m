@@ -1,44 +1,35 @@
 //
-//  VoiceChatViewController.m
+//  VideoViewController.m
 //  雨掌柜
 //
-//  Created by double on 17/7/8.
+//  Created by double on 17/7/10.
 //  Copyright © 2017年 Shanghai DuRui Information Technology Company. All rights reserved.
 //
 
-#import "VoiceChatViewController.h"
-#import "HttpObject.h"
+#import "VideoViewController.h"
 #import "VIPTabBarController.h"
+#import "HttpObject.h"
 #import "YWMessageAddressBookModel.h"
-@interface VoiceChatViewController ()<EMCallManagerDelegate>
+@interface VideoViewController ()<EMCallManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *hangupBtn;
 @property (weak, nonatomic) IBOutlet UIButton *rejectBtn;
 @property (weak, nonatomic) IBOutlet UIButton *answerBtn;
-@property (nonatomic,strong)NSString * type;
 @property (nonatomic,strong)NSTimer *timeTimer;
-
 @property (strong, nonatomic) AVAudioPlayer *ringPlayer;
 @property (nonatomic) int timeLength;
+@property (nonatomic,strong)NSString * type;
 @end
 
-@implementation VoiceChatViewController
+@implementation VideoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    _iconImageView.layer.masksToBounds = YES;
-    _iconImageView.layer.cornerRadius= 50;
-    _nameLabel.text = _friendsName;
-    
     //注册实时通话回调
+    _nameLabel.text = _friendsName;
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     
-    
-    
 }
-
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     _timeLabel.text = nil;
@@ -49,6 +40,7 @@
         
     }else{
         [self getIconAccount:_remoteUsername];
+        _statusLabel.text = @"邀请你视频聊天";
         _rejectBtn.hidden = !_isHidden;
         _answerBtn.hidden = !_isHidden;
         _hangupBtn.hidden = _isHidden;
@@ -61,22 +53,30 @@
                 _callSession = aCallSession;
                 [self makeUI];
             }else{
-
-                    [self dismissViewControllerAnimated:YES completion:nil];
-            
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+                
             }
         }];
     }else{
         [self makeUI];
     }
 }
-
 - (void)makeUI{
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];//休眠关闭
-    _statusLabel.text = @"正在链接";
     _nameLabel.text = _friendsName;
 
-    [self _startTimeTimer];
+        //对方窗口
+        _callSession.remoteVideoView = [[EMCallRemoteView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+        _callSession.remoteVideoView.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:_callSession.remoteVideoView];
+        
+        
+        //自己窗口
+        _callSession.localVideoView = [[EMCallLocalView alloc]initWithFrame:CGRectMake(kScreen_Width-100, 64, 80, 120)];
+        [self.view addSubview:_callSession.localVideoView];
+
+
     [self.view bringSubviewToFront:_answerBtn];
     [self.view bringSubviewToFront:_hangupBtn];
     [self.view bringSubviewToFront:_rejectBtn];
@@ -104,8 +104,8 @@
  *  @param aSession  会话实例
  */
 - (void)callDidAccept:(EMCallSession *)aSession{
-    _statusLabel.text = @"正在通话";
-    
+    _statusLabel.hidden = YES;
+    [self _startTimeTimer];
 }
 
 /*!
@@ -119,19 +119,19 @@
  *
  */
 - (void)callDidEnd:(EMCallSession *)aSession reason:(EMCallEndReason)aReason error:(EMError *)aError{
-
+    
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
     [[EMClient sharedClient].callManager removeDelegate:self];
     [self _stopTimeTimer];
     _callSession = nil;
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
     if (self.status == 1) {
         
         UIWindow * window = [[UIApplication sharedApplication].delegate window];
         VIPTabBarController * VIPVC = [[VIPTabBarController alloc]init];
         window.rootViewController = VIPVC;
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void)_startTimeTimer
@@ -185,7 +185,7 @@
         [[EMClient sharedClient].callManager endCall:_callSession.sessionId reason:EMCallEndReasonHangup];
         _callSession = nil;
     }
-   
+    
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -220,17 +220,16 @@
 }
 - (void)clearData
 {
- 
+    
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
     [audioSession setActive:YES error:nil];
-
+    
     _callSession = nil;
     
     [self _stopTimeTimer];
     //    [self _stopRing];
 }
-
 - (void)getIconAccount:(NSString *)username{
     
     NSString * account = [username substringFromIndex:1];
@@ -265,20 +264,19 @@
         
     }];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
