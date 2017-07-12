@@ -76,6 +76,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     
     cell.messageVoiceDurationColor = [UIColor grayColor];
     cell.messageVoiceDurationFont = [UIFont systemFontOfSize:12];
+    cell.voiceCellWidth = 75.f;
     
     cell.messageFileNameColor = [UIColor blackColor];
     cell.messageFileNameFont = [UIFont systemFontOfSize:13];
@@ -89,6 +90,8 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.accessibilityIdentifier = @"table_cell";
+
         _messageType = model.bodyType;
         [self _setupSubviewsWithType:_messageType
                             isSender:model.isSender
@@ -105,11 +108,21 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 #pragma mark - setup subviews
 
+/*!
+ @method
+ @brief 加载子视图
+ @discussion  
+ @param messageType  消息体类型
+ @param isSender     登录用户是否为发送方
+ @param model        消息对象model
+ @result
+ */
 - (void)_setupSubviewsWithType:(EMMessageBodyType)messageType
                       isSender:(BOOL)isSender
                          model:(id<IMessageModel>)model
 {
     _statusButton = [[UIButton alloc] init];
+    _statusButton.accessibilityIdentifier = @"status";
     _statusButton.translatesAutoresizingMaskIntoConstraints = NO;
     _statusButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [_statusButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/messageSendFail"] forState:UIControlStateNormal];
@@ -130,6 +143,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     [self.contentView addSubview:_avatarView];
     
     _hasRead = [[UILabel alloc] init];
+    _hasRead.accessibilityIdentifier = @"has_read";
     _hasRead.translatesAutoresizingMaskIntoConstraints = NO;
     _hasRead.text = NSEaseLocalizedString(@"hasRead", @"Read");
     _hasRead.textAlignment = NSTextAlignmentCenter;
@@ -139,6 +153,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     [self.contentView addSubview:_hasRead];
     
     _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _activity.accessibilityIdentifier = @"sending";
     _activity.translatesAutoresizingMaskIntoConstraints = NO;
     _activity.backgroundColor = [UIColor clearColor];
     _activity.hidden = YES;
@@ -212,6 +227,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 #pragma mark - Setup Constraints
 
+/*!
+ @method
+ @brief 设置控件约束
+ @discussion  设置气泡宽度、发送状态、已读提示的约束
+ @result
+ */
 - (void)_setupConstraints
 {
     //bubble view
@@ -241,6 +262,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 #pragma mark - Update Constraint
 
+/*!
+ @method
+ @brief 修改已读Label的宽度约束
+ @discussion
+ @result
+ */
 - (void)_updateHasReadWidthConstraint
 {
     if (_hasRead) {
@@ -251,6 +278,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
+/*!
+ @method
+ @brief 修改发送状态按钮的宽度约束，主要是发送失败的状态
+ @discussion
+ @result
+ */
 - (void)_updateStatusButtonWidthConstraint
 {
     if (_statusButton) {
@@ -261,6 +294,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
+/*!
+ @method
+ @brief 修改发送进度的宽度约束
+ @discussion
+ @result
+ */
 - (void)_updateActivityWidthConstraint
 {
     if (_activity) {
@@ -271,11 +310,18 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
+/*!
+ @method
+ @brief 修改气泡的宽度约束
+ @discussion
+ @result
+ */
 - (void)_updateBubbleMaxWidthConstraint
 {
     [self removeConstraint:self.bubbleMaxWidthConstraint];
 //    self.bubbleMaxWidthConstraint.active = NO;
     
+    //气泡宽度小于等于bubbleMaxWidth
     self.bubbleMaxWidthConstraint = [NSLayoutConstraint constraintWithItem:self.bubbleView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:self.bubbleMaxWidth];
     [self addConstraint:self.bubbleMaxWidthConstraint];
 //    self.bubbleMaxWidthConstraint.active = YES;
@@ -548,6 +594,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 #pragma mark - action
 
+/*!
+ @method
+ @brief 气泡的点击手势事件
+ @discussion
+ @result
+ */
 - (void)bubbleViewTapAction:(UITapGestureRecognizer *)tapRecognizer
 {
     if (tapRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -610,6 +662,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
+/*!
+ @method
+ @brief 头像的点击事件
+ @discussion
+ @result
+ */
 - (void)avatarViewTapAction:(UITapGestureRecognizer *)tapRecognizer
 {
     if ([_delegate respondsToSelector:@selector(avatarViewSelcted:)]) {
@@ -617,6 +675,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
+/*!
+ @method
+ @brief 发送失败按钮的点击事件，进行消息重发
+ @discussion
+ @result
+ */
 - (void)statusAction
 {
     if ([_delegate respondsToSelector:@selector(statusButtonSelcted:withMessageCell:)]) {
@@ -648,6 +712,13 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 #pragma mark - public
 
+/*!
+ @method
+ @brief 获取cell的重用标识
+ @discussion
+ @param model        消息对象model
+ @result 返回cell的重用标识
+ */
 + (NSString *)cellIdentifierWithModel:(id<IMessageModel>)model
 {
     NSString *cellIdentifier = nil;
@@ -703,6 +774,13 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     return cellIdentifier;
 }
 
+/*!
+ @method
+ @brief 根据消息的内容，获取当前cell的高度
+ @discussion
+ @param model        消息对象model
+ @result 返回cell高度
+ */
 + (CGFloat)cellHeightWithModel:(id<IMessageModel>)model
 {
     if (model.cellHeight > 0) {

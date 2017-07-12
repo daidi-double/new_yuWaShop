@@ -10,7 +10,7 @@
  * from Hyphenate Inc.
  */
 
-
+#import <UserNotifications/UserNotifications.h>
 #import "EaseSDKHelper.h"
 
 #import "EaseConvertToCommonEmoticonsHelper.h"
@@ -56,6 +56,7 @@ static EaseSDKHelper *helper = nil;
 
 #pragma mark - app delegate notifications
 
+/** @brief 注册App切入后台和进入前台的通知 */
 - (void)_setupAppDelegateNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -82,11 +83,23 @@ static EaseSDKHelper *helper = nil;
 
 #pragma mark - register apns
 
+/** @brief 注册远程通知 */
 - (void)_registerRemoteNotification
 {
     UIApplication *application = [UIApplication sharedApplication];
     application.applicationIconBadgeNumber = 0;
-    
+
+    if (NSClassFromString(@"UNUserNotificationCenter")) {
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError *error) {
+            if (granted) {
+#if !TARGET_IPHONE_SIMULATOR
+                [application registerForRemoteNotifications];
+#endif
+            }
+        }];
+        return;
+    }
+
     if([application respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
         UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
@@ -124,10 +137,22 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         options.enableConsoleLog = YES;
     }
     
+    BOOL isHttpsOnly = NO;
+    if ([otherConfig objectForKey:@"httpsOnly"]) {
+        isHttpsOnly = [[otherConfig objectForKey:@"httpsOnly"] boolValue];
+    }
+    options.usingHttpsOnly = isHttpsOnly;
+    
     BOOL sandBox = [otherConfig objectForKey:@"easeSandBox"] && [[otherConfig objectForKey:@"easeSandBox"] boolValue];
     if (!sandBox) {
         [[EMClient sharedClient] initializeSDKWithOptions:options];
     }
+}
+
+- (void)hyphenateApplication:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [[EMClient sharedClient] application:application didReceiveRemoteNotification:userInfo];
 }
 
 - (void)dealloc
@@ -189,7 +214,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                                  messageType:(EMChatType)messageType
                                   messageExt:(NSDictionary *)messageExt
 {
-    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:imageData displayName:@"image.png"];
+    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:imageData displayName:@"image"];
     NSString *from = [[EMClient sharedClient] currentUsername];
     EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:messageExt];
     message.chatType = messageType;

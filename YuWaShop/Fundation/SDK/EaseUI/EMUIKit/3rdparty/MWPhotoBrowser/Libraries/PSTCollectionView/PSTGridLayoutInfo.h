@@ -15,7 +15,7 @@
  */
 @interface PSTGridLayoutInfo : NSObject
 
-@property (nonatomic, strong, readonly) NSMutableArray *sections;
+@property (nonatomic, strong, readonly) NSArray *sections;
 @property (nonatomic, strong) NSDictionary *rowAlignmentOptions;
 @property (nonatomic, assign) BOOL usesFloatingHeaderFooter;
 

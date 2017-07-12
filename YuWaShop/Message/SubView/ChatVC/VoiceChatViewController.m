@@ -55,8 +55,12 @@
     }
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_friendsIcon]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     if (!_callSession) {
+        NSString * string = ([[[EMClient sharedClient] currentUsername] isEqualToString:_friendsName])?_friendsName:_friendsName;
         
-        [[EMClient sharedClient].callManager startVoiceCall:_friendsHXID completion:^(EMCallSession *aCallSession, EMError *aError) {
+        NSLog(@"currentUsername = %@  ,  string = %@",[[EMClient sharedClient] currentUsername],string);
+        
+        [[EMClient sharedClient].callManager startCall:EMCallTypeVoice remoteName:string ext:@"123" completion:^(EMCallSession *aCallSession, EMError *aError) {
+
             if (!aError) {
                 _callSession = aCallSession;
                 [self makeUI];
@@ -90,7 +94,7 @@
  */
 - (void)callDidConnect:(EMCallSession *)aSession{
     
-    if ([aSession.sessionId isEqualToString:_callSession.sessionId]) {
+    if ([aSession.callId isEqualToString:_callSession.callId]) {
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
         [audioSession setActive:YES error:nil];
@@ -172,7 +176,7 @@
 - (IBAction)rejectAction:(UIButton *)sender {
     [self _stopTimeTimer];
     if (_callSession) {
-        [[EMClient sharedClient].callManager endCall:_callSession.sessionId reason:EMCallEndReasonDecline];
+        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonDecline];
         _callSession = nil;
     }
     
@@ -182,7 +186,7 @@
 - (IBAction)hangupAction:(UIButton *)sender {
     [self _stopTimeTimer];
     if (_callSession) {
-        [[EMClient sharedClient].callManager endCall:_callSession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonHangup];
         _callSession = nil;
     }
    
@@ -192,11 +196,11 @@
 //接听
 - (IBAction)answerAction:(UIButton *)sender {
     
-    EMError * error = [[EMClient sharedClient].callManager answerIncomingCall:_callSession.sessionId];
+    EMError * error = [[EMClient sharedClient].callManager answerIncomingCall:_callSession.callId];
     
     if (error) {
         
-        [[EMClient sharedClient].callManager endCall:_callSession.sessionId reason:EMCallEndReasonFailed];
+        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonFailed];
     }else{
         sender.hidden = YES;
         _rejectBtn.hidden = YES;
@@ -207,7 +211,7 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];//休眠关闭
     
     if (_callSession) {
-        [[EMClient sharedClient].callManager endCall:_callSession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonHangup];
     }
     
     [[AVAudioSession sharedInstance] setActive:NO error:nil];

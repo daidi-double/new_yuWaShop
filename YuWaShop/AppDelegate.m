@@ -10,7 +10,7 @@
 #import "VIPTabBarController.h"
 #import "UIWindow+SettingWithVC.h"
 
-#import "EMSDK.h"
+//#import "EMSDK.h"
 #import "EaseUI.h"
 #import "YWStartAnimation.h"
 

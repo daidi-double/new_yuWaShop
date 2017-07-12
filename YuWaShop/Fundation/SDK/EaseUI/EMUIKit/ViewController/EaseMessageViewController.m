@@ -96,10 +96,12 @@
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideImagePicker) name:@"hideImagePicker" object:nil];
+    
     //Initialization
     CGFloat chatbarHeight = [EaseChatToolbar defaultHeight];
     EMChatToolbarType barType = self.conversation.type == EMConversationTypeChat ? EMChatToolbarTypeChat : EMChatToolbarTypeGroup;
-    self.chatToolbar = [[EaseChatToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - chatbarHeight, kScreen_Width, chatbarHeight) type:barType];
+    self.chatToolbar = [[EaseChatToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - chatbarHeight, self.view.frame.size.width, chatbarHeight) type:barType];
     self.chatToolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;    
     
     //Initializa the gesture recognizer
@@ -138,13 +140,16 @@
     
     [[EaseChatBarMoreView appearance] setMoreViewBackgroundColor:[UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0]];
     
-    EaseEmotionManager *manager= [[EaseEmotionManager alloc] initWithType:EMEmotionDefault emotionRow:3 emotionCol:7 emotions:[EaseEmoji allEmoji]];
-    
-    [self.faceView setEmotionManagers:@[manager]];
-    
     [self tableViewDidTriggerHeaderRefresh];
+    [self setupEmotion];
 }
 
+/*!
+ @method
+ @brief 设置表情
+ @discussion 加载默认表情，如果子类实现了dataSource的自定义表情回调，同时会加载自定义表情
+ @result
+ */
 - (void)setupEmotion
 {
     if ([self.dataSource respondsToSelector:@selector(emotionFormessageViewController:)]) {
@@ -217,6 +222,12 @@
     }
 }
 
+/*!
+ @method
+ @brief 加入聊天室
+ @discussion
+ @result
+ */
 - (void)joinChatroom:(NSString *)chatroomId
 {
     __weak typeof(self) weakSelf = self;
@@ -260,7 +271,7 @@
                             username:(NSString *)aUsername
 {
     CGRect frame = self.chatToolbar.frame;
-    [self showHint:[NSString stringWithFormat:NSEaseLocalizedString(@"chatroom.leave", @"\'%@\'leave chatroom\'%@\'"), aUsername, aChatroom.chatroomId] yOffset:-frame.size.height + KHintAdjustY];
+    [self showHint:[NSString stringWithFormat:NSEaseLocalizedString(@"chatroom.leave.hint", @"\'%@\'leave chatroom\'%@\'"), aUsername, aChatroom.chatroomId] yOffset:-frame.size.height + KHintAdjustY];
 }
 
 - (void)didReceiveKickedFromChatroom:(EMChatroom *)aChatroom
@@ -271,6 +282,7 @@
         _isKicked = YES;
         CGRect frame = self.chatToolbar.frame;
         [self showHint:[NSString stringWithFormat:NSEaseLocalizedString(@"chatroom.remove", @"be removed from chatroom\'%@\'"), aChatroom.chatroomId] yOffset:-frame.size.height + KHintAdjustY];
+        [self.navigationController popToViewController:self animated:NO];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -354,6 +366,12 @@
 
 #pragma mark - private helper
 
+/*!
+ @method
+ @brief tableView滑动到底部
+ @discussion 
+ @result
+ */
 - (void)_scrollViewToBottom:(BOOL)animated
 {
     if (self.tableView.contentSize.height > self.tableView.frame.size.height)
@@ -363,6 +381,12 @@
     }
 }
 
+/*!
+ @method
+ @brief 当前设备是否可以录音
+ @discussion
+ @result
+ */
 - (BOOL)_canRecord
 {
     __block BOOL bCanRecord = YES;
@@ -426,6 +450,13 @@
     //    }
 }
 
+/*!
+ @method
+ @brief mov格式视频转换为MP4格式
+ @discussion
+ @param movUrl   mov视频路径
+ @result  MP4格式视频路径
+ */
 - (NSURL *)_convert2Mp4:(NSURL *)movUrl
 {
     NSURL *mp4Url = nil;
@@ -471,6 +502,12 @@
     return mp4Url;
 }
 
+/*!
+ @method
+ @brief 通过当前会话类型，返回消息聊天类型
+ @discussion
+ @result
+ */
 - (EMChatType)_messageTypeFromConversationType
 {
     EMChatType type = EMChatTypeChat;
@@ -490,6 +527,13 @@
     return type;
 }
 
+/*!
+ @method
+ @brief 下载消息附件
+ @discussion
+ @param message  待下载附件的消息
+ @result
+ */
 - (void)_downloadMessageAttachments:(EMMessage *)message
 {
     __weak typeof(self) weakSelf = self;
@@ -540,6 +584,14 @@
     }
 }
 
+/*!
+ @method
+ @brief 传入消息是否需要发动已读回执
+ @discussion
+ @param message  待判断的消息
+ @param read     消息是否已读
+ @result
+ */
 - (BOOL)shouldSendHasReadAckForMessage:(EMMessage *)message
                                    read:(BOOL)read
 {
@@ -563,7 +615,14 @@
     }
 }
 
-
+/*!
+ @method
+ @brief 为传入的消息发送已读回执
+ @discussion
+ @param messages  待发送已读回执的消息数组
+ @param isRead    是否已读
+ @result
+ */
 - (void)_sendHasReadResponseForMessages:(NSArray*)messages
                                  isRead:(BOOL)isRead
 {
@@ -612,6 +671,13 @@
     return isMark;
 }
 
+/*!
+ @method
+ @brief 位置消息被点击选择
+ @discussion
+ @param model 消息model
+ @result
+ */
 - (void)_locationMessageCellSelected:(id<IMessageModel>)model
 {
     _scrollToBottomWhenAppear = NO;
@@ -620,6 +686,13 @@
     [self.navigationController pushViewController:locationController animated:YES];
 }
 
+/*!
+ @method
+ @brief 视频消息被点击选择
+ @discussion
+ @param model 消息model
+ @result
+ */
 - (void)_videoMessageCellSelected:(id<IMessageModel>)model
 {
     _scrollToBottomWhenAppear = NO;
@@ -679,6 +752,13 @@
     }];
 }
 
+/*!
+ @method
+ @brief 图片消息被点击选择
+ @discussion
+ @param model 消息model
+ @result
+ */
 - (void)_imageMessageCellSelected:(id<IMessageModel>)model
 {
     __weak EaseMessageViewController *weakSelf = self;
@@ -693,18 +773,13 @@
                 NSString *localPath = model.message == nil ? model.fileLocalPath : [imageBody localPath];
                 if (localPath && localPath.length > 0) {
                     UIImage *image = [UIImage imageWithContentsOfFile:localPath];
-                    
-                    if (image)
-                    {
+                    if (image) {
                         [[EaseMessageReadManager defaultManager] showBrowserWithImages:@[image]];
+                        return;
                     }
-                    else
-                    {
-                        NSLog(@"Read %@ failed!", localPath);
-                    }
-                    return;
                 }
             }
+            
             [weakSelf showHudInView:weakSelf.view hint:NSEaseLocalizedString(@"message.downloadingImage", @"downloading a image...")];
             [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
                 [weakSelf hideHud];
@@ -741,6 +816,13 @@
     }
 }
 
+/*!
+ @method
+ @brief 语音消息被点击选择
+ @discussion
+ @param model 消息model
+ @result
+ */
 - (void)_audioMessageCellSelected:(id<IMessageModel>)model
 {
     _scrollToBottomWhenAppear = NO;
@@ -762,7 +844,7 @@
         //send the acknowledgement
         [self _sendHasReadResponseForMessages:@[model.message] isRead:YES];
         __weak EaseMessageViewController *weakSelf = self;
-        BOOL isPrepare = [[EaseMessageReadManager defaultManager] prepareMessageAudioModel:(EaseMessageModel*)model updateViewCompletion:^(EaseMessageModel *prevAudioModel, EaseMessageModel *currentAudioModel) {
+        BOOL isPrepare = [[EaseMessageReadManager defaultManager] prepareMessageAudioModel:model updateViewCompletion:^(EaseMessageModel *prevAudioModel, EaseMessageModel *currentAudioModel) {
             if (prevAudioModel || currentAudioModel) {
                 [weakSelf.tableView reloadData];
             }
@@ -789,6 +871,15 @@
 
 #pragma mark - pivate data
 
+/*!
+ @method
+ @brief 加载历史消息
+ @discussion
+ @param messageId 参考消息的ID
+ @param count     获取条数
+ @param isAppend  是否在dataArray直接添加
+ @result
+ */
 - (void)_loadMessagesBefore:(NSString*)messageId
                       count:(NSInteger)count
                      append:(BOOL)isAppend
@@ -1193,10 +1284,6 @@
 
 - (void)didSendText:(NSString *)text
 {
-    if (self.chatMessage) {
-         [JRToast showWithText:self.chatMessage duration:2];
-        return;
-    }
     if (text && text.length > 0) {
         [self sendTextMessage:text];
         [self.atTargets removeAllObjects];
@@ -1739,7 +1826,11 @@
                         progress:nil];
     
     __weak typeof(self) weakself = self;
-    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
+    [[EMClient sharedClient].chatManager sendMessage:message progress:^(int progress) {
+        if (weakself.dataSource && [weakself.dataSource respondsToSelector:@selector(messageViewController:updateProgress:messageModel:messageBody:)]) {
+            [weakself.dataSource messageViewController:weakself updateProgress:progress messageModel:nil messageBody:message.body];
+        }
+    } completion:^(EMMessage *aMessage, EMError *aError) {
         if (!aError) {
             [weakself _refreshAfterSentMessage:aMessage];
         }
@@ -1887,6 +1978,16 @@
         }
         
         [_conversation markAllMessagesAsRead:nil];
+        if (self.dataSource && [self.dataSource respondsToSelector:@selector(messageViewControllerMarkAllMessagesAsRead:)]) {
+            [self.dataSource messageViewControllerMarkAllMessagesAsRead:self];
+        }
+    }
+}
+
+- (void)hideImagePicker
+{
+    if (_imagePicker && [EaseSDKHelper shareHelper].isShowingimagePicker) {
+        [_imagePicker dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
@@ -1967,7 +2068,7 @@
             for (NSString *split in splits) {
                 if (split.length) {
                     NSString *atALl = NSEaseLocalizedString(@"group.atAll", @"all");
-                    if ([split compare:atALl options:NSCaseInsensitiveSearch range:NSMakeRange(0, atALl.length)] == NSOrderedSame) {
+                    if (split.length >= atALl.length && [split compare:atALl options:NSCaseInsensitiveSearch range:NSMakeRange(0, atALl.length)] == NSOrderedSame) {
                         [targets removeAllObjects];
                         [targets addObject:kGroupMessageAtAll];
                         return targets;
