@@ -285,7 +285,9 @@
     NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":username,@"user_type":@(2),@"type":self.type};
     [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
         YWMessageAddressBookModel * modelTemp = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];
-        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",modelTemp.header_img]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        NSURL *url = [NSURL URLWithString:modelTemp.header_img]; // 获取的图片地址
+        UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
+        _iconImageView.image = image;
         if ([modelTemp.friend_remark isEqualToString:@""]) {
             
             self.nameLabel.text = modelTemp.nikeName;

@@ -12,7 +12,7 @@
 #import "YJSegmentedControl.h"
 #import "JPUSHService.h"
 #import "VIPTabBarController.h"
-
+#import "YWload.h"
 @interface YWLoginViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
@@ -32,7 +32,7 @@
 @property (nonatomic,strong)NSTimer * timer;
 @property (nonatomic,assign)NSInteger time;
 @property (nonatomic,assign)NSInteger state;
-
+@property (nonatomic,strong)YWload * HUD;
 @end
 
 @implementation YWLoginViewController
@@ -227,10 +227,11 @@
 - (void)requestLoginWithAccount:(NSString *)account withPassword:(NSString *)password{
     NSDictionary * pragram = @{@"phone":account,@"password":password};
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
+        [_HUD show:YES];
         [[HttpObject manager]postNoHudWithType:YuWaType_Logion withPragram:pragram success:^(id responsObj) {
             MyLog(@"Pragram is %@",pragram);
             MyLog(@"Data is %@",responsObj);
+            [_HUD hide:YES];
             [UserSession saveUserLoginWithAccount:account withPassword:password];
             [UserSession saveUserInfoWithDic:responsObj[@"data"]];
             [self showHUDWithStr:@"登录成功" withSuccess:YES];
@@ -279,6 +280,7 @@
                 });
             }
         } failur:^(id responsObj, NSError *error) {
+            [_HUD hide:YES];
             NSInteger number = [responsObj[@"errorCode"] integerValue];
             if ( number == 1) {
                 [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
@@ -365,5 +367,10 @@
         MyLog(@"Regieter Code error is %@",responsObj);
     }];
 }
-
+- (YWload*)HUD{
+    if (!_HUD) {
+        _HUD=[YWload showOnView:[UIApplication sharedApplication].delegate.window];
+    }
+    return _HUD;
+}
 @end
