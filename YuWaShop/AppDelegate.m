@@ -16,7 +16,7 @@
 
 #import "VoiceChatViewController.h"
 #import "VideoViewController.h"
-
+#import "YWMessageChatViewController.h"
 
 #import "JPUSHService.h"
 #import <AdSupport/AdSupport.h>
@@ -87,6 +87,10 @@
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];//好友代理
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];//登录代理
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
+    EMCallOptions *callOptions = [[EMClient sharedClient].callManager getCallOptions];
+    //当对方不在线时，是否给对方发送离线消息和推送，并等待对方回应
+    callOptions.isSendPushIfOffline = YES;
+    [[EMClient sharedClient].callManager setCallOptions:callOptions];
     
     [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:appkey apnsCertName:apnsCertName otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
 }
@@ -100,20 +104,22 @@
 }
 // *  用户A拨打用户B，用户B会收到这个回调
 - (void)callDidReceive:(EMCallSession *)aSession{
-    MyLog(@"收到来电");
-    UIApplication * app = [UIApplication sharedApplication];
-    MyLog(@"类型%d",aSession.type);
-        if ((!aSession.type) == 0) {
+
+    UIViewController *topRootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (topRootViewController.presentedViewController)
+    {
+        topRootViewController = topRootViewController.presentedViewController;
+    }
+
+        if ( aSession.type == 0) {
             VoiceChatViewController * vc = [[VoiceChatViewController alloc]init];
             vc.callSession = aSession;
             vc.statusLabel.hidden = YES;
             vc.isHidden = NO;
             vc.status = 1;
             vc.isHidden = YES;
-            vc.remoteUsername = aSession.remoteUsername;
-            UIWindow * window = app.keyWindow;
-            
-            window.rootViewController = vc;
+            vc.remoteUsername = aSession.remoteName;
+    [topRootViewController presentViewController:vc animated:YES completion:nil];
         }else{//视频
             VideoViewController * VideoVC = [[VideoViewController alloc]init];
             VideoVC.callSession = aSession;
@@ -121,27 +127,12 @@
             VideoVC.isHidden = NO;
             VideoVC.status = 1;
             VideoVC.isHidden = YES;
-            VideoVC.remoteUsername = aSession.remoteUsername;
-            UIWindow * window = app.keyWindow;
-            
-            window.rootViewController = VideoVC;
+            VideoVC.remoteUsername = aSession.remoteName;
+    [topRootViewController presentViewController:VideoVC animated:YES completion:nil];
         }
 }
-/*!
- *  \~chinese
- *  1. 用户A或用户B结束通话后，对方会收到该回调
- *  2. 通话出现错误，双方都会收到该回调
- *
- *  @param aSession  会话实例
- *  @param aReason   结束原因
- *  @param aError    错误
- */
-- (void)callDidEnd:(EMCallSession *)aSession  reason:(EMCallEndReason)aReason
-             error:(EMError *)aError{
-    
-//    self.window = [UIWindow windowInitWithRootViewController:[[VIPTabBarController alloc]init]];
-    
-}
+
+
 - (void)didLoginFromOtherDevice{//当前登录账号在其它设备登录时会接收到该回调
     [JPUSHService setAlias:@"" callbackSelector:nil object:nil];
 }

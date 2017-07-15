@@ -116,6 +116,7 @@
     
     //toolbar
     _toolbarView = [[UIView alloc] initWithFrame:self.bounds];
+    _toolbarView.width = kScreen_Width;
     _toolbarView.backgroundColor = [UIColor clearColor];
     [self addSubview:_toolbarView];
     
@@ -226,7 +227,7 @@
 - (UIView *)moreView
 {
     if (_moreView == nil) {
-        _moreView = [[EaseChatBarMoreView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame), self.frame.size.width, 80) type:self.chatBarType];
+        _moreView = [[EaseChatBarMoreView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame), kScreen_Width, 80) type:self.chatBarType];
         _moreView.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0];
         _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }

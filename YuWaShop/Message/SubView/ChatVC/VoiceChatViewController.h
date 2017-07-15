@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 @interface VoiceChatViewController : UIViewController
 @property (nonatomic,strong)NSString * friendsName;
+@property (nonatomic,strong)NSString * friendsnikeName;
 @property (nonatomic,strong)EMCallSession * callSession;
 @property (nonatomic,assign)BOOL isHidden;
 @property (nonatomic,strong)NSString * friendsHXID;

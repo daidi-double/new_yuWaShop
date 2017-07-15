@@ -53,7 +53,8 @@
 - (EaseFacialView*)facialView
 {
     if (_facialView == nil) {
-        _facialView = [[EaseFacialView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 150)];
+        _facialView = [[EaseFacialView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 150)];
+        
         _facialView.delegate = self;
     }
     return _facialView;

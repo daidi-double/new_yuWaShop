@@ -10,7 +10,7 @@
 #import "HttpObject.h"
 #import "VIPTabBarController.h"
 #import "YWMessageAddressBookModel.h"
-@interface VoiceChatViewController ()<EMCallManagerDelegate>
+@interface VoiceChatViewController ()<EMCallManagerDelegate,EMChatManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *hangupBtn;
 @property (weak, nonatomic) IBOutlet UIButton *rejectBtn;
@@ -33,9 +33,6 @@
     
     //注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
-    
-    
-    
 }
 
 
@@ -48,6 +45,7 @@
         _hangupBtn.hidden = !_isHidden;
         
     }else{
+        [self _beginRing];
         [self getIconAccount:_remoteUsername];
         _rejectBtn.hidden = !_isHidden;
         _answerBtn.hidden = !_isHidden;
@@ -55,22 +53,22 @@
     }
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_friendsIcon]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     if (!_callSession) {
-        NSString * string = ([[[EMClient sharedClient] currentUsername] isEqualToString:_friendsName])?_friendsName:_friendsName;
-        
-        NSLog(@"currentUsername = %@  ,  string = %@",[[EMClient sharedClient] currentUsername],string);
-        
-        [[EMClient sharedClient].callManager startCall:EMCallTypeVoice remoteName:string ext:@"123" completion:^(EMCallSession *aCallSession, EMError *aError) {
 
+        
+        [[EMClient sharedClient].callManager startCall:EMCallTypeVoice remoteName:_friendsName ext:nil completion:^(EMCallSession *aCallSession, EMError *aError) {
+            
+
+            
             if (!aError) {
                 _callSession = aCallSession;
                 [self makeUI];
             }else{
-
-                    [self dismissViewControllerAnimated:YES completion:nil];
-            
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
+            
         }];
     }else{
+        
         [self makeUI];
     }
 }
@@ -78,9 +76,9 @@
 - (void)makeUI{
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];//休眠关闭
     _statusLabel.text = @"正在链接";
-    _nameLabel.text = _friendsName;
+    _nameLabel.text = _friendsnikeName;
 
-    [self _startTimeTimer];
+  
     [self.view bringSubviewToFront:_answerBtn];
     [self.view bringSubviewToFront:_hangupBtn];
     [self.view bringSubviewToFront:_rejectBtn];
@@ -109,7 +107,7 @@
  */
 - (void)callDidAccept:(EMCallSession *)aSession{
     _statusLabel.text = @"正在通话";
-    
+      [self _startTimeTimer];
 }
 
 /*!
@@ -125,17 +123,43 @@
 - (void)callDidEnd:(EMCallSession *)aSession reason:(EMCallEndReason)aReason error:(EMError *)aError{
 
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
+
     [[EMClient sharedClient].callManager removeDelegate:self];
     [self _stopTimeTimer];
+    [self _stopRing];
     _callSession = nil;
-    
     [self dismissViewControllerAnimated:YES completion:nil];
-    if (self.status == 1) {
-        
-        UIWindow * window = [[UIApplication sharedApplication].delegate window];
-        VIPTabBarController * VIPVC = [[VIPTabBarController alloc]init];
-        window.rootViewController = VIPVC;
+
+}
+#pragma mark - private ring
+
+- (void)_beginRing
+{
+    [self.ringPlayer stop];
+    
+//    NSString *musicPath = [[NSBundle mainBundle] pathForResource:@"callRing" ofType:@"mp3"];
+    SystemSoundID sound = kSystemSoundID_Vibrate;
+
+    NSString *musicPath = [NSString stringWithFormat:@"/System/Library/Audio/UISounds/%@.%@",@"SIMToolkitGeneralBeep",@"caf"];
+    if (musicPath) {
+        OSStatus error = AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:musicPath],&sound);
+        if (error != kAudioServicesNoError) {
+            sound = 0;
+        }
     }
+    
+    NSURL *url = [[NSURL alloc] initFileURLWithPath:musicPath];
+    self.ringPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [self.ringPlayer setVolume:1];
+    self.ringPlayer.numberOfLoops = -1; //设置音乐播放次数  -1为一直循环
+    if([self.ringPlayer prepareToPlay])
+    {
+        [self.ringPlayer play]; //播放
+    }
+}
+- (void)_stopRing
+{
+    [self.ringPlayer stop];
 }
 
 - (void)_startTimeTimer
@@ -175,6 +199,7 @@
 //拒绝
 - (IBAction)rejectAction:(UIButton *)sender {
     [self _stopTimeTimer];
+    [self _stopRing];
     if (_callSession) {
         [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonDecline];
         _callSession = nil;
@@ -185,6 +210,7 @@
 //挂断
 - (IBAction)hangupAction:(UIButton *)sender {
     [self _stopTimeTimer];
+    [self _stopRing];
     if (_callSession) {
         [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonHangup];
         _callSession = nil;
@@ -195,7 +221,8 @@
 }
 //接听
 - (IBAction)answerAction:(UIButton *)sender {
-    
+    [self _stopRing];
+    [self _startTimeTimer];
     EMError * error = [[EMClient sharedClient].callManager answerIncomingCall:_callSession.callId];
     
     if (error) {
@@ -213,7 +240,7 @@
     if (_callSession) {
         [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonHangup];
     }
-    
+   
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
     [[EMClient sharedClient].callManager removeDelegate:self];
     _callSession = nil;
@@ -224,15 +251,15 @@
 }
 - (void)clearData
 {
- 
+  [self _stopRing];
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
     [audioSession setActive:YES error:nil];
-
+  [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonNoResponse];
     _callSession = nil;
     
     [self _stopTimeTimer];
-    //    [self _stopRing];
+   
 }
 
 - (void)getIconAccount:(NSString *)username{

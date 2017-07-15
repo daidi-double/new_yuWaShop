@@ -40,6 +40,7 @@
         
     }else{
         [self getIconAccount:_remoteUsername];
+        [self _beginRing];
         _statusLabel.text = @"邀请你视频聊天";
         _rejectBtn.hidden = !_isHidden;
         _answerBtn.hidden = !_isHidden;
@@ -47,36 +48,44 @@
     }
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_friendsIcon]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     if (!_callSession) {
-        [[EMClient sharedClient].callManager startCall:EMCallTypeVideo remoteName:_friendsName ext:@"123" completion:^(EMCallSession *aCallSession, EMError *aError) {
-
+        
+        NSString * string = ([[[EMClient sharedClient] currentUsername] isEqualToString:_friendsName])?_friendsName:_friendsName;
+        
+        NSLog(@"currentUsername = %@  ,  string = %@",[[EMClient sharedClient] currentUsername],string);
+        
+        [[EMClient sharedClient].callManager startCall:EMCallTypeVideo remoteName:string ext:nil completion:^(EMCallSession *aCallSession, EMError *aError) {
+            
+            NSLog(@"startCall : errorDescription = %@",aError.errorDescription);
+            
             if (!aError) {
                 _callSession = aCallSession;
                 [self makeUI];
             }else{
-                
                 [self dismissViewControllerAnimated:YES completion:nil];
-                
             }
+            
         }];
     }else{
+        
         [self makeUI];
     }
 }
 - (void)makeUI{
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];//休眠关闭
     _nameLabel.text = _friendsName;
-
-        //对方窗口
-        _callSession.remoteVideoView = [[EMCallRemoteView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
-        _callSession.remoteVideoView.backgroundColor = [UIColor blackColor];
-        [self.view addSubview:_callSession.remoteVideoView];
-        
-        
-        //自己窗口
-        _callSession.localVideoView = [[EMCallLocalView alloc]initWithFrame:CGRectMake(kScreen_Width-100, 64, 80, 120)];
-        [self.view addSubview:_callSession.localVideoView];
-
-
+    
+    //对方窗口
+    _callSession.remoteVideoView = [[EMCallRemoteView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+    _callSession.remoteVideoView.scaleMode = EMCallViewScaleModeAspectFill;
+    _callSession.remoteVideoView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_callSession.remoteVideoView];
+    
+    
+    //自己窗口
+    _callSession.localVideoView = [[EMCallLocalView alloc]initWithFrame:CGRectMake(kScreen_Width-100, 64, 80, 120)];
+    [self.view addSubview:_callSession.localVideoView];
+    
+    
     [self.view bringSubviewToFront:_answerBtn];
     [self.view bringSubviewToFront:_hangupBtn];
     [self.view bringSubviewToFront:_rejectBtn];
@@ -130,6 +139,7 @@
         VIPTabBarController * VIPVC = [[VIPTabBarController alloc]init];
         window.rootViewController = VIPVC;
     }
+    [self _stopRing];
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
@@ -167,10 +177,42 @@
         _timeLabel.text = [NSString stringWithFormat:@"00:%i", s];
     }
 }
+#pragma mark - private ring
+
+- (void)_beginRing
+{
+    [self.ringPlayer stop];
+    
+    //    NSString *musicPath = [[NSBundle mainBundle] pathForResource:@"callRing" ofType:@"mp3"];
+    SystemSoundID sound = kSystemSoundID_Vibrate;
+    
+    NSString *musicPath = [NSString stringWithFormat:@"/System/Library/Audio/UISounds/%@.%@",@"SIMToolkitGeneralBeep",@"caf"];
+    if (musicPath) {
+        OSStatus error = AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:musicPath],&sound);
+        if (error != kAudioServicesNoError) {
+            sound = 0;
+        }
+    }
+    
+    NSURL *url = [[NSURL alloc] initFileURLWithPath:musicPath];
+    self.ringPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [self.ringPlayer setVolume:1];
+    self.ringPlayer.numberOfLoops = -1; //设置音乐播放次数  -1为一直循环
+    if([self.ringPlayer prepareToPlay])
+    {
+        [self.ringPlayer play]; //播放
+    }
+}
+- (void)_stopRing
+{
+    [self.ringPlayer stop];
+}
+
 
 //拒绝
 - (IBAction)rejectAction:(UIButton *)sender {
     [self _stopTimeTimer];
+    [self _stopRing];
     if (_callSession) {
         [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonDecline];
         _callSession = nil;
@@ -181,6 +223,7 @@
 //挂断
 - (IBAction)hangupAction:(UIButton *)sender {
     [self _stopTimeTimer];
+    [self _stopRing];
     if (_callSession) {
         [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonHangup];
         _callSession = nil;
@@ -191,7 +234,7 @@
 }
 //接听
 - (IBAction)answerAction:(UIButton *)sender {
-    
+    [self _stopRing];
     EMError * error = [[EMClient sharedClient].callManager answerIncomingCall:_callSession.callId];
     
     if (error) {
@@ -215,7 +258,7 @@
     _callSession = nil;
     
     
-    //    [self stopSystemSound];
+    [self _stopRing];
     
 }
 - (void)clearData
@@ -228,7 +271,7 @@
     _callSession = nil;
     
     [self _stopTimeTimer];
-    //    [self _stopRing];
+    [self _stopRing];
 }
 - (void)getIconAccount:(NSString *)username{
     
@@ -270,13 +313,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -7676,6 +7676,7 @@
 					"$(PROJECT_DIR)/YuWaShop/Fundation/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/YuWaShop/Fundation/SDK/HyphenateFullSDK/lib",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.duruikeji.YuWaShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";

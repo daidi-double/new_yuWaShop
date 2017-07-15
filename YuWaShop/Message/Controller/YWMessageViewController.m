@@ -357,28 +357,20 @@
         if (model&&([YWMessageTableViewCell latestMessageTitleForConversationModel:model].length>0)){
             [self.dataAry addObject:model];
             username = [model.title length] > 0?model.title:model.conversation.conversationId;
-            if (username.length == 12) {
-                NSString * account = [username substringFromIndex:1];
-                if ([JWTools isPhoneIDWithStr:account]) {
-                    username = account;
-                    self.type = @"2";
-                }
-            }else if ([firstNum isEqualToString:@"2"]){
-                username = [model.title length] > 0?model.title:model.conversation.conversationId;
-                if ([JWTools checkIsHaveNumAndLetter:username] == 3) {
-                    self.type = @"2";
-                    username = [[model.title length] > 0?model.title:model.conversation.conversationId substringFromIndex:1];
-                }else{
-                    self.type = @"1";
-                }
-            }else{
-                self.type = @"1";
+            if (model.title.length >= 12 && [firstNum isEqualToString:@"2"]) {
+                username = [[model.title substringFromIndex:1] substringToIndex:11];
+                _type = @"2";
+            }else {
+                _type = @"1";
             }
-            
+            if ([firstNum isEqualToString:@"2"]) {
+                username = [[model.title substringFromIndex:1] substringToIndex:11];
+                _type = @"2";
+            }
             NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"other_username":username,@"user_type":@(2),@"type":self.type};
             [[HttpObject manager]postNoHudWithType:YuWaType_FRIENDS_INFO withPragram:pragram success:^(id responsObj) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
-                MyLog(@"Regieter Code is %@",responsObj);
+                MyLog(@"对话Regieter Code is %@",responsObj);
                 YWMessageAddressBookModel * modelTemp = [YWMessageAddressBookModel yy_modelWithDictionary:responsObj[@"data"]];
                 modelTemp.hxID = [model.title length] > 0?model.title:model.conversation.conversationId;
                 model.title = modelTemp.nikeName;
@@ -416,7 +408,7 @@
                 
             } failur:^(id responsObj, NSError *error) {
                 MyLog(@"Regieter Code pragram is %@",pragram);
-                MyLog(@"Regieter Code error is %@",responsObj);
+                MyLog(@"对话列表Regieter Code error is %@",responsObj);
                 static int a = 0;
                 a++ ;
                 if (a== 1) {

@@ -9,7 +9,7 @@
 #import "EaseMessageViewController.h"
 
 @interface YWMessageChatViewController : EaseMessageViewController
-
+@property (nonatomic,strong)EMCallSession * currentSession;
 @property (nonatomic,copy)NSString * friendNikeName;
 @property (nonatomic,copy)NSString * friendIcon;
 @property (nonatomic,copy)NSString * friendID;
