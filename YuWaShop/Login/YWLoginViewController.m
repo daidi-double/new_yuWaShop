@@ -105,16 +105,7 @@
     [self.view addSubview:self.segmentLineView];
 
 }
-//第三方登录
-- (IBAction)QQLoginAction:(UIButton *)sender {
-    
-}
-- (IBAction)weiXLoginAction:(UIButton *)sender {
-    
-}
-- (IBAction)weiboLoginAction:(UIButton *)sender {
-    
-}
+
 #pragma mark - ButtonAction
 - (void)registerAction{
     YWRegisterViewController * vc = [[YWRegisterViewController alloc]init];
