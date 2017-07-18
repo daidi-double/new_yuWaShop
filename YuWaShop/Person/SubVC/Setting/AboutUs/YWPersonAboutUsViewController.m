@@ -39,7 +39,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * BGView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height * 0.4f)];
-    
+    BGView.backgroundColor = [UIColor whiteColor];
     UIImageView * icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width * 0.3f, kScreen_Width * 0.3f)];
 //    icon.backgroundColor = [UIColor lightGrayColor];
     icon.center = CGPointMake(kScreen_Width/2, BGView.height/2);
@@ -93,6 +93,8 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"aboutUsCell"];
     }
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.font = [UIFont systemFontOfSize:13];
+    cell.textLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     if (indexPath.row == 0) {
         cell.textLabel.text = @"用户协议";
     }else{
