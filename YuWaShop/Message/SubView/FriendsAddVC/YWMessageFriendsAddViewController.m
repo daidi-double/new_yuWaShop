@@ -15,6 +15,9 @@
 #define MESSAGEADDFRIENDSEARCHCELL @"YWMessageSearchFriendAddCell"
 #define MESSAGEADDFRIENDCELL @"YWMessageFriendAddCell"
 @interface YWMessageFriendsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,YWMessageSearchFriendAddCellDelegate,YWMessageFriendAddCellDelegate>
+{
+    NSString * markHxID;
+}
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,strong)NSMutableArray * searchDataArr;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -99,7 +102,22 @@
     
     self.dataArr = [NSMutableArray arrayWithCapacity:0];
     [friendsRequest enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull requestDic, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
+        //去除重复的好友请求
+        if (idx == 0) {
+            markHxID = requestDic[@"hxID"];
+            [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
+        }else{
+            
+            NSString * hxID = requestDic[@"hxID"];
+            if (![hxID isEqualToString:markHxID]) {
+                
+                [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
+                markHxID = hxID;
+                
+            }
+            
+        }
+
     }];
 }
 //代理，若是已经是好友了，则在再次同意或者拒绝时删除该请求
