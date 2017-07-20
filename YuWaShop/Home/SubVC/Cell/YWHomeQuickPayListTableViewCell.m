@@ -14,6 +14,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.orderSNLabel.textColor = LIGHTCOLOR;
+    self.orderSNStrLabel.textColor = LIGHTCOLOR;
+    self.orderStatusStrLabel.textColor = LIGHTCOLOR;
+    self.timerLabel.textColor = LIGHTCOLOR;
+    self.creatTimeLabel.textColor = LIGHTCOLOR;
+    self.oderStatusLabel.textColor = LIGHTCOLOR;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -74,6 +74,8 @@
 
 //  设置颜色
 #define RGBCOLOR(a,b,c,d)    [UIColor colorWithRed:a/255.0 green:b/255.0 blue:c/255.0 alpha:d]
+//字体颜色
+#define LIGHTCOLOR [UIColor colorWithHexString:@"#333333"]
 //weakSelf
 #define WEAKSELF __weak typeof(self)weakSelf = self
 //保存进userdefault  里面的参数

@@ -164,7 +164,7 @@
         
         //名字
         UILabel*nameLabel=[cell viewWithTag:2];
-        nameLabel.text=model.title;
+        nameLabel.text=[model.title stringByRemovingPercentEncoding];;
         
         //info
         UILabel*infoLabel=[cell viewWithTag:3];

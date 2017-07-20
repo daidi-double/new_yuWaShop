@@ -270,7 +270,7 @@
 }
 
 - (void)requestData{
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"album_id":self.albumDetail};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"album_id":self.albumDetail,@"user_type":@(2)};
     
     [[HttpObject manager]postNoHudWithType:YuWaType_RBAdd_AlbumDetail withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);

@@ -47,9 +47,9 @@
     [super viewWillAppear:animated];
     [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
     if (self.state == 0) {
-//        [self.accountTextField becomeFirstResponder];
+        //        [self.accountTextField becomeFirstResponder];
     }else{
-//        [self.mobileTextField becomeFirstResponder];
+        //        [self.mobileTextField becomeFirstResponder];
     }
 }
 
@@ -65,9 +65,9 @@
 - (void)makeNavi{
     self.title = @"登录";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImageName:@"NaviBack" withSelectImage:@"NaviBack" withHorizontalAlignment:UIControlContentHorizontalAlignmentCenter withTarget:self action:@selector(backBarAction) forControlEvents:UIControlEventTouchUpInside withSize:CGSizeMake(25.f, 25.f)];
-
+    
     self.navigationController.navigationBar.barTintColor = CNaviColor;
-
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:@selector(registerAction)];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [UIColor whiteColor],
@@ -82,7 +82,7 @@
     self.secuirtyCodeTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.passwordtextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.passwordtextField.secureTextEntry = YES;
-
+    
     self.secuirtyCodeBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.secuirtyCodeBtn.layer.borderWidth = 1;
     self.secuirtyCodeBtn.layer.cornerRadius = 10.f;
@@ -103,7 +103,7 @@
     self.segmentLineView = [[UIView alloc]initWithFrame:CGRectMake(0, NavigationHeight+39, kScreen_Width/2, 1.f)];
     self.segmentLineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.segmentLineView];
-
+    
 }
 
 #pragma mark - ButtonAction
@@ -124,6 +124,7 @@
 
 - (IBAction)loginBtnAction:(id)sender {
     if ([self canSendRequset]) {
+        [self.HUD show:YES];
         [self requestLoginWithAccount:self.accountTextField.text withPassword:self.passwordtextField.text];
     }
 }
@@ -148,7 +149,7 @@
     if (![JWTools checkTelNumber:self.mobileTextField.text]) {
         [self showHUDWithStr:@"请输入11位手机号" withSuccess:NO];
         return ;
-    }   
+    }
     [self requestQuickLoginCode];
 }
 - (IBAction)quickLoginBtnAction:(id)sender {
@@ -186,6 +187,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField.tag == 1) {//passwordTextField
         if ([self canSendRequset]) {
+            [self.HUD show:YES];
             [textField resignFirstResponder];
             [self requestLoginWithAccount:self.accountTextField.text withPassword:self.passwordtextField.text];
         }
@@ -203,12 +205,12 @@
     self.segmentLineView.centerX = sender.centerX;
     switch (sender.tag) {
         case 222:
-  
+            
             self.quickLoginView.hidden = YES;
             break;
             
         default:
-
+            
             self.quickLoginView.hidden = NO;
             break;
     }
@@ -218,16 +220,16 @@
 - (void)requestLoginWithAccount:(NSString *)account withPassword:(NSString *)password{
     NSDictionary * pragram = @{@"phone":account,@"password":password};
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [_HUD show:YES];
-        [[HttpObject manager]postNoHudWithType:YuWaType_Logion withPragram:pragram success:^(id responsObj) {
+
+        [[HttpObject manager]postDataWithType:YuWaType_Logion withPragram:pragram success:^(id responsObj) {
+            [self.HUD hide:YES];
             MyLog(@"Pragram is %@",pragram);
             MyLog(@"Data is %@",responsObj);
-            [_HUD hide:YES];
             [UserSession saveUserLoginWithAccount:account withPassword:password];
             [UserSession saveUserInfoWithDic:responsObj[@"data"]];
             [self showHUDWithStr:@"登录成功" withSuccess:YES];
             EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[UserSession instance].hxPassword];
-
+            
             if (!errorLog){
                 [[EMClient sharedClient].options setIsAutoLogin:YES];
                 MyLog(@"环信登录成功");
@@ -271,12 +273,12 @@
                 });
             }
         } failur:^(id responsObj, NSError *error) {
-            [_HUD hide:YES];
+            [self.HUD hide:YES];
             NSInteger number = [responsObj[@"errorCode"] integerValue];
             if ( number == 1) {
                 [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
             }else{
-                 [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
+                [JRToast showWithText:responsObj[@"errorMessage"] duration:2];
             }
             MyLog(@"Pragram is %@",pragram);
             MyLog(@"Data Error error is %@",responsObj);
@@ -361,6 +363,7 @@
 - (YWload*)HUD{
     if (!_HUD) {
         _HUD=[YWload showOnView:[UIApplication sharedApplication].delegate.window];
+        
     }
     return _HUD;
 }

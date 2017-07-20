@@ -22,7 +22,7 @@
         _dataLabel.center                       = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2 - 10);
         _dataLabel.textColor                    = [UIColor whiteColor];
         _dataLabel.text                         = self.data;
-        _dataLabel.font                         = [UIFont systemFontOfSize:35];
+        _dataLabel.font                         = [UIFont systemFontOfSize:30];
         _dataLabel.adjustsFontSizeToFitWidth    = YES;
         _dataLabel.textAlignment                = NSTextAlignmentCenter;
     }

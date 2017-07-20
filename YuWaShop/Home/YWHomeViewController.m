@@ -305,7 +305,7 @@
                     [self requestShopArrData];
                 }
                 }
-                MyLog(@"%@~~~~~%@",error,responsObj);
+//                MyLog(@"%@~~~~~%@",error,responsObj);
             }];
         }
     }

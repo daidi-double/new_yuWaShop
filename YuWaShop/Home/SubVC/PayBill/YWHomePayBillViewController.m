@@ -102,15 +102,19 @@
         [self showHUDWithStr:@"支付金额太大,请多次支付哟" withSuccess:NO];
         return;
     }
-    if (self.costNumber <= self.cutNumber) {
+    if (self.costNumber <= self.cutNumber&&self.cutNumber !=0.0 && self.costNumber >0) {
         [self showHUDWithStr:@"不打折金额不能大于消费总额哟" withSuccess:NO];
         return;
     }
     
     if (self.costNumber<=0.f)self.costTextField.text = @"";
     if (self.cutNumber<=0.f)self.cutTextField.text = @"";
-    
-    self.payNumber = (self.costNumber - self.cutNumber)*(self.isCut?self.cut:100) /100 + self.cutNumber;
+    if (self.costNumber - self.cutNumber >0) {
+        
+        self.payNumber = (self.costNumber - self.cutNumber)*(self.isCut?self.cut:100) /100 + self.cutNumber;
+    }else{
+        self.payNumber = 0.00;
+    }
     self.payLabel.text = [NSString stringWithFormat:@"￥%.2f",self.payNumber];
     self.QRCodeImageView.image = nil;
 }
@@ -140,8 +144,8 @@
     }else{
         self.cutTextField.text = [NSString stringWithFormat:@"%.2f",[self.cutTextField.text floatValue]];
     }
-    if (self.payNumber<= 0) {
-        [self showHUDWithStr:@"付款不能小于0元哟~" withSuccess:NO];
+    if (self.payNumber<= 0 || self.costNumber == 0.0) {
+        [self showHUDWithStr:@"付款金额不能小于0元哟~" withSuccess:NO];
         return;
     }
     NSString * noDiscountMoney = [NSString stringWithFormat:@"%.2f",self.cutNumber];

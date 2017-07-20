@@ -90,7 +90,7 @@
     if (self.dataAry.count>0) {
         OrderDetailModel * model = self.dataAry[0];
         if (indexPath.section == 0) {
-            cell.textLabel.textColor = RGBCOLOR(95, 96, 98, 1);
+            cell.textLabel.textColor = LIGHTCOLOR;
             tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             if (indexPath.row == 0) {
                 if (self.status == 0) {
@@ -118,13 +118,13 @@
                     if ([model.type containsString:@"介绍分红"] || [model.type containsString:@"介绍积分"]) {
                         cell.textLabel.text = [NSString stringWithFormat:@"%@",model.money];
                     }
-                    cell.textLabel.textColor = RGBCOLOR(249, 207, 112, 1);
+                    cell.textLabel.textColor = RGBCOLOR(254, 220, 89, 1);
                     cell.textLabel.font = [UIFont systemFontOfSize:35];
                     
                     cell.detailTextLabel.text = @"实际收款额";
                 }else{
                     cell.textLabel.text = [NSString stringWithFormat:@"￥%@",model.total_money];
-                    cell.textLabel.textColor = RGBCOLOR(229, 193, 64, 1);
+                    cell.textLabel.textColor = RGBCOLOR(254, 220, 89, 1);
                     cell.textLabel.font = [UIFont systemFontOfSize:35];
                     
                     cell.detailTextLabel.text = @"(订单总额)";
@@ -133,8 +133,9 @@
         }else{
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-            cell.textLabel.textColor = RGBCOLOR(132, 132 ,132, 1);
-            cell.detailTextLabel.textColor = RGBCOLOR(182, 182 ,182, 1);
+            cell.textLabel.textColor = LIGHTCOLOR;
+            
+            cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#999999"];
             if (indexPath.row == 0) {
                 cell.textLabel.text = @"明细";
                 UIView * line = [[UIView alloc]initWithFrame:CGRectMake(16, 29.5, cell.width-32, 0.5)];

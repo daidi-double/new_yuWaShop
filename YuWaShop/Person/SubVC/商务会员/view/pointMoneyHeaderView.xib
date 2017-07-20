@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,11 +18,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yuanhuan" translatesAutoresizingMaskIntoConstraints="NO" id="8jP-YB-lUh">
-                    <rect key="frame" x="112.5" y="85" width="150" height="150"/>
+                    <rect key="frame" x="107" y="79.5" width="161" height="161"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="8jP-YB-lUh" secondAttribute="height" multiplier="1:1" id="isb-km-PWx"/>
-                        <constraint firstAttribute="height" constant="150" id="ofH-dp-CPR"/>
-                        <constraint firstAttribute="width" constant="150" id="pnV-vz-ydj"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="普通会员" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMy-2E-h5e">
@@ -58,6 +57,7 @@
                 <constraint firstAttribute="bottom" secondItem="dnK-hR-xPs" secondAttribute="bottom" constant="10" id="hxg-k7-TOl"/>
                 <constraint firstAttribute="trailing" secondItem="dnK-hR-xPs" secondAttribute="trailing" constant="15" id="kPA-vc-3BO"/>
                 <constraint firstItem="21h-QG-LbK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="65" id="n4A-gZ-jpX"/>
+                <constraint firstItem="8jP-YB-lUh" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="3:7" id="wcE-eJ-Ikq"/>
                 <constraint firstItem="8jP-YB-lUh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="zFP-t0-JAI"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

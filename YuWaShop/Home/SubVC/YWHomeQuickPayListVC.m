@@ -42,7 +42,7 @@
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100.f;
+    return 110.f;
 }
 
 #pragma mark - UITableViewDataSource

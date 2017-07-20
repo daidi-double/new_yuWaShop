@@ -130,6 +130,7 @@
 - (void)makeUI{
     self.toolsBottomView = [[[NSBundle mainBundle]loadNibNamed:@"RBNodeDetailBottomView" owner:nil options:nil] firstObject];
     WEAKSELF;
+
     self.toolsBottomView.nodeID = self.model.homeID;
     self.toolsBottomView.auser_type = self.model.user.user_type;
     self.toolsBottomView.likeBlock = ^(BOOL isLike){
@@ -148,6 +149,10 @@
             if (isCollection) {
                 [weakSelf requestCancelToAldum];
             }else{
+                if (weakSelf.isUser) {
+                    [JRToast showWithText:@"不能收藏自己的笔记哦~" duration:1.5];
+                    return ;
+                }
                 [weakSelf addToAldumViewmake];
             }
         }
@@ -168,6 +173,7 @@
 
 - (void)addToAldumViewmake{
     if (![UserSession instance].aldumCount||[[UserSession instance].aldumCount integerValue]<=0) {
+
         if (self.addToAldumView){
             [self.addToAldumView setUserInteractionEnabled:NO];
             [self requestAddToAldumWithIdx:@"0"];

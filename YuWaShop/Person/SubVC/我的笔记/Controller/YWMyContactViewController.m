@@ -272,6 +272,7 @@
     }else{
         
         RBNodeShowViewController * vc = [[RBNodeShowViewController alloc]init];
+        vc.isUser = YES;
         vc.model = self.allDatasModel[number];
         [self.navigationController pushViewController:vc animated:NO];
         

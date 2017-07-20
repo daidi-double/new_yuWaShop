@@ -32,7 +32,7 @@
         self.customer_nameLabel.text = [NSString stringWithFormat:@"%@****",[self.model.customer_name substringToIndex:self.model.customer_name.length - 4]];
     }
     self.create_timeLabel.text = [JWTools getTime:self.model.create_time];
-    self.total_moneyLabel.text = [NSString stringWithFormat:@"￥%@",self.model.total_money];
+    self.total_moneyLabel.text = [NSString stringWithFormat:@"￥%.2f",[self.model.total_money floatValue]];
     self.orderStatusLabel.text = self.model.order_type;
 }
 
