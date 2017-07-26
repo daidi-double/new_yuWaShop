@@ -19,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (nonatomic,strong)NSString * remoteUsername;
 @property (nonatomic,strong)NSString * friendsIcon;
+@property (nonatomic,strong)EMConversation * conversation;
+@property (nonatomic,copy) void (^addBlock)(EMMessage*);
 - (void)clearData;
 @end

@@ -26,36 +26,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //注册实时通话回调
-    _nameLabel.text = _friendsName;
+
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    _timeLabel.text = nil;
     if (_status == 0) {
+        _nameLabel.text = _friendsName;
         _rejectBtn.hidden = _isHidden;
         _answerBtn.hidden = _isHidden;
         _hangupBtn.hidden = !_isHidden;
         
     }else{
-        [self getIconAccount:_remoteUsername];
         [self _beginRing];
         _statusLabel.text = @"邀请你视频聊天";
         _rejectBtn.hidden = !_isHidden;
         _answerBtn.hidden = !_isHidden;
         _hangupBtn.hidden = _isHidden;
+        [self getIconAccount:_remoteUsername];
     }
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_friendsIcon]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     if (!_callSession) {
         
-        NSString * string = ([[[EMClient sharedClient] currentUsername] isEqualToString:_friendsName])?_friendsName:_friendsName;
-        
-        NSLog(@"currentUsername = %@  ,  string = %@",[[EMClient sharedClient] currentUsername],string);
+        NSString * string = ([[[EMClient sharedClient] currentUsername] isEqualToString:_friendsHXID])?_friendsHXID:_friendsHXID;
+
         
         [[EMClient sharedClient].callManager startCall:EMCallTypeVideo remoteName:string ext:nil completion:^(EMCallSession *aCallSession, EMError *aError) {
-            
-            NSLog(@"startCall : errorDescription = %@",aError.errorDescription);
+
             
             if (!aError) {
                 _callSession = aCallSession;
@@ -72,7 +70,7 @@
 }
 - (void)makeUI{
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];//休眠关闭
-    _nameLabel.text = _friendsName;
+ 
     
     //对方窗口
     _callSession.remoteVideoView = [[EMCallRemoteView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
@@ -85,7 +83,9 @@
     _callSession.localVideoView = [[EMCallLocalView alloc]initWithFrame:CGRectMake(kScreen_Width-100, 64, 80, 120)];
     [self.view addSubview:_callSession.localVideoView];
     
-    
+    [self.view bringSubviewToFront:_iconImageView];
+    [self.view bringSubviewToFront:_nameLabel];
+    [self.view bringSubviewToFront:_timeLabel];
     [self.view bringSubviewToFront:_answerBtn];
     [self.view bringSubviewToFront:_hangupBtn];
     [self.view bringSubviewToFront:_rejectBtn];
@@ -114,6 +114,8 @@
  */
 - (void)callDidAccept:(EMCallSession *)aSession{
     _statusLabel.hidden = YES;
+    _iconImageView.hidden = YES;
+    _nameLabel.hidden = YES;
     [self _startTimeTimer];
 }
 
@@ -131,14 +133,82 @@
     
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
     [[EMClient sharedClient].callManager removeDelegate:self];
+
+    NSString * text;
+    if (aReason == EMCallEndReasonHangup) {
+        text = [NSString stringWithFormat:@"视频通话时长%@",_timeLabel.text];
+        
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"已取消";
+            }else{
+                text = @"未接听";
+            }
+        }
+    }else if (aReason == EMCallEndReasonDecline){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"对方已拒绝";
+            }else{
+                text = @"已拒绝";
+            }
+        }
+    }else if (aReason == EMCallEndReasonNoResponse){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"无人接听";
+            }else{
+                text = @"有未接视频电话";
+            }
+        }
+    }else if (aReason == EMCallEndReasonBusy){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"对方正在通话中";
+            }else{
+                text = @"有来电";
+            }
+        }
+    }else if (aReason == EMCallEndReasonFailed){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"连接失败";
+            }
+        }
+    }else if (aReason == EMCallEndReasonRemoteOffline){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"对方不在线";
+            }
+        }
+    }
+    EMTextMessageBody *textMessageBody = [[EMTextMessageBody alloc] initWithText:text];
+    EMMessage *textMessage = [[EMMessage alloc] initWithConversationID:_conversation.conversationId from:[EMClient sharedClient].currentUsername to:_callSession.callId body:textMessageBody ext:nil];
+    textMessage.status = EMMessageStatusSuccessed;
+    textMessage.direction = EMMessageDirectionSend;
+    textMessage.chatType = (EMChatType)self.conversation.type;
+    textMessage.isDeliverAcked = YES;
+    /** 刷新当前聊天界面 */
+    if (self.addBlock) {
+        
+        self.addBlock(textMessage);
+    }
+    
+    /** 存入当前会话并存入数据库 */
+    
+    [self.conversation insertMessage:textMessage error:nil];
+    
+    
+
     [self _stopTimeTimer];
     _callSession = nil;
-    if (self.status == 1) {
-        
-        UIWindow * window = [[UIApplication sharedApplication].delegate window];
-        VIPTabBarController * VIPVC = [[VIPTabBarController alloc]init];
-        window.rootViewController = VIPVC;
-    }
+    _timeLabel.text = nil;
     [self _stopRing];
     [self dismissViewControllerAnimated:YES completion:nil];
     
@@ -148,7 +218,7 @@
 {
     MyLog(@"开启定时器");
     self.timeLength = 0;
-    self.timeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeTimerAction:) userInfo:nil repeats:YES];
+    self.timeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(beginTimeTimerAction:) userInfo:nil repeats:YES];
 }
 
 - (void)_stopTimeTimer
@@ -156,11 +226,10 @@
     MyLog(@"销毁定时器");
     [self.timeTimer invalidate];
     self.timeTimer = nil;
-    
-    self.timeLabel.text = nil;
+
 }
 
-- (void)timeTimerAction:(id)sender
+- (void)beginTimeTimerAction:(id)sender
 {
     _timeLength += 1;
     int hour = _timeLength / 3600;
@@ -244,6 +313,8 @@
         sender.hidden = YES;
         _rejectBtn.hidden = YES;
         _hangupBtn.hidden = NO;
+        _iconImageView.hidden = YES;
+        _nameLabel.hidden = YES;
     }
 }
 -(void)dealloc{
@@ -299,9 +370,9 @@
         [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",modelTemp.header_img]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
         if ([modelTemp.friend_remark isEqualToString:@""]) {
             
-            self.nameLabel.text = modelTemp.nikeName;
+            _nameLabel.text = modelTemp.nikeName;
         }else{
-            self.nameLabel.text  = modelTemp.friend_remark;
+            _nameLabel.text  = modelTemp.friend_remark;
         }
     } failur:^(id errorData, NSError *error) {
         

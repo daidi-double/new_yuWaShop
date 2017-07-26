@@ -119,6 +119,7 @@
             vc.status = 1;
             vc.isHidden = YES;
             vc.remoteUsername = aSession.remoteName;
+            vc.conversation = [[EMClient sharedClient].chatManager getConversation:aSession.remoteName type:EMConversationTypeChat createIfNotExist:YES];
     [topRootViewController presentViewController:vc animated:YES completion:nil];
         }else{//视频
             VideoViewController * VideoVC = [[VideoViewController alloc]init];
@@ -128,6 +129,7 @@
             VideoVC.status = 1;
             VideoVC.isHidden = YES;
             VideoVC.remoteUsername = aSession.remoteName;
+            VideoVC.conversation = [[EMClient sharedClient].chatManager getConversation:aSession.remoteName type:EMConversationTypeChat createIfNotExist:YES];
     [topRootViewController presentViewController:VideoVC animated:YES completion:nil];
         }
 }

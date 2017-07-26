@@ -114,6 +114,9 @@
                 [self.dataArr addObject:[YWMessageFriendAddModel yy_modelWithDictionary:requestDic]];
                 markHxID = hxID;
                 
+            }else{
+                [friendsRequest removeObjectAtIndex:idx];
+                [KUSERDEFAULT setObject:friendsRequest forKey:FRIENDSREQUEST];
             }
             
         }

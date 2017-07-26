@@ -107,7 +107,10 @@
  */
 - (void)callDidAccept:(EMCallSession *)aSession{
     _statusLabel.text = @"正在通话";
-      [self _startTimeTimer];
+    if (_status == 0) {
+        
+        [self _startTime];
+    }
 }
 
 /*!
@@ -125,9 +128,89 @@
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
 
     [[EMClient sharedClient].callManager removeDelegate:self];
-    [self _stopTimeTimer];
-    [self _stopRing];
+    
+    NSString * text;
+    if (aReason == EMCallEndReasonHangup) {
+        text = [NSString stringWithFormat:@"通话时长%@",_timeLabel.text];
+        
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"已取消";
+            }else{
+                text = @"未接听";
+            }
+        }
+    }else if (aReason == EMCallEndReasonDecline){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"对方已拒绝";
+            }else{
+                text = @"已拒绝";
+            }
+        }
+    }else if (aReason == EMCallEndReasonNoResponse){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"无人接听";
+            }else{
+                text = @"有未接电话";
+            }
+        }
+    }else if (aReason == EMCallEndReasonBusy){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"对方正在通话中";
+            }else{
+                text = @"有来电";
+            }
+        }
+    }else if (aReason == EMCallEndReasonFailed){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"连接失败";
+            }
+        }
+    }else if (aReason == EMCallEndReasonRemoteOffline){
+        if (_timeLabel.text.length == 0) {
+            if (_status == 0) {
+                
+                text = @"对方不在线";
+            }
+        }
+    }
+        EMTextMessageBody *textMessageBody = [[EMTextMessageBody alloc] initWithText:text];
+        EMMessage *textMessage = [[EMMessage alloc] initWithConversationID:_conversation.conversationId from:[EMClient sharedClient].currentUsername to:_callSession.callId body:textMessageBody ext:nil];
+        textMessage.status = EMMessageStatusSuccessed;
+        textMessage.direction = EMMessageDirectionSend;
+        textMessage.chatType = (EMChatType)self.conversation.type;
+        textMessage.isDeliverAcked = YES;
+        /** 刷新当前聊天界面 */
+        if (self.addBlock) {
+            
+            self.addBlock(textMessage);
+        }
+        
+        /** 存入当前会话并存入数据库 */
+        
+        [self.conversation insertMessage:textMessage error:nil];
+        
+    
+    
+    
     _callSession = nil;
+    [self _stopRing];
+    if (_status == 1) {
+        
+        [self clearData];
+    }
+    self.timeLabel.text = nil;
+    [self _stopTimeTimer];
+
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
@@ -162,7 +245,7 @@
     [self.ringPlayer stop];
 }
 
-- (void)_startTimeTimer
+- (void)_startTime
 {
     MyLog(@"开启定时器");
     self.timeLength = 0;
@@ -174,8 +257,7 @@
     MyLog(@"销毁定时器");
     [self.timeTimer invalidate];
     self.timeTimer = nil;
-    
-    self.timeLabel.text = nil;
+
 }
 
 - (void)timeTimerAction:(id)sender
@@ -222,7 +304,7 @@
 //接听
 - (IBAction)answerAction:(UIButton *)sender {
     [self _stopRing];
-    [self _startTimeTimer];
+    [self _startTime];
     EMError * error = [[EMClient sharedClient].callManager answerIncomingCall:_callSession.callId];
     
     if (error) {
@@ -255,8 +337,11 @@
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
     [audioSession setActive:YES error:nil];
-  [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonNoResponse];
-    _callSession = nil;
+    if (_callSession) {
+        
+        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonNoResponse];
+        _callSession = nil;
+    }
     
     [self _stopTimeTimer];
    

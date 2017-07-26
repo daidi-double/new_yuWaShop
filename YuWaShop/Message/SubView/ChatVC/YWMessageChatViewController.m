@@ -56,7 +56,7 @@ static YWMessageChatViewController *callManager = nil;
         options = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
     } else {
         options = [[EMClient sharedClient].callManager getCallOptions];
-        options.isSendPushIfOffline = YES;
+        options.isSendPushIfOffline = NO;
         options.videoResolution = EMCallVideoResolution640_480;
         options.isFixedVideoResolution = YES;
     }
@@ -76,18 +76,53 @@ static YWMessageChatViewController *callManager = nil;
         self.voiceController.isHidden = YES;
         self.voiceController.friendsHXID = [notifi object][@"chatter"];
         self.voiceController.friendsIcon = self.friendIcon;
+        self.voiceController.conversation = [[EMClient sharedClient].chatManager getConversation:[notifi object][@"chatter"] type:EMConversationTypeChat createIfNotExist:YES];
         [self _startCallTimer];//开始计时
         [self presentViewController:self.voiceController animated:YES completion:nil];
+        WEAKSELF;
+        self.voiceController.addBlock = ^(EMMessage*textmessage){
+            textmessage.status = EMMessageStatusSuccessed;
+            [weakSelf addMessageToDataSource:textmessage progress:nil];
+            if ([weakSelf _shouldMarkMessageAsRead])
+            {
+                [weakSelf.conversation markMessageAsReadWithId:textmessage.messageId error:nil];
+            }
+        };
     }else{
         _videoController = [[VideoViewController alloc]init];
-        self.videoController.friendsName = _currentFriendsName;
+        self.videoController.friendsName = _friendNikeName;
         self.videoController.isHidden = YES;
         self.videoController.friendsHXID = [notifi object][@"chatter"];
         self.videoController.friendsIcon = self.friendIcon;
+        self.videoController.conversation = [[EMClient sharedClient].chatManager getConversation:[notifi object][@"chatter"] type:EMConversationTypeChat createIfNotExist:YES];
         [self _startCallTimer];//开始计时
         [self presentViewController:self.videoController animated:YES completion:nil];
+        WEAKSELF;
+        self.videoController.addBlock = ^(EMMessage*textmessage){
+            textmessage.status = EMMessageStatusSuccessed;
+            [weakSelf addMessageToDataSource:textmessage progress:nil];
+            if ([weakSelf _shouldMarkMessageAsRead])
+            {
+                [weakSelf.conversation markMessageAsReadWithId:textmessage.messageId error:nil];
+            }
+        };
     }
     
+}
+- (BOOL)_shouldMarkMessageAsRead
+{
+    BOOL isMark = YES;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(messageViewControllerShouldMarkMessagesAsRead:)]) {
+        isMark = [self.dataSource  messageViewControllerShouldMarkMessagesAsRead:self];
+    }
+    else{
+        if (([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) || !self.isViewDidAppear)
+        {
+            isMark = NO;
+        }
+    }
+    
+    return isMark;
 }
 
 - (void)_startCallTimer
@@ -139,44 +174,44 @@ static YWMessageChatViewController *callManager = nil;
         
         [self _stopCallTimer];
         
-        if (aReason != EMCallEndReasonHangup) {
-            NSString *reasonStr = @"通话结束";
-            switch (aReason) {
-                case EMCallEndReasonNoResponse:
-                {
-                    reasonStr = NSLocalizedString(@"对方无人接听", @"NO response");
-                    
-                }
-                    break;
-                case EMCallEndReasonDecline:
-                {
-                    reasonStr = NSLocalizedString(@"对方拒绝了您的通话", @"Reject the call");
-                }
-                    break;
-                case EMCallEndReasonBusy:
-                {
-                    reasonStr = NSLocalizedString(@"对方正在通话中", @"In the call...");
-                }
-                    break;
-                case EMCallEndReasonFailed:
-                {
-                    reasonStr = NSLocalizedString(@"连接失败", @"Connect failed");
-                }
-                    break;
-                default:
-                    break;
-            }
-            
-            if (aError) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-            else{
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:reasonStr delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-            
-        }
+//        if (aReason != EMCallEndReasonHangup) {
+//            NSString *reasonStr = @"通话结束";
+//            switch (aReason) {
+//                case EMCallEndReasonNoResponse:
+//                {
+//                    reasonStr = NSLocalizedString(@"对方无人接听", @"NO response");
+//                    
+//                }
+//                    break;
+//                case EMCallEndReasonDecline:
+//                {
+//                    reasonStr = NSLocalizedString(@"对方拒绝了您的通话", @"Reject the call");
+//                }
+//                    break;
+//                case EMCallEndReasonBusy:
+//                {
+//                    reasonStr = NSLocalizedString(@"对方正在通话中", @"In the call...");
+//                }
+//                    break;
+//                case EMCallEndReasonFailed:
+//                {
+//                    reasonStr = NSLocalizedString(@"连接失败", @"Connect failed");
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+//            
+//            if (aError) {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
+//                [alertView show];
+//            }
+//            else{
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:reasonStr delegate:nil cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
+//                [alertView show];
+//            }
+//            
+//        }
         
     }
     [self hangupCallWithReason:aReason];

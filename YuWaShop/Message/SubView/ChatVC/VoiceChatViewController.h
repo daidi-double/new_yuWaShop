@@ -20,5 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (nonatomic,strong)EMConversation *conversation;
+@property (nonatomic,copy) void (^addBlock)(EMMessage*);
 - (void)clearData;
 @end
