@@ -321,15 +321,13 @@
     
     if (_callSession) {
         [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonHangup];
+        _callSession = nil;
     }
    
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
     [[EMClient sharedClient].callManager removeDelegate:self];
-    _callSession = nil;
     
-    
-    //    [self stopSystemSound];
-    
+
 }
 - (void)clearData
 {
@@ -339,7 +337,7 @@
     [audioSession setActive:YES error:nil];
     if (_callSession) {
         
-        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonNoResponse];
+        [[EMClient sharedClient].callManager endCall:_callSession.callId reason:EMCallEndReasonUnsupported];
         _callSession = nil;
     }
     

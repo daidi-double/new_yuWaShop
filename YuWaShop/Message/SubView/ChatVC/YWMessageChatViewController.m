@@ -142,9 +142,9 @@ static YWMessageChatViewController *callManager = nil;
 - (void)_timeoutBeforeCallAnswered
 {
     [self hangupCallWithReason:EMCallEndReasonNoResponse];
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"对方暂时无法接通", @"No response and Hang up") delegate:self cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
-    [alertView show];
+//    
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"对方暂时无法接通", @"No response and Hang up") delegate:self cancelButtonTitle:NSLocalizedString(@"好的", @"OK") otherButtonTitles:nil, nil];
+//    [alertView show];
 }
 - (void)callDidReceive:(EMCallSession *)aSession{
     MyLog(@"收到电话");
@@ -221,7 +221,7 @@ static YWMessageChatViewController *callManager = nil;
     [self _stopCallTimer];
     if (_currentSession) {
         
-        [[EMClient sharedClient].callManager endCall:_currentSession.callId reason:EMCallEndReasonDecline];
+        [[EMClient sharedClient].callManager endCall:_currentSession.callId reason:aReason];
         _currentSession = nil;
     }
     if (_voiceController) {
