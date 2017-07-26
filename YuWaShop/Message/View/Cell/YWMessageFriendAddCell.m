@@ -70,6 +70,7 @@
         }
         
     }else{
+        [self makeUIWithStatus:@"2"];
         [self.delegate delFriendRequset:sender];
         return;
         
@@ -95,8 +96,8 @@
                 [JRToast showWithText:@"你们已经是好友了" duration:1];
                 return NO;
             }else if ([[strs substringFromIndex:1] isEqualToString:self.model.hxID]){
-                [JRToast showWithText:@"你们已经是好友了" duration:1];
-                return NO;
+//                [JRToast showWithText:@"你们已经是好友了" duration:1];
+//                return NO;
             }
         }
         return YES;
@@ -106,6 +107,7 @@
 - (IBAction)refuseBtnAction:(id)sender {
     if (![self judgeIsFriends]) {
         [self.delegate delFriendRequset:sender];
+        [self makeUIWithStatus:@"3"];
         return;
     }
     EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:self.model.hxID];
