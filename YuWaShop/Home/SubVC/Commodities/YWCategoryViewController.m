@@ -122,7 +122,7 @@
             [self requestDelWithID:model.id withIndexPath:indexPath];
         }];
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认删除此分类?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认删除此分类，删除后该类商品也将删除?" preferredStyle:UIAlertControllerStyleAlert];
         [alertVC addAction:cancelAction];
         [alertVC addAction:OKAction];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
