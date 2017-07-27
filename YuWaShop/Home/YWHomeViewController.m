@@ -49,7 +49,7 @@
     [[EMClient sharedClient].chatManager removeDelegate:self];
     //注册消息回调
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
-
+    
     //移除好友回调
     [[EMClient sharedClient].contactManager removeDelegate:self];
     //注册好友回调
@@ -59,14 +59,14 @@
 
 -(void)messagesDidReceive:(NSArray *)aMessages{
     
-
-            MyLog(@"接收到文字消息");
-            WEAKSELF;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf requestShopArrData];
-                
-            });
-
+    
+    MyLog(@"接收到文字消息");
+    WEAKSELF;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf requestShopArrData];
+        
+    });
+    
     
 }
 /*!
@@ -285,7 +285,7 @@
                     for (NSDictionary * requestDic in friendsRequest) {
                         if ([requestDic[@"status"] isEqualToString:@"0"])unRedCount++;
                     }
-                   
+                    
                     badgeValue += friendsRequest.count;
                 }
                 VIPTabBarController * rootTabBarVC = (VIPTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -300,12 +300,12 @@
                 a++ ;
                 if (a== 1) {
                     
-                if ([responsObj[@"errorCode"] integerValue] == 1) {
-                    self.type = @"2";
-                    [self requestShopArrData];
+                    if ([responsObj[@"errorCode"] integerValue] == 1) {
+                        self.type = @"2";
+                        [self requestShopArrData];
+                    }
                 }
-                }
-//                MyLog(@"%@~~~~~%@",error,responsObj);
+                //                MyLog(@"%@~~~~~%@",error,responsObj);
             }];
         }
     }

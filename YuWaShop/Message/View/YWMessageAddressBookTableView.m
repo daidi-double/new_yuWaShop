@@ -289,22 +289,30 @@
 
 - (void)sortedArry:(NSMutableArray *)sortArr{//排序好的数组、按照首字母排
     NSMutableArray * arr = [NSMutableArray arrayWithArray:[sortArr sortedArrayUsingComparator:^NSComparisonResult(YWMessageAddressBookModel * _Nonnull obj1, YWMessageAddressBookModel * _Nonnull obj2) {
+        if (obj1.nikeName != nil&&obj2.nikeName!=nil) {
+      
         if (NSOrderedDescending==[[JWTools stringWithFirstCharactor:obj1.nikeName] compare:[JWTools stringWithFirstCharactor:obj2.nikeName]]){
             return (NSComparisonResult)NSOrderedDescending;
         }
         if (NSOrderedAscending==[[JWTools stringWithFirstCharactor:obj1.nikeName] compare:[JWTools stringWithFirstCharactor:obj2.nikeName]]){
             return (NSComparisonResult)NSOrderedAscending;
         }
+            
+        }
         return (NSComparisonResult)NSOrderedSame;
+            
     }]];
     
     __block NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
     [arr enumerateObjectsUsingBlock:^(YWMessageAddressBookModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.nikeName != nil) {
+            
+       
         NSMutableArray * arrTemp = dic[[JWTools stringWithFirstCharactor:[model.nikeName substringToIndex:1]]];
         if (!arrTemp)arrTemp = [NSMutableArray arrayWithCapacity:0];
         [arrTemp addObject:model];
         [dic setObject:arrTemp forKey:[JWTools stringWithFirstCharactor:[model.nikeName substringToIndex:1]]];
-        
+        } 
     }];//接口后,数组内模型的昵称进行排序
     self.keyArr = [NSMutableArray arrayWithArray:[[dic allKeys] sortedArrayUsingSelector:@selector(compare:)]];
     NSInteger sortCount = 0;
