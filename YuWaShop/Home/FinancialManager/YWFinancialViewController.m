@@ -41,7 +41,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:CELL0 bundle:nil] forCellReuseIdentifier:CELL0];
     UIBarButtonItem * rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"近期账单" style:UIBarButtonItemStylePlain target:self action:@selector(payList)];
     self.navigationItem.rightBarButtonItem = rightBtn;
-     [self financialInfo];
+    [self financialInfo];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
@@ -51,7 +51,7 @@
     
     PCDetailMoneyViewController * vc = [[PCDetailMoneyViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
-
+    
 }
 #pragma mark - TableView Refresh
 - (void)setupRefresh{
@@ -61,13 +61,13 @@
         self.pagen=10;
         self.pages=0;
         [self financialInfo];
-     
+        
     }];
     self.tableView.mj_footer = [UIScrollView scrollRefreshGifFooterWithImgName:@"newheader" withImageCount:60 withRefreshBlock:^{
         self.pagen=10;
         self.pages++;
         [self financialInfo];
-
+        
     }];
     
     [self.tableView.mj_header beginRefreshing];
@@ -75,58 +75,58 @@
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-        //结算
-        return 1;
+    //结算
+    return 1;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-        FinancialTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:CELL0];
-        
-        UILabel*label2=[cell viewWithTag:2];
-        label2.text=self.baseModel.pay_type;
-        
-         UILabel*label4=[cell viewWithTag:4];
-        label4.text=self.baseModel.pay_time;
-        
-         UILabel*label6=[cell viewWithTag:6];
-        NSString*time=[JWTools getTime:self.baseModel.tomorrow];
-        label6.text=[NSString stringWithFormat:@"%@(共%@)",time,self.baseModel.next_money];
+    
+    FinancialTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:CELL0];
+    cell.selectionStyle = NO;
+    UILabel*label2=[cell viewWithTag:2];
+    label2.text=self.baseModel.pay_type;
+    
+    UILabel*label4=[cell viewWithTag:4];
+    label4.text=self.baseModel.pay_time;
+    
+    UILabel*label6=[cell viewWithTag:6];
+    NSString*time=[JWTools getTime:self.baseModel.tomorrow];
+    label6.text=[NSString stringWithFormat:@"%@(共%@)",time,self.baseModel.next_money];
     if ([self.baseModel.next_money isKindOfClass:[NSNull class]]|| self.baseModel.next_money == nil||[self.baseModel.next_money isEqualToString:@"null"]) {
         label6.text=[NSString stringWithFormat:@"%@(共0.00)",time];
     }
-        
-      
-        return cell;
-        
-   
+    
+    
+    return cell;
+    
+    
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
-        UIView*headerView=[[NSBundle mainBundle]loadNibNamed:@"FinancialHeaderView" owner:nil options:nil].firstObject;
-        headerView.frame=CGRectMake(0, 0, kScreen_Width, 170);
-        
-        
-        UILabel*moneyLabel=[headerView viewWithTag:2];
-        moneyLabel.text=self.baseModel.total_settlement;
+    
+    UIView*headerView=[[NSBundle mainBundle]loadNibNamed:@"FinancialHeaderView" owner:nil options:nil].firstObject;
+    headerView.frame=CGRectMake(0, 0, kScreen_Width, 170);
+    
+    
+    UILabel*moneyLabel=[headerView viewWithTag:2];
+    moneyLabel.text=self.baseModel.total_settlement;
     if (self.baseModel.total_settlement == nil) {
         moneyLabel.text = @"0.00";
     }
     
-        return headerView;
-
+    return headerView;
+    
 }
 //
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-        return 100;
+    
+    return 100;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-
-        return 170;
-
+    
+    return 170;
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -136,17 +136,17 @@
     UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-270-64)];
     bgView.backgroundColor = [UIColor whiteColor];
     
-//    UIButton * getMoneyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    getMoneyBtn.layer.masksToBounds = YES;
-//    getMoneyBtn.layer.cornerRadius = 6;
-//    getMoneyBtn.frame = CGRectMake(0, 0, kScreen_Width -40, 45);
-//    
-//    getMoneyBtn.center = bgView.center;
-//    [getMoneyBtn setBackgroundColor:CNaviColor];
-//    
-//    [getMoneyBtn setTitle:@"提现" forState:UIControlStateNormal];
-//    [getMoneyBtn addTarget:self action:@selector(getMoney) forControlEvents:UIControlEventTouchUpInside];
-//    [bgView addSubview:getMoneyBtn];
+    //    UIButton * getMoneyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    getMoneyBtn.layer.masksToBounds = YES;
+    //    getMoneyBtn.layer.cornerRadius = 6;
+    //    getMoneyBtn.frame = CGRectMake(0, 0, kScreen_Width -40, 45);
+    //
+    //    getMoneyBtn.center = bgView.center;
+    //    [getMoneyBtn setBackgroundColor:CNaviColor];
+    //
+    //    [getMoneyBtn setTitle:@"提现" forState:UIControlStateNormal];
+    //    [getMoneyBtn addTarget:self action:@selector(getMoney) forControlEvents:UIControlEventTouchUpInside];
+    //    [bgView addSubview:getMoneyBtn];
     
     
     return bgView;
@@ -160,7 +160,7 @@
 //结算
 
 -(void)financialInfo{
-      NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,SHOP_FINANCIALBASE];
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,SHOP_FINANCIALBASE];
     NSDictionary*params=@{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid)};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDatasNoHudWithUrl:urlStr withParams:params compliation:^(id data, NSError *error) {
@@ -177,9 +177,9 @@
         }
         
         
-//        [self.tableView.mj_header endRefreshing];
-//        [self.tableView.mj_footer endRefreshing];
-
+        //        [self.tableView.mj_header endRefreshing];
+        //        [self.tableView.mj_footer endRefreshing];
+        
         
     }];
     
@@ -193,14 +193,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 -(UITableView *)tableView{
     if (!_tableView) {

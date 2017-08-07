@@ -111,6 +111,7 @@
     addVC.catID = model.id;
     [self.navigationController pushViewController:addVC animated:YES];
 }
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleDelete;
 }

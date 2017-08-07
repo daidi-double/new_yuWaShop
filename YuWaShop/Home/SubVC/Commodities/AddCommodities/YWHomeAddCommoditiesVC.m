@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *imageBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *shopImage;
 @property (weak, nonatomic) IBOutlet UITextField *discountPriceTextField;
-@property(nonatomic,strong)MBProgressHUD*HUD;
+//@property(nonatomic,strong)MBProgressHUD*HUD;
 @property (nonatomic,copy)NSString * cameraImageStr;
 
 @end
@@ -133,7 +133,10 @@
         [self showHUDWithStr:@"请添加商品相片哟~" withSuccess:NO];
         return;
     }
-    [self.HUD show:YES];
+//    if (self.staues == 0) {
+//        
+//        [self.HUD show:YES];
+//    }
     self.priceTextField.text = [NSString stringWithFormat:@"%.2f",[self.priceTextField.text floatValue]];
     self.discountPriceTextField.text = [NSString stringWithFormat:@"%.2f",[self.discountPriceTextField.text floatValue]];
     
@@ -162,7 +165,7 @@
     [[HttpObject manager]postDataWithType:YuWaType_Shoper_ShopAdmin_AddGoods withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"Regieter Code is %@",responsObj);
-        [self.HUD hide:YES];
+//        [self.HUD hide:YES];
         [self showHUDWithStr:@"恭喜!添加成功" withSuccess:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
@@ -171,7 +174,7 @@
     } failur:^(id responsObj, NSError *error) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"Regieter Code error is %@",responsObj);
-         [self.HUD hide:YES];
+//         [self.HUD hide:YES];
     }];
 }
 - (void)changShopInfo{
@@ -180,7 +183,7 @@
     [[HttpObject manager]postDataWithType:YuWaType_Shoper_ShopAdmin_changGoods withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"Regieter Code is %@",responsObj);
-         [self.HUD hide:YES];
+//         [self.HUD hide:YES];
         [self showHUDWithStr:@"恭喜!修改成功" withSuccess:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
@@ -188,23 +191,23 @@
     } failur:^(id responsObj, NSError *error) {
         MyLog(@"Regieter Code pragram is %@",pragram);
         MyLog(@"Regieter Code error is %@",responsObj);
-         [self.HUD hide:YES];
+//         [self.HUD hide:YES];
         
     }];
 
 }
 
--(MBProgressHUD *)HUD{
-    if (!_HUD) {
-        _HUD=[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].delegate.window animated:YES];
-        _HUD.delegate=self;
-        _HUD.userInteractionEnabled=NO;
-        //        _HUD.mode=MBProgressHUDModeAnnularDeterminate;
-        _HUD.dimBackground=NO;
-        _HUD.labelText = @"请稍等";
-        _HUD.removeFromSuperViewOnHide = YES;
-    }
-    return _HUD;
-}
+//-(MBProgressHUD *)HUD{
+//    if (!_HUD) {
+//        _HUD=[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].delegate.window animated:YES];
+//        _HUD.delegate=self;
+//        _HUD.userInteractionEnabled=NO;
+//        //        _HUD.mode=MBProgressHUDModeAnnularDeterminate;
+//        _HUD.dimBackground=NO;
+//        _HUD.labelText = @"请稍等";
+//        _HUD.removeFromSuperViewOnHide = YES;
+//    }
+//    return _HUD;
+//}
 
 @end

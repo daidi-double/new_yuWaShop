@@ -18,65 +18,68 @@
                 <rect key="frame" x="0.0" y="0.0" width="372" height="121"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placehoder_loading.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eh9-wd-qvw">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Eh9-wd-qvw">
                         <rect key="frame" x="20" y="10" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="jc3-Na-y8u"/>
                             <constraint firstAttribute="height" constant="40" id="luy-fR-r87"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小雨娃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5k-Ke-2ig">
-                        <rect key="frame" x="65" y="15" width="37" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5k-Ke-2ig">
+                        <rect key="frame" x="65" y="15" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbS-ZW-mfe">
-                        <rect key="frame" x="65" y="33" width="25" height="15"/>
+                        <rect key="frame" x="65" y="18" width="25" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_lightStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="t25-RJ-wsG">
-                        <rect key="frame" x="95" y="35" width="12" height="12"/>
+                    <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t25-RJ-wsG">
+                        <rect key="frame" x="95" y="20" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="VbN-hK-kkQ"/>
                             <constraint firstAttribute="height" constant="12" id="hM9-dZ-FGE"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_lightStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="pRT-tF-kTu">
-                        <rect key="frame" x="110" y="35" width="12" height="12"/>
+                    <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pRT-tF-kTu">
+                        <rect key="frame" x="110" y="20" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="9DY-zW-uQq"/>
                             <constraint firstAttribute="width" constant="12" id="Bee-ye-SqE"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_lightStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Q7-s2-YsX">
-                        <rect key="frame" x="125" y="35" width="12" height="12"/>
+                    <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Q7-s2-YsX">
+                        <rect key="frame" x="125" y="20" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="B2A-xV-ivC"/>
                             <constraint firstAttribute="width" constant="12" id="gcO-Fm-pWZ"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_lightStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="eIm-ov-O8P">
-                        <rect key="frame" x="140" y="35" width="12" height="12"/>
+                    <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eIm-ov-O8P">
+                        <rect key="frame" x="140" y="20" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="2op-el-4BN"/>
                             <constraint firstAttribute="width" constant="12" id="yAj-BG-CQl"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="34" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_lightStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="f41-jJ-KaO">
-                        <rect key="frame" x="155" y="35" width="12" height="12"/>
+                    <imageView userInteractionEnabled="NO" tag="34" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f41-jJ-KaO">
+                        <rect key="frame" x="155" y="20" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="cVP-1f-wGV"/>
                             <constraint firstAttribute="height" constant="12" id="l5Y-Jg-ViW"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9月22日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkZ-BW-oED">
-                        <rect key="frame" x="310" y="15" width="47" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkZ-BW-oED">
+                        <rect key="frame" x="357" y="15" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" tag="233" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMQ-vI-NhJ">
-                        <rect key="frame" x="327" y="30" width="30" height="29"/>
+                        <rect key="frame" x="327" y="15" width="30" height="29"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="回复">
                             <color key="titleColor" red="0.28235294119999998" green="0.52941176469999995" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -110,7 +113,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="home_lightStar.png" width="19" height="19"/>
-        <image name="placehoder_loading.png" width="1024" height="1024"/>
+        <image name="placeholder" width="394" height="330"/>
     </resources>
 </document>

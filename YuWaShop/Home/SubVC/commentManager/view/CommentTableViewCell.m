@@ -114,6 +114,7 @@
         detailLabel.font=FONT_CN_24;
         detailLabel.numberOfLines=0;
         detailLabel.tag=112;
+        detailLabel.textColor = [UIColor colorWithHexString:@"#666666"];
         [detailLabel setVerticalAlignment:VerticalAlignmentTop];
         [self.contentView addSubview:detailLabel];
     }
@@ -219,8 +220,9 @@
         seller_contentLabel.tag = 2000 +i;
         self.messageImageView.image=[UIImage imageNamed:@"messageImage"];
         [self.contentView addSubview:self.messageImageView];
-        seller_contentLabel.font = [UIFont systemFontOfSize:14];
+        seller_contentLabel.font = [UIFont systemFontOfSize:13];
         seller_contentLabel.numberOfLines = 0;
+        seller_contentLabel.textColor = [UIColor colorWithHexString:@"#666666"];
         seller_contentLabel.text = _allRep_contents[0][i];
         seller_contentLabel.height =[_allRep_contents[1][i+1] floatValue];
         [self.contentView addSubview:seller_contentLabel];

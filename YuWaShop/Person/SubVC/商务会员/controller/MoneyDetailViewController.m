@@ -48,7 +48,7 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MoneyDetailTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:CELL0];
-    
+    cell.selectionStyle = NO;
     UILabel*titleLabel=[cell viewWithTag:1];
     UILabel*detailLabel=[cell viewWithTag:2];
     

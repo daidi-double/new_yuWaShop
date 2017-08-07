@@ -69,31 +69,31 @@
                                 <constraint firstAttribute="height" constant="50" id="WZW-eH-g9V"/>
                                 <constraint firstAttribute="width" constant="150" id="jwm-Bc-EVw"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠券数量(张)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic0-Hv-35r">
                             <rect key="frame" x="15" y="152" width="150" height="50"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠最低消费金额(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5U-s5-sjM">
                             <rect key="frame" x="15" y="203" width="150" height="50"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠金额(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qZ-YE-cRx">
                             <rect key="frame" x="15" y="254" width="150" height="50"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结束时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPc-cy-jyc">
                             <rect key="frame" x="15" y="101" width="150" height="50"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -126,7 +126,7 @@
                                 <constraint firstAttribute="width" constant="150" id="P7G-bU-DPU"/>
                                 <constraint firstAttribute="height" constant="36" id="djA-Mu-Ms1"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="aqP-4E-adL"/>
@@ -138,7 +138,7 @@
                                 <constraint firstAttribute="height" constant="50" id="xIM-jf-Sdi"/>
                                 <constraint firstAttribute="width" constant="150" id="zFJ-N0-Fkb"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
@@ -154,7 +154,7 @@
                                 <constraint firstAttribute="width" constant="150" id="DLN-1v-n78"/>
                                 <constraint firstAttribute="height" constant="36" id="Jyi-o9-O4K"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <textInputTraits key="textInputTraits"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -165,7 +165,7 @@
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入最低金额" textAlignment="right" minimumFontSize="2" translatesAutoresizingMaskIntoConstraints="NO" id="TWG-M0-PEo">
                             <rect key="frame" x="210" y="210" width="150" height="36"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="fzP-N3-4cw"/>
@@ -173,7 +173,7 @@
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入优惠金额" textAlignment="right" minimumFontSize="3" translatesAutoresizingMaskIntoConstraints="NO" id="H31-Y8-WEu">
                             <rect key="frame" x="210" y="261" width="150" height="36"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="p9D-VD-3cc"/>
@@ -181,13 +181,13 @@
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择开始时间" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nU-c1-uYX">
                             <rect key="frame" x="165" y="57" width="195" height="36"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择结束时间" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXC-z8-DVa">
                             <rect key="frame" x="165" y="108" width="195" height="36"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>

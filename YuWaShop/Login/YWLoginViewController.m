@@ -229,7 +229,10 @@
             [UserSession saveUserInfoWithDic:responsObj[@"data"]];
             [self showHUDWithStr:@"登录成功" withSuccess:YES];
             EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[UserSession instance].hxPassword];
-            
+            MyLog(@"环信密码%@",[UserSession instance].hxPassword);
+            if (errorLog.code== 202) {
+                errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:account];
+            }
             if (!errorLog){
                 [[EMClient sharedClient].options setIsAutoLogin:YES];
                 MyLog(@"环信登录成功");
@@ -305,6 +308,9 @@
         
         [UserSession saveUserLoginWithAccount:account withPassword:[UserSession instance].password];
         EMError *errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:[UserSession instance].hxPassword];
+        if (errorLog.code== 202) {
+            errorLog = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:account];
+        }
         if (!errorLog){
             [[EMClient sharedClient].options setIsAutoLogin:NO];
             MyLog(@"环信登录成功");
