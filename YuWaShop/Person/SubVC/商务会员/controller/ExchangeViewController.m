@@ -32,9 +32,9 @@
     [self.exchangeGradeTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     
     self.scoreLabel = [self.view viewWithTag:3];
-    self.scoreLabel.text = [NSString stringWithFormat:@"当前兑换比例为%@,可兑换为人民币金额为:0元",self.pay_scale];
+    self.scoreLabel.text = [NSString stringWithFormat:@"当前兑换比例为%@,可兑换人民币金额为:0元",self.pay_scale];
     if (self.pay_scale==nil) {
-        self.scoreLabel.text = @"当前兑换比例为1:20,可兑换为人民币金额为:0元";
+        self.scoreLabel.text = @"当前兑换比例为1:20,可兑换人民币金额为:0元";
     }
     self.exchangeGradeTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     
@@ -46,6 +46,11 @@
 //兑换全部
 - (IBAction)exchangeAllGrade:(UIButton *)sender {
     self.exchangeGradeTextField.text = self.canUseGrade;
+    NSArray * scoreAry = [self.pay_scale componentsSeparatedByString:@":"];
+    CGFloat scoreNum = [scoreAry[1] floatValue];
+    NSString * money = [NSString stringWithFormat:@"%.4f",[_canUseGrade floatValue] * scoreNum];
+    
+    self.scoreLabel.text = [NSString stringWithFormat:@"当前兑换比例为%@,可兑换人民币金额为:%@元",self.pay_scale,money];
 }
 //确认兑换
 - (IBAction)suerExchangeBtnAction:(UIButton *)sender {
@@ -64,9 +69,9 @@
     
     NSArray * scoreAry = [self.pay_scale componentsSeparatedByString:@":"];
     CGFloat scoreNum = [scoreAry[1] floatValue];
-    NSString * money = [NSString stringWithFormat:@"%f",[score floatValue] * scoreNum];
+    NSString * money = [NSString stringWithFormat:@"%.4f",[score floatValue] * scoreNum];
     
-    self.scoreLabel.text = [NSString stringWithFormat:@"当前兑换比例为%@,可兑换为人民币金额为:%@元",self.pay_scale,money];
+    self.scoreLabel.text = [NSString stringWithFormat:@"当前兑换比例为%@,可兑换人民币金额为:%@元",self.pay_scale,money];
     
 }
 - (void)showKeyboard {

@@ -68,10 +68,12 @@
         tittleCell.nameTextField.delegate = self;
         tittleCell.introTextView.delegate = self;
         [tittleCell.nameTextField becomeFirstResponder];
+        tittleCell.selectionStyle = NO;
         return tittleCell;
     }
     
     YWNodeAddAldumShowTableViewCell * showCell = [tableView dequeueReusableCellWithIdentifier:ALDUM_SHOW_CELL];
+    showCell.selectionStyle = NO;
     showCell.showPublicBlock = ^(BOOL isPublic){
         self.isPublic = !isPublic;
     };

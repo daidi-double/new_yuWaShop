@@ -33,7 +33,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨天成交量：1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvS-KT-cQu">
+                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨天成交量：1000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvS-KT-cQu">
                         <rect key="frame" x="173" y="37" width="194" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
@@ -46,26 +46,26 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得总积分：100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyr-uo-lB4">
-                        <rect key="frame" x="197.5" y="74" width="169.5" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得总积分：100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyr-uo-lB4">
+                        <rect key="frame" x="173" y="74" width="194" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得绑定会员：100人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rO1-Zc-EMR">
-                        <rect key="frame" x="8" y="74" width="169.5" height="17"/>
+                        <rect key="frame" x="8" y="74" width="150" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得介绍分红：1000元" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRY-Dc-bq7">
-                        <rect key="frame" x="8" y="106" width="169.5" height="17"/>
+                        <rect key="frame" x="8" y="106" width="150" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得商务分红：1000元" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JE-0Z-bwe">
-                        <rect key="frame" x="197.5" y="106" width="169.5" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得商务分红：1000元" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JE-0Z-bwe">
+                        <rect key="frame" x="173" y="106" width="194" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -73,25 +73,25 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="2JE-0Z-bwe" firstAttribute="centerY" secondItem="zRY-Dc-bq7" secondAttribute="centerY" id="7a4-wv-4UP"/>
+                    <constraint firstItem="zRY-Dc-bq7" firstAttribute="trailing" secondItem="rO1-Zc-EMR" secondAttribute="trailing" id="APv-j2-yE8"/>
                     <constraint firstAttribute="trailing" secondItem="lvS-KT-cQu" secondAttribute="trailing" constant="8" id="BvZ-bM-s3T"/>
                     <constraint firstItem="lvS-KT-cQu" firstAttribute="centerY" secondItem="CVT-ss-QQ3" secondAttribute="centerY" id="CKh-Lx-ckN"/>
                     <constraint firstItem="CKk-mA-Nfa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="CgB-2g-TUv"/>
                     <constraint firstAttribute="trailing" secondItem="2JE-0Z-bwe" secondAttribute="trailing" constant="8" id="D3U-cW-LkT"/>
                     <constraint firstItem="CKk-mA-Nfa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="IJn-iA-8OZ"/>
                     <constraint firstItem="rO1-Zc-EMR" firstAttribute="top" secondItem="CVT-ss-QQ3" secondAttribute="bottom" constant="20" id="MWc-xm-H8b"/>
-                    <constraint firstItem="dyr-uo-lB4" firstAttribute="leading" secondItem="rO1-Zc-EMR" secondAttribute="trailing" constant="20" id="Miq-wb-Xl7"/>
+                    <constraint firstItem="rO1-Zc-EMR" firstAttribute="trailing" secondItem="CVT-ss-QQ3" secondAttribute="trailing" id="Nz6-Ew-4Bh"/>
                     <constraint firstItem="lvS-KT-cQu" firstAttribute="leading" secondItem="CVT-ss-QQ3" secondAttribute="trailing" constant="15" id="PlL-xF-2AN"/>
                     <constraint firstItem="CVT-ss-QQ3" firstAttribute="leading" secondItem="CKk-mA-Nfa" secondAttribute="leading" id="X6l-is-718"/>
-                    <constraint firstItem="dyr-uo-lB4" firstAttribute="width" secondItem="rO1-Zc-EMR" secondAttribute="width" id="b1m-v7-8cc"/>
                     <constraint firstAttribute="trailing" secondItem="dyr-uo-lB4" secondAttribute="trailing" constant="8" id="cuQ-YL-M5Z"/>
                     <constraint firstItem="dyr-uo-lB4" firstAttribute="centerY" secondItem="rO1-Zc-EMR" secondAttribute="centerY" id="dAU-xz-QB3"/>
                     <constraint firstItem="CVT-ss-QQ3" firstAttribute="top" secondItem="CKk-mA-Nfa" secondAttribute="bottom" constant="5" id="fgw-IU-wWw"/>
-                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="leading" secondItem="zRY-Dc-bq7" secondAttribute="trailing" constant="20" id="g2j-gl-Pse"/>
+                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="leading" secondItem="zRY-Dc-bq7" secondAttribute="trailing" constant="15" id="g2j-gl-Pse"/>
                     <constraint firstItem="rO1-Zc-EMR" firstAttribute="leading" secondItem="CVT-ss-QQ3" secondAttribute="leading" id="gE1-qz-jwZ"/>
                     <constraint firstItem="zRY-Dc-bq7" firstAttribute="top" secondItem="rO1-Zc-EMR" secondAttribute="bottom" constant="15" id="pFJ-fS-SYe"/>
                     <constraint firstItem="2JE-0Z-bwe" firstAttribute="top" secondItem="dyr-uo-lB4" secondAttribute="bottom" constant="15" id="poK-OP-zoM"/>
                     <constraint firstItem="zRY-Dc-bq7" firstAttribute="leading" secondItem="rO1-Zc-EMR" secondAttribute="leading" id="rzr-XA-Zrw"/>
-                    <constraint firstItem="2JE-0Z-bwe" firstAttribute="width" secondItem="zRY-Dc-bq7" secondAttribute="width" id="xQj-9g-bpy"/>
+                    <constraint firstItem="dyr-uo-lB4" firstAttribute="leading" secondItem="rO1-Zc-EMR" secondAttribute="trailing" constant="15" id="uwz-wd-7S0"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="-148.5" y="108"/>

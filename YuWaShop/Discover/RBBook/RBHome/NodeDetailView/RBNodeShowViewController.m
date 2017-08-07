@@ -133,6 +133,10 @@
 
     self.toolsBottomView.nodeID = self.model.homeID;
     self.toolsBottomView.auser_type = self.model.user.user_type;
+    if (!self.model) {
+        self.toolsBottomView.nodeID = self.note_id;
+        self.toolsBottomView.auser_type = @"2";
+    }
     self.toolsBottomView.likeBlock = ^(BOOL isLike){
         if ([weakSelf isLogin]) {
             weakSelf.dataModel.inlikes = [NSString stringWithFormat:@"%zi",isLike];
@@ -142,7 +146,13 @@
     };
 
     self.toolsBottomView.commentBlock = ^(){
-        [weakSelf commentActionWithNodeDic:@{@"nodeID":weakSelf.model.homeID}];
+        if (weakSelf.model) {
+            
+            [weakSelf commentActionWithNodeDic:@{@"nodeID":weakSelf.model.homeID}];
+        }else{
+            [weakSelf commentActionWithNodeDic:@{@"nodeID":weakSelf.note_id}];
+
+        }
     };
     self.toolsBottomView.collectionBlock = ^(BOOL isCollection){
         if ([weakSelf isLogin]){

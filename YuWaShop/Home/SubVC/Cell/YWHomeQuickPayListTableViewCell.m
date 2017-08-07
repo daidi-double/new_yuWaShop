@@ -33,7 +33,7 @@
     [self dataSet];
 }
 - (void)dataSet{
-    self.totalMoneyLabel.text = [NSString stringWithFormat:@"￥%@",self.model.total_money];
+    self.totalMoneyLabel.text = [NSString stringWithFormat:@"￥%.4f",[self.model.total_money floatValue]];
     self.orderSNStrLabel.text = self.model.order_sn;
     self.orderStatusStrLabel.text = self.model.order_type;
     self.timerLabel.text = [JWTools getTime:self.model.create_time];

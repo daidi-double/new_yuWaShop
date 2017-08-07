@@ -116,9 +116,12 @@
 //        [self showHUDWithStr:@"请输入正确手机号码哟" withSuccess:NO];
 //        return;
 //    }
-    else if ([self.subPhoneTextField.text isEqualToString:@""]){
-        [self showHUDWithStr:@"请输入次要正确电话哟" withSuccess:NO];
-        return;
+    else if (![self.subPhoneTextField.text isEqualToString:@""]){
+        if (![JWTools checkTelNumber:self.subPhoneTextField.text]) {
+            
+            [self showHUDWithStr:@"请输入次要正确电话哟" withSuccess:NO];
+            return;
+        }
     }
     
     if (self.cameraImage) {
@@ -145,6 +148,7 @@
 }
 
 - (void)requestUpLoadShopInfo{
+
     NSMutableDictionary * pragram = [NSMutableDictionary dictionaryWithDictionary:@{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"company_img":self.cameraImageURL,@"company_name":self.nameTextField.text,@"company_address":self.addressTextField.text,@"company_first_tel":self.firstPhoneTextField.text,@"company_mark":self.textView.text}];
     if (![self.subPhoneTextField.text isEqualToString:@""]&&self.subPhoneTextField.text)[pragram setObject:self.subPhoneTextField.text forKey:@"company_second_tel"];
     

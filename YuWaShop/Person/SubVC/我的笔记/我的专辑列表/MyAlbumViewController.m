@@ -324,7 +324,7 @@
 }
 
 - (void)requestDelNodeWithID:(NSString *)nodeid{
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"note_id":nodeid};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"note_id":nodeid,@"user_type":@(2)};
     
     [[HttpObject manager]postNoHudWithType:YuWaType_RBAdd_DelNode withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);
@@ -352,7 +352,7 @@
 }
 
 - (void)requestDelAlbum{
-    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"album_id":self.albumDetail};
+    NSDictionary * pragram = @{@"device_id":[JWTools getUUID],@"token":[UserSession instance].token,@"user_id":@([UserSession instance].uid),@"album_id":self.albumDetail,@"user_type":@(2)};
     
     [[HttpObject manager]postNoHudWithType:YuWaType_RBAdd_DelAlbum withPragram:pragram success:^(id responsObj) {
         MyLog(@"Regieter Code pragram is %@",pragram);
