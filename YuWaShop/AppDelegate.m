@@ -85,6 +85,7 @@
     options.apnsCertName = apnsCertName;
     [[EMClient sharedClient] initializeSDKWithOptions:options];
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];//好友代理
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];//登录代理
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     EMCallOptions *callOptions = [[EMClient sharedClient].callManager getCallOptions];
@@ -93,6 +94,44 @@
     [[EMClient sharedClient].callManager setCallOptions:callOptions];
     
     [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:appkey apnsCertName:apnsCertName otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    
+    //iOS10 注册APNs
+    if (NSClassFromString(@"UNUserNotificationCenter")) {
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError *error) {
+            if (granted) {
+#if !TARGET_IPHONE_SIMULATOR
+                [application registerForRemoteNotifications];
+#endif
+            }
+        }];
+        return;
+    }
+    
+    if([application respondsToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    
+#if !TARGET_IPHONE_SIMULATOR
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        [application registerForRemoteNotifications];
+    }else{
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: (UNAuthorizationOptionBadge| UNAuthorizationOptionSound| UNAuthorizationOptionAlert) categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        } else {
+            
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |UIUserNotificationTypeSound |UIUserNotificationTypeAlert)];
+        }
+        
+        
+    }
+#endif
+
 }
 
 - (void)friendRequestDidReceiveFromUser:(NSString *)aUsername message:(NSString *)aMessage{
@@ -101,6 +140,34 @@
     if (!friendsRequest)friendsRequest = [NSMutableArray arrayWithCapacity:0];
     [friendsRequest insertObject:requestDic atIndex:0];
     [KUSERDEFAULT setObject:friendsRequest forKey:FRIENDSREQUEST];
+}
+//- (void)messagesDidReceive:(NSArray *)aMessages{
+- (void)didReceiveMessages:(NSArray *)aMessages{
+    YWMessageChatViewController * chatVC = [[YWMessageChatViewController alloc]init];
+    UIApplication * application = [UIApplication sharedApplication];
+    
+    [[EMClient sharedClient] applicationDidEnterBackground:application];
+    for(EMMessage *message in aMessages){
+        BOOL needShowNotification = (message.chatType = EMChatTypeChat) ? [self _needShowNotification:message.conversationId] : YES;
+        if (needShowNotification) {
+            
+            [chatVC showNotificationWithMessage:message];
+        }
+    }
+}
+
+#pragma mark - private
+- (BOOL)_needShowNotification:(NSString *)fromChatter
+{
+    BOOL ret = YES;
+    NSArray *igGroupIds = [[EMClient sharedClient].groupManager getGroupsWithoutPushNotification:nil];
+    for (NSString *str in igGroupIds) {
+        if ([str isEqualToString:fromChatter]) {
+            ret = NO;
+            break;
+        }
+    }
+    return ret;
 }
 // *  用户A拨打用户B，用户B会收到这个回调
 - (void)callDidReceive:(EMCallSession *)aSession{

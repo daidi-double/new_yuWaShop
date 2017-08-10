@@ -14,5 +14,5 @@
 @property (nonatomic,copy)NSString * friendIcon;
 @property (nonatomic,copy)NSString * friendID;
 @property (nonatomic,copy)NSString * friendHXID;
-
+- (void)showNotificationWithMessage:(EMMessage *)message;
 @end
