@@ -107,6 +107,8 @@
     }
     cell.backgroundColor = [UIColor whiteColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.textColor = LIGHTCOLOR;
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     if (indexPath.section == 0) {
         if (self.dataArr.count>0) {
             

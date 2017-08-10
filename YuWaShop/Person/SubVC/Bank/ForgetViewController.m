@@ -40,11 +40,15 @@
     }
     return 0.01f;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 55;
+}
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     if (section == 1) {
         UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 50)];
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, kScreen_Width-40, 45);
+        btn.frame = CGRectMake(0, 5, kScreen_Width-40, 40);
         btn.center = bgView.center;
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn setBackgroundColor:CNaviColor];

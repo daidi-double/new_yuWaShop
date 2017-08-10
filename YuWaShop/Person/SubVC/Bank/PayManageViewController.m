@@ -38,6 +38,8 @@
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = @"忘记支付密码";
+    cell.textLabel.textColor = LIGHTCOLOR;
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }

@@ -99,7 +99,7 @@
     }
     ShowDetailModel*model=self.maMallDatas[indexPath.row];
     
-    
+    cell.selectionStyle = NO;
     UILabel*timeLabel=[cell viewWithTag:1];
     timeLabel.text=[JWTools getTime:model.ctime];
     
