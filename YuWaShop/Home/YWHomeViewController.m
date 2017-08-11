@@ -60,7 +60,7 @@
 -(void)messagesDidReceive:(NSArray *)aMessages{
     
     
-    MyLog(@"接收到文字消息");
+    MyLog(@"接收到消息");
     WEAKSELF;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf requestShopArrData];
