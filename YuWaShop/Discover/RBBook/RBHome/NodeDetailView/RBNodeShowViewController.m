@@ -518,9 +518,9 @@
                 NSMutableDictionary * dataDic = [RBHomeModel dataDicSetWithDic:dic];
                 [self.dataArr addObject:[RBHomeModel yy_modelWithDictionary:dataDic]];
             }
-            [self.tableView reloadData];
             self.bottomToolsHeight = self.bottomToolsHeight == 0.f? self.scrollToolsHeight/2 : self.bottomToolsHeight;
         }
+        [self.tableView reloadData];
     } failur:^(id responsObj, NSError *error) {
         MyLog(@"Regieter Code pragram is 4 %@",pragram);
         MyLog(@"Regieter Code error is %@",responsObj);

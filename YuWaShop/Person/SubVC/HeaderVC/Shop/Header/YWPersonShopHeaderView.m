@@ -44,7 +44,18 @@
 - (void)refreshUI{
     self.nameLabel.text = [UserSession instance].nickName;
     [self.showImageView sd_setImageWithURL:[NSURL URLWithString:[UserSession instance].logo] placeholderImage:[UIImage imageNamed:@"placeholder"] completed:nil];
+    [self.showImageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer * photoTouch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(lookSeeMorePhoto:)];
+    photoTouch.numberOfTouchesRequired = 1;
+    photoTouch.numberOfTapsRequired = 1;
+    photoTouch.delegate = self;
+    [self.showImageView addGestureRecognizer:photoTouch];
     self.signatureLabel.text = [UserSession instance].personality;
+}
+- (void)lookSeeMorePhoto:(UITapGestureRecognizer*)recognizer{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(YWPersonShopHeaderViewToPhotoPage)]) {
+        [self.delegate YWPersonShopHeaderViewToPhotoPage];
+    }
 }
 - (void)layoutSet{
     self.imageCountBGWidth.constant = [JWTools labelWidthWithLabel:self.imageCountLabel] + 5.f;

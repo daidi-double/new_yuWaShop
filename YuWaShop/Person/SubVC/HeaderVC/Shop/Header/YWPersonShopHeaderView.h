@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "YWPersonShopHeaderModel.h"
-@interface YWPersonShopHeaderView : UIView
+
+@protocol YWPersonShopHeaderViewDelegate <NSObject>
+
+- (void)YWPersonShopHeaderViewToPhotoPage;
+
+@end
+
+@interface YWPersonShopHeaderView : UIView<UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong)YWPersonShopHeaderModel * model;
 
@@ -19,7 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIView *imageCountLabBGView;
 @property (weak, nonatomic) IBOutlet UILabel *imageCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageCountBGWidth;
+@property (nonatomic,assign)id<YWPersonShopHeaderViewDelegate>delegate;
 
 - (void)refreshUI;
 
 @end
+

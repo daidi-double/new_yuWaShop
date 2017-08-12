@@ -19,7 +19,9 @@
 #import "YWPCCounselorViewController.h"
 #import "ChildAccountViewController.h"//子账号
 
-@interface YWPersonShopViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "StorePhotoViewController.h"
+
+@interface YWPersonShopViewController ()<UITableViewDataSource,UITableViewDelegate,YWPersonShopHeaderViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)YWPersonShopModel * model;
 @property (nonatomic,strong)YWPersonShopHeaderView * headerView;
@@ -95,6 +97,7 @@
             self.headerView.frame = CGRectMake(0.f, 0.f, kScreen_Width, 94.f);
             [self.headerView setNeedsLayout];
         }
+        self.headerView.delegate = self;
         [self.headerView refreshUI];
         if (self.model.headerModel) {
             self.headerView.model = self.model.headerModel;
@@ -155,7 +158,10 @@
         }
     }
 }
-
+- (void)YWPersonShopHeaderViewToPhotoPage{
+    StorePhotoViewController * storeVC = [[StorePhotoViewController alloc]init];
+    [self.navigationController pushViewController:storeVC animated:YES];
+}
 #pragma mark - Http
 - (void)requestData{
 //    if (self.model.headerModel)return;
