@@ -268,7 +268,7 @@
                 [UserSession instance].isLogin = YES;
             }else if (errorLog.code == 202){
                 EMError *errorLogs = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"2%@",account] password:account];
-                if (errorLogs==nil){
+                if (errorLogs==nil){ 
                     [[EMClient sharedClient].options setIsAutoLogin:YES];
                     [UserSession instance].hxPassword = account;
                     MyLog(@"环信登录成功");
