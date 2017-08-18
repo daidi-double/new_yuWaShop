@@ -20,7 +20,7 @@
 @property (nonatomic,strong)CLGeocoder * geocoder;
 @property (nonatomic,copy)NSString * locationStr;
 @property (nonatomic,strong)YWPersonShopModel * model;
-
+@property (nonatomic,assign)CLLocationCoordinate2D myCoordinate;
 @end
 
 @implementation YWPCMapViewController
@@ -46,6 +46,7 @@
 
 - (void)makeUI{
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.location.coordinate, 5000, 5000) animated:YES];
+    self.myCoordinate = self.location.coordinate;
     UITapGestureRecognizer *mTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPress:)];
     [self.mapView addGestureRecognizer:mTap];
     _mapView.showsUserLocation = YES;
@@ -140,6 +141,52 @@
     annotationView.model = (YWStormAnnotationModel *)annotation;
     return annotationView;
 }
+- (IBAction)toMyLocalAction:(UIButton *)sender {
+    
+//    YWStormAnnotationModel * model = [[YWStormAnnotationModel alloc]init];
+//    model.coordinate = self.myCoordinate;
+//    [self.mapView addAnnotation:model];
+    [self myLocation];
+   
+
+    
+}
+- (void)myLocation{
+    self.loctionManger = [[CLLocationManager alloc] init];
+    self.loctionManger.delegate = self;
+    //定位精度
+    [self.loctionManger setDesiredAccuracy:kCLLocationAccuracyBest];
+    
+    [self.loctionManger setPausesLocationUpdatesAutomatically:NO];
+    _mapView.showsUserLocation = YES;
+//    [self.loctionManger setAllowsBackgroundLocationUpdates:YES];
+    //带逆地理定位
+    [self.loctionManger startUpdatingLocation];
+     self.mapView.centerCoordinate = [YWLocation shareLocation].coordinate;
+}
+//-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+////- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+//    
+//    //userLocation 就是用户当前的位置信息，通过userLocation 可以获取当前的经纬度信息及详细的地理位置信息，方法如下：
+//    
+//    //创建一个经纬度点：
+//    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+//    //设置点的经纬度
+//    point.coordinate = self.location.coordinate;
+//    CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:self.myCoordinate.latitude longitude:self.myCoordinate.longitude];
+//    
+//    // 初始化编码器
+//    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+//    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+//        //获取当前城市位置信息，其中CLPlacemark包括name、thoroughfare、subThoroughfare、locality、subLocality等详细信息
+//        CLPlacemark *mark = [placemarks lastObject];
+//        NSString *cityName = mark.locality;
+//                MyLog(@"城市 - %@", cityName);
+//       
+//    }];
+//    
+//    
+//}
 
 - (void)addAnnotationData{
     WEAKSELF;
