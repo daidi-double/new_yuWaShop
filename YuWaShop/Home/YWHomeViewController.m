@@ -54,6 +54,7 @@
     [[EMClient sharedClient].contactManager removeDelegate:self];
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+
 }
 #pragma mark ---------------------------------------接收消息回调------------------
 

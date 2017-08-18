@@ -131,11 +131,13 @@
         if (self.total_money == nil) {
             label1.text= @"0.00";
         }
+        label1.adjustsFontSizeToFitWidth = YES;
         UILabel*label3=[self.headerView viewWithTag:3];
         label3.text= [NSString stringWithFormat:@"%@",self.total_settlement];
         if (self.total_settlement == nil) {
             label3.text= @"0.00";
         }
+        label3.adjustsFontSizeToFitWidth = YES;
         UILabel*label5=[self.headerView viewWithTag:5];
         label5.text=@"时间";
         

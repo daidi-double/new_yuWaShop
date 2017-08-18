@@ -147,6 +147,8 @@ static UserSession * user=nil;
     user.hxPassword = [NSString stringWithFormat:@"%@",dataDic[@"mobile"]];
     if ([dataDic[@"mobile"] isEqualToString:@""]) {
         user.hxPassword = [NSString stringWithFormat:@"%@",dataDic[@"username"]];
+    }else if (![dataDic[@"mobile"] isEqualToString:user.account]) {
+        user.hxPassword = user.account;
     }
     user.mobile = [NSString stringWithFormat:@"%@",dataDic[@"mobile"]];
     user.local = dataDic[@"address"];

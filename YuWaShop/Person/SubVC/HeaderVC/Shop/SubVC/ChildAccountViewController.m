@@ -71,7 +71,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ChildAccountTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CHILDCELL];
     ChildModel * model = self.dataAry[indexPath.section];
-   
+    self.accountTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     cell.childModel = model;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
@@ -79,9 +79,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 35)];
-        UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(25, 0, kScreen_Width*0.8f, 35)];
+        UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, kScreen_Width*0.8f, 35)];
         titleLabel.textColor = RGBCOLOR(89, 90, 91, 1);
-        titleLabel.font = [UIFont systemFontOfSize:15];
+        titleLabel.font = [UIFont systemFontOfSize:13];
         
         titleLabel.text = self.name;
 
@@ -102,7 +102,7 @@
     return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 70;
+    return 55;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {

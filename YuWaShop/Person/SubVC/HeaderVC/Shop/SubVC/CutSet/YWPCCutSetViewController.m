@@ -152,7 +152,7 @@
         MyLog(@"Regieter Code error is %@",responsObj);
         if ([responsObj[@"errorCode"] integerValue] == 1) {
             if (cutInterNS == 0) {
-                [JRToast showWithText:@"当前折扣相同或为0，请重新选择折扣" duration:2];
+                [JRToast showWithText:@"当前折扣未修改或为0，请重新选择折扣" duration:2];
             }
             [self showHUDWithStr:@"每天只能设置一次折扣哦" withSuccess:YES];
         }

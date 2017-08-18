@@ -77,6 +77,9 @@
     YWPersonShopTableViewCell * shopCell = [tableView dequeueReusableCellWithIdentifier:@"YWPersonShopTableViewCell"];
     shopCell.nameLabel.text = self.nameArr[indexPath.section][indexPath.row];
     shopCell.detailLabel.text = self.model.dataArr[indexPath.section][indexPath.row];
+    if (indexPath.section == 2&&indexPath.row == 2) {
+        shopCell.detailLabel.font = [UIFont systemFontOfSize:12];
+    }
     return shopCell;
 }
 
