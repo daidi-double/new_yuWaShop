@@ -143,9 +143,9 @@
 }
 - (IBAction)toMyLocalAction:(UIButton *)sender {
     
-//    YWStormAnnotationModel * model = [[YWStormAnnotationModel alloc]init];
-//    model.coordinate = self.myCoordinate;
-//    [self.mapView addAnnotation:model];
+    YWStormAnnotationModel * model = [[YWStormAnnotationModel alloc]init];
+    model.coordinate = self.myCoordinate;
+    [self.mapView addAnnotation:model];
     [self myLocation];
    
 

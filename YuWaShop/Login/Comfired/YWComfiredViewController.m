@@ -289,31 +289,7 @@
     self.sortAddressTableView.hidden = NO;
     self.sortAddressSubCollectionView.hidden = self.sortAddressTableView.hidden;
 }
-- (IBAction)explain:(UIButton *)sender {
 
-    [self setExplainImageView];
-    self.navigationController.navigationBarHidden = YES;
- 
-}
-- (void)setExplainImageView{
-    _explainView = [[UIImageView alloc]initWithFrame:self.view.frame];
-    _explainView.image = [UIImage imageNamed:@"explaintext.jpg"];
-    _explainView.userInteractionEnabled = YES;
-    [self.view addSubview:_explainView];
-    
-    UITapGestureRecognizer * removeExplain = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeExplain:)];
-    removeExplain.numberOfTapsRequired = 1;
-    removeExplain.numberOfTouchesRequired = 1;
-    removeExplain.delegate = self;
-    
-    [_explainView addGestureRecognizer:removeExplain];
-    
-    UIImageView * back = [[UIImageView alloc]initWithFrame:CGRectMake(10, 25, 20, 30)];
-    back.image = [UIImage imageNamed:@"img_navi_back"];
-    back.userInteractionEnabled = YES;
-    [_explainView addSubview:back];
-    
-}
 
 - (void)removeExplain:(UITapGestureRecognizer*)tap{
     self.navigationController.navigationBarHidden = NO;
